@@ -2,16 +2,16 @@
 
 namespace app\controllers;
 
-use app\models\Departamento;
-use app\models\DepartamentoSearch;
+use app\models\Destino;
+use app\models\DestinoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * DepartamentoController implements the CRUD actions for Departamento model.
+ * DestinoController implements the CRUD actions for Destino model.
  */
-class DepartamentoController extends Controller
+class DestinoController extends Controller
 {
     /**
      * @inheritDoc
@@ -32,12 +32,12 @@ class DepartamentoController extends Controller
     }
 
     /**
-     * Lists all Departamento models.
+     * Lists all Destino models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new DepartamentoSearch();
+        $searchModel = new DestinoSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -47,8 +47,8 @@ class DepartamentoController extends Controller
     }
 
     /**
-     * Displays a single Departamento model.
-     * @param int $id_departamento Id Departamento
+     * Displays a single Destino model.
+     * @param int $id_destino Id Destino
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -60,17 +60,17 @@ class DepartamentoController extends Controller
     }
 
     /**
-     * Creates a new Departamento model.
+     * Creates a new Destino model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Departamento();
+        $model = new Destino();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id_departamento]);
+                return $this->redirect(['view', 'id' => $model->id_destino]);
             }
         } else {
             $model->loadDefaultValues();
@@ -82,9 +82,9 @@ class DepartamentoController extends Controller
     }
 
     /**
-     * Updates an existing Departamento model.
+     * Updates an existing Destino model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id_departamento Id Departamento
+     * @param int $id_destino Id Destino
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -93,7 +93,7 @@ class DepartamentoController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_departamento]);
+            return $this->redirect(['view', 'id' => $model->id_destino]);
         }
 
         return $this->render('update', [
@@ -102,9 +102,9 @@ class DepartamentoController extends Controller
     }
 
     /**
-     * Deletes an existing Departamento model.
+     * Deletes an existing Destino model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id_departamento Id Departamento
+     * @param int $id_destino Id Destino
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -116,15 +116,15 @@ class DepartamentoController extends Controller
     }
 
     /**
-     * Finds the Departamento model based on its primary key value.
+     * Finds the Destino model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id_departamento Id Departamento
-     * @return Departamento the loaded model
+     * @param int $id_destino Id Destino
+     * @return Destino the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Departamento::findOne($id)) !== null) {
+        if (($model = Destino::findOne($id)) !== null) {
             return $model;
         }
 

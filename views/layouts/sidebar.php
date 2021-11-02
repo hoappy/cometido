@@ -35,7 +35,7 @@
             <?php
             echo \hail812\adminlte\widgets\Menu::widget([
                 'items' => [
-                    [
+                    /*[
                         'label' => 'Starter Pages',
                         'icon' => 'tachometer-alt',
                         'badge' => '<span class="right badge badge-info">2</span>',
@@ -43,12 +43,23 @@
                             ['label' => 'Active Page', 'url' => ['site/index'], 'iconStyle' => 'far'],
                             ['label' => 'Inactive Page', 'iconStyle' => 'far'],
                         ]
-                    ],
-                    ['label' => 'Simple Link', 'icon' => 'th', 'badge' => '<span class="right badge badge-danger">New</span>'],
-                    ['label' => 'Yii2 PROVIDED', 'header' => true],
-                    ['label' => 'Login', 'url' => ['site/login'], 'icon' => 'sign-in-alt', 'visible' => Yii::$app->user->isGuest],
-                    ['label' => 'Gii',  'icon' => 'file-code', 'url' => ['/gii'], 'target' => '_blank'],
-                    ['label' => 'Debug', 'icon' => 'bug', 'url' => ['/debug'], 'target' => '_blank'],
+                    ],*/
+                    //['label' => 'Simple Link', 'icon' => 'th', 'badge' => '<span class="right badge badge-danger">New</span>'],
+                    //['label' => 'Yii2 PROVIDED', 'header' => true],
+                    //['label' => 'Login', 'url' => ['site/login'], 'icon' => 'sign-in-alt', 'visible' => Yii::$app->user->isGuest],
+                    //['label' => 'Gii',  'icon' => 'file-code', 'url' => ['/gii'], 'target' => '_blank'],
+                    //['label' => 'Debug', 'icon' => 'bug', 'url' => ['/debug'], 'target' => '_blank'],
+                    //link menu cometidos
+                    ['label' => 'Cometidos', 'header' => true],
+                    [
+                        'label' => 'Cometidos',
+                        'items' => [
+                            ['label' => 'Mis Cometidos', 'iconStyle' => 'far', 'url' => ['cometido/index1']],
+                            ['label' => 'Cometidos por Autorizar', 'iconStyle' => 'far', 'url' => ['cometido/index2']],
+                            ['label' => 'Cometidos por Aprobar', 'iconStyle' => 'far', 'url' => ['cometido/index3']],
+                            ['label' => 'Cometidos ya Aprobados', 'iconStyle' => 'far', 'url' => ['cometido/index4']],
+                        ]
+                    ],   
                     //link Menu Izquierdo para el mantenimiento de maestros
                     ['label' => 'Mantenimiento Maestro', 'header' => true],
                     [
@@ -136,24 +147,25 @@
                     [
                         'label' => 'Item Presupuestario',
                         'items' => [
-                            ['label' => 'Listas', 'iconStyle' => 'far', 'url' => ['itemPresupuestario/index']],
-                            ['label' => 'Agregar', 'iconStyle' => 'far', 'url' => ['users/create']],
+                            ['label' => 'Listas', 'iconStyle' => 'far', 'url' => ['item-presupuestario/index']],
+                            ['label' => 'Agregar', 'iconStyle' => 'far', 'url' => ['item-presupuestario/create']],
+                            [
+                                'label' => 'Monto',
+                                'items' => [
+                                    ['label' => 'Listas', 'iconStyle' => 'far', 'url' => ['monto/index']],
+                                    ['label' => 'Agregar', 'iconStyle' => 'far', 'url' => ['monto/create']],
+                                ]
+                            ],
                         ],
-                        [
-                            'label' => 'Monto',
-                            'items' => [
-                                ['label' => 'Listas', 'iconStyle' => 'far', 'url' => ['monto/index']],
-                                ['label' => 'Agregar', 'iconStyle' => 'far', 'url' => ['monto/create']],
-                            ]
-                        ],
+                        
                     ],
                     
                     
-                    ['label' => 'Level1'],
-                    ['label' => 'LABELS', 'header' => true],
-                    ['label' => 'Important', 'iconStyle' => 'far', 'iconClassAdded' => 'text-danger'],
-                    ['label' => 'Warning', 'iconClass' => 'nav-icon far fa-circle text-warning'],
-                    ['label' => 'Informational', 'iconStyle' => 'far', 'iconClassAdded' => 'text-info'],
+                    //['label' => 'Level1'],
+                    //['label' => 'LABELS', 'header' => true],
+                    //['label' => 'Important', 'iconStyle' => 'far', 'iconClassAdded' => 'text-danger'],
+                    //['label' => 'Warning', 'iconClass' => 'nav-icon far fa-circle text-warning'],
+                    //['label' => 'Informational', 'iconStyle' => 'far', 'iconClassAdded' => 'text-info'],
                 ],
             ]);
             ?>
