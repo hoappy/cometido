@@ -48,13 +48,13 @@ class Cometido extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['con_viatico', 'dias_sin_pernoctar', 'dias_con_pernoctar', 'monto', 'fecha_inicio', 'fecha_fin', 'hora_inicio', 'hora_fin', 'motivo_cometido', 'tranporte_ida', 'transporte_regreso', 'estado', 'fk_id_item', 'fk_id', 'fk_id_director'], 'required'],
+            [['con_viatico', 'dias_sin_pernoctar', 'dias_con_pernoctar', 'monto', 'fecha_inicio', 'fecha_fin', 'hora_inicio', 'hora_fin', 'motivo_cometido', 'tranporte_ida', 'transporte_regreso', 'estado', 'fk_id_item', 'fk_id'], 'required'],
             [['con_viatico', 'dias_sin_pernoctar', 'dias_con_pernoctar', 'monto', 'tranporte_ida', 'transporte_regreso', 'estado', 'fk_id_item', 'fk_id', 'fk_id_director'], 'integer'],
             [['fecha_inicio', 'fecha_fin', 'hora_inicio', 'hora_fin'], 'safe'],
             [['motivo_cometido', 'descreipcion'], 'string', 'max' => 100],
             [['fk_id_item'], 'exist', 'skipOnError' => true, 'targetClass' => ItemPresupuestario::className(), 'targetAttribute' => ['fk_id_item' => 'id_item']],
-            [['fk_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['fk_id' => 'id']],
-            [['fk_id_director'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['fk_id_director' => 'id']],
+            [['fk_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['fk_id' => 'id']],
+            [['fk_id_director'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['fk_id_director' => 'id']],
         ];
     }
 
@@ -78,7 +78,7 @@ class Cometido extends \yii\db\ActiveRecord
             'transporte_regreso' => 'Transporte Regreso',
             'estado' => 'Estado',
             'descreipcion' => 'Descreipcion',
-            'fk_id_item' => 'Fk Id Item',
+            'fk_id_item' => 'Seleccione Item Presupuestario',
             'fk_id' => 'Fk ID',
             'fk_id_director' => 'Fk Id Director',
         ];

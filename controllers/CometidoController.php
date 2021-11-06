@@ -116,6 +116,9 @@ class CometidoController extends Controller
     {
         $model = new Cometido();
 
+        $model->fk_id = 2; //temporar, aqui extrarr el id de la sesion 
+        $model->estado = 0;
+
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id_cometido]);

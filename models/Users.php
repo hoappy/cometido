@@ -54,13 +54,13 @@ class Users extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'nombre' => 'Nombre',
-            'mail' => 'Mail',
+            'mail' => 'Correo Electronico',
             'rut' => 'Rut',
             'estado' => 'Estado',
             'grado' => 'Grado',
             'tipo_funcionario' => 'Tipo Funcionario',
-            'role' => 'Role',
-            'fk_id_departamento' => 'Fk Id Departamento',
+            'role' => 'Nivel de Usuario',
+            'fk_id_departamento' => 'Departamento',
         ];
     }
 

@@ -72,4 +72,13 @@ class ItemPresupuestario extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Monto::className(), ['fk_id_item' => 'id_item']);
     }
+
+    public static function getItems()
+    {
+        $query = (new \yii\db\Query())
+            -> select('*')
+            ->from('item_presupuestario');
+            
+        return $query;
+    }
 }

@@ -60,4 +60,13 @@ class Departamento extends \yii\db\ActiveRecord
     {
         return $this->hasMany(User::className(), ['fk_id_departamento' => 'id_departamento']);
     }
+
+    public static function getDepartamento()
+    {
+        $query = (new \yii\db\Query())
+            -> select('*')
+            ->from('departamento');
+            
+        return $query;
+    }
 }
