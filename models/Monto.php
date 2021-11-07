@@ -50,7 +50,7 @@ class Monto extends \yii\db\ActiveRecord
             'monto_con_pernoctar' => 'Monto Con Pernoctar',
             'grado' => 'Grado',
             'estado' => 'Estado',
-            'fk_id_item' => 'Fk Id Item',
+            'fk_id_item' => 'Item Presupuestario',
         ];
     }
 

@@ -3,7 +3,13 @@
 namespace app\controllers;
 
 use app\models\Cometido;
+//use app\models\Destinos;
 use app\models\CometidoSearch;
+use app\models\Departamento;
+use app\models\Destino;
+use app\models\ItemPresupuestario;
+use app\models\Users;
+use yii\data\SqlDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -100,10 +106,51 @@ class CometidoController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
+    public function actionView2($id)
+    {
+        $model = Cometido::findOne($id);
+        $funcionario = Users::findOne($model->fk_id);
+        $departamento = Departamento::findOne($funcionario->fk_id_departamento);
+        
+
+        return $this->render('view-original', [
+            'model' => $model, 
+            'funcionario' => $funcionario,
+            'departamento' => $departamento,
+            
+        ]);
+    }
     public function actionView($id)
     {
+        $cometido = Cometido::findOne($id);
+        $funcionario = Users::findOne($cometido->fk_id);
+        $departamento = Departamento::findOne($funcionario->fk_id_departamento);
+        $jefe = Users::findOne([
+            'fk_id_departamento'=>$funcionario->fk_id_departamento, 
+            //agregar relacion entre cometido u usuario para ver la relacion entre jefe o jefe suplente
+            'role' => '4'  // el rol 4 es jefe de departamento
+        ]); 
+        $item = ItemPresupuestario::findOne($cometido->fk_id_item);
+        $director = Users::findOne($cometido->fk_id_director);
+
+        $destinos = new SqlDataProvider([
+            'sql' => "select * from destino 
+            join sector on sector.id_sector = destino.fk_id_sector 
+            join ciudad on ciudad.id_ciudad = sector.fk_id_ciudad
+            join provincia on provincia.id_provincia = ciudad.fk_id_provincia
+            join region on region.id_region = provincia.fk_id_region
+            where destino.fk_id_cometido = '$id'",
+           
+        ]);
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'cometido' => $cometido, 
+            'funcionario' => $funcionario,
+            'departamento' => $departamento,
+            'jefe' => $jefe,
+            'item' => $item,
+            'director' => $director,
+            'destinos' => $destinos,
         ]);
     }
 

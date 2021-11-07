@@ -55,7 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     if($model->tranporte_ida == '3'){
                         return 'Taxi / Uber / Didi / Cabify';
                     };
-                    if($model->transporte_id == '4'){
+                    if($model->tranporte_ida == '4'){
                         return 'Personal';
                     };
                     

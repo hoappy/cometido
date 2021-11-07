@@ -45,7 +45,7 @@ class Sector extends \yii\db\ActiveRecord
         return [
             'id_sector' => 'Id Sector',
             'nombre_sector' => 'Nombre Sector',
-            'fk_id_ciudad' => 'Fk Id Ciudad',
+            'fk_id_ciudad' => 'Ciudad',
         ];
     }
 

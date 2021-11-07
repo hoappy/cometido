@@ -12,9 +12,14 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'nombre_region')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'numero_region')->textInput() ?>
+    <div class="form-row">
+        <div class="col-md">
+            <?= $form->field($model, 'nombre_region')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-md">
+            <?= $form->field($model, 'numero_region')->textInput(['type' => 'number'])->hint('') ?>
+        </div>
+    </div>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

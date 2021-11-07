@@ -45,7 +45,7 @@ class Ciudad extends \yii\db\ActiveRecord
         return [
             'id_ciudad' => 'Id Ciudad',
             'nombre_ciudad' => 'Nombre Ciudad',
-            'fk_id_provincia' => 'Fk Id Provincia',
+            'fk_id_provincia' => 'Provincia',
         ];
     }
 

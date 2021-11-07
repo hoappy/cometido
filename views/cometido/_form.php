@@ -16,7 +16,8 @@ use yii\widgets\ActiveForm;
 
     <div class="form-row">
         <div class="col-md">
-            <?php
+            <?php //corresponde pago de viatico cuando este es ayor a 5 horas
+            //la formula para calcularlo es de (n-1) siendo n la cantidad de dias
             echo $form->field($model, 'con_viatico')->dropDownList(
                 [
                     '0' => 'No',
@@ -115,7 +116,7 @@ use yii\widgets\ActiveForm;
     ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Agregar', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Enviar', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -45,7 +45,7 @@ class Provincia extends \yii\db\ActiveRecord
         return [
             'id_provincia' => 'Id Provincia',
             'nombre_provincia' => 'Nombre Provincia',
-            'fk_id_region' => 'Fk Id Region',
+            'fk_id_region' => 'Region',
         ];
     }
 

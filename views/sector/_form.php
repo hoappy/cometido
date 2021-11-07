@@ -1,5 +1,7 @@
 <?php
 
+use app\models\Ciudad;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -12,9 +14,27 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'nombre_sector')->textInput(['maxlength' => true]) ?>
+    <?php // $form->field($model, 'fk_id_ciudad')->textInput() ?>
 
-    <?= $form->field($model, 'fk_id_ciudad')->textInput() ?>
+    <div class="form-row">
+        <div class="col-md">
+        <?= $form->field($model, 'nombre_sector')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-md">
+        <?= $form->field($model, 'fk_id_ciudad')
+                ->dropDownList(
+                    ArrayHelper::map(
+                        Ciudad::find()->all(), 
+                        'id_ciudad',
+                        function ($query) {
+                            return $query['nombre_ciudad'];
+                        }
+                    ),
+                    ['prompt' => 'Seleccione una Provincia']
+                ) ?>
+        </div>
+    </div>
+
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

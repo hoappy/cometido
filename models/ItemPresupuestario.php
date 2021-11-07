@@ -46,7 +46,7 @@ class ItemPresupuestario extends \yii\db\ActiveRecord
     {
         return [
             'id_item' => 'Id Item',
-            'nombre_item' => 'Nombre Item',
+            'nombre_item' => 'Nombre Item Presupuestario',
             'porcentaje' => 'Porcentaje',
             'estado' => 'Estado',
             'descripcion' => 'Descripcion',

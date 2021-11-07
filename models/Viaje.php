@@ -67,7 +67,7 @@ class Viaje extends \yii\db\ActiveRecord
             'kilometros_total' => 'Kilometros Total',
             'estado' => 'Estado',
             'observaciones' => 'Observaciones',
-            'fk_id_vehiculo' => 'Fk Id Vehiculo',
+            'fk_id_vehiculo' => 'Vehiculo',
             'fk_id_cometido' => 'Fk Id Cometido',
             'fk_id' => 'Fk ID',
         ];

@@ -45,7 +45,7 @@ class Departamento extends \yii\db\ActiveRecord
         return [
             'id_departamento' => 'Id Departamento',
             'nombre' => 'Nombre',
-            'cant_funcionarios' => 'Cant Funcionarios',
+            'cant_funcionarios' => 'Cantidad Funcionarios',
             'piso' => 'Piso',
             'estado' => 'Estado',
         ];
