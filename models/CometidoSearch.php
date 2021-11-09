@@ -17,7 +17,7 @@ class CometidoSearch extends Cometido
     public function rules()
     {
         return [
-            [['id_cometido', 'con_viatico', 'dias_sin_pernoctar', 'dias_con_pernoctar', 'monto', 'tranporte_ida', 'transporte_regreso', 'estado', 'fk_id_item', 'fk_id', 'fk_id_director'], 'integer'],
+            [['id_cometido', 'con_viatico', 'dias_sin_pernoctar', 'dias_con_pernoctar', 'monto', 'tranporte_ida', 'transporte_regreso', 'estado', 'fk_id_item', 'fk_id_funcionario', 'fk_id_director', 'fk_id_jefe'], 'integer'],
             [['fecha_inicio', 'fecha_fin', 'hora_inicio', 'hora_fin', 'motivo_cometido', 'descreipcion'], 'safe'],
         ];
     }
@@ -71,8 +71,9 @@ class CometidoSearch extends Cometido
             'transporte_regreso' => $this->transporte_regreso,
             'estado' => $this->estado,
             'fk_id_item' => $this->fk_id_item,
-            'fk_id' => $this->fk_id,
+            'fk_id_funcionario' => $this->fk_id_funcionario,
             'fk_id_director' => $this->fk_id_director,
+            'fk_id_jefe' => $this->fk_id_jefe,
         ]);
 
         $query->andFilterWhere(['like', 'motivo_cometido', $this->motivo_cometido])

@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id_provincia',
             'nombre_provincia',
+            'estado',
             'fk_id_region',
         ],
     ]) ?>

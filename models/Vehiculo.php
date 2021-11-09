@@ -16,9 +16,7 @@ use Yii;
  * @property int $estado
  * @property int $kilometraje
  * @property int $rendimiento
- * @property int $fk_id
  *
- * @property User $fk
  * @property Viaje[] $viajes
  */
 class Vehiculo extends \yii\db\ActiveRecord
@@ -37,12 +35,11 @@ class Vehiculo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_vehiculo', 'patente', 'modelo', 'marca', 'tipo_combustible', 'estado', 'kilometraje', 'rendimiento', 'fk_id'], 'required'],
-            [['id_vehiculo', 'tipo_combustible', 'estado', 'kilometraje', 'rendimiento', 'fk_id'], 'integer'],
+            [['id_vehiculo', 'patente', 'modelo', 'marca', 'tipo_combustible', 'kilometraje', 'rendimiento'], 'required'],
+            [['id_vehiculo', 'tipo_combustible', 'estado', 'kilometraje', 'rendimiento'], 'integer'],
             [['patente'], 'string', 'max' => 8],
             [['modelo', 'marca', 'num_chasis'], 'string', 'max' => 100],
             [['id_vehiculo'], 'unique'],
-            [['fk_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['fk_id' => 'id']],
         ];
     }
 
@@ -61,18 +58,7 @@ class Vehiculo extends \yii\db\ActiveRecord
             'estado' => 'Estado',
             'kilometraje' => 'Kilometraje',
             'rendimiento' => 'Rendimiento',
-            'fk_id' => 'Fk ID',
         ];
-    }
-
-    /**
-     * Gets query for [[Fk]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getFk()
-    {
-        return $this->hasOne(User::className(), ['id' => 'fk_id']);
     }
 
     /**

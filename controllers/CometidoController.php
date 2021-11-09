@@ -123,13 +123,14 @@ class CometidoController extends Controller
     public function actionView($id)
     {
         $cometido = Cometido::findOne($id);
-        $funcionario = Users::findOne($cometido->fk_id);
+        $funcionario = Users::findOne($cometido->fk_id_funcionario);
         $departamento = Departamento::findOne($funcionario->fk_id_departamento);
-        $jefe = Users::findOne([
+        /*$jefe = Users::findOne([
             'fk_id_departamento'=>$funcionario->fk_id_departamento, 
             //agregar relacion entre cometido u usuario para ver la relacion entre jefe o jefe suplente
             'role' => '4'  // el rol 4 es jefe de departamento
-        ]); 
+        ]); *///consulta antes de modificar la BDD
+        $jefe = Users::findOne($cometido->fk_id_jefe);
         $item = ItemPresupuestario::findOne($cometido->fk_id_item);
         $director = Users::findOne($cometido->fk_id_director);
 

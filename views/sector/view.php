@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id_sector',
             'nombre_sector',
+            'estado',
             'fk_id_ciudad',
         ],
     ]) ?>

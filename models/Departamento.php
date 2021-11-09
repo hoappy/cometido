@@ -31,7 +31,7 @@ class Departamento extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nombre', 'cant_funcionarios', 'piso', 'estado'], 'required'],
+            [['nombre', 'cant_funcionarios', 'piso'], 'required'],
             [['cant_funcionarios', 'piso', 'estado'], 'integer'],
             [['nombre'], 'string', 'max' => 50],
         ];
@@ -45,7 +45,7 @@ class Departamento extends \yii\db\ActiveRecord
         return [
             'id_departamento' => 'Id Departamento',
             'nombre' => 'Nombre',
-            'cant_funcionarios' => 'Cantidad Funcionarios',
+            'cant_funcionarios' => 'Cantidad de Funcionarios',
             'piso' => 'Piso',
             'estado' => 'Estado',
         ];
@@ -59,14 +59,5 @@ class Departamento extends \yii\db\ActiveRecord
     public function getUsers()
     {
         return $this->hasMany(User::className(), ['fk_id_departamento' => 'id_departamento']);
-    }
-
-    public static function getDepartamento()
-    {
-        $query = (new \yii\db\Query())
-            -> select('*')
-            ->from('departamento');
-            
-        return $query;
     }
 }

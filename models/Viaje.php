@@ -9,12 +9,12 @@ use Yii;
  *
  * @property int $id_viaje
  * @property string $hora_salida
- * @property string $hora_llegada
- * @property int $combustible_litros
- * @property int $combustible_pesos
- * @property int $kilometros_salida
- * @property int $kilometros_llegada
- * @property int $kilometros_total
+ * @property string|null $hora_llegada
+ * @property int|null $combustible_litros
+ * @property int|null $combustible_pesos
+ * @property int|null $kilometros_salida
+ * @property int|null $kilometros_llegada
+ * @property int|null $kilometros_total
  * @property int $estado
  * @property string $observaciones
  * @property int $fk_id_vehiculo
@@ -41,7 +41,7 @@ class Viaje extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['hora_salida', 'hora_llegada', 'combustible_litros', 'combustible_pesos', 'kilometros_salida', 'kilometros_llegada', 'kilometros_total', 'estado', 'observaciones', 'fk_id_vehiculo', 'fk_id_cometido', 'fk_id'], 'required'],
+            [['hora_salida', 'observaciones', 'fk_id_vehiculo', 'fk_id_cometido', 'fk_id'], 'required'],
             [['hora_salida', 'hora_llegada'], 'safe'],
             [['combustible_litros', 'combustible_pesos', 'kilometros_salida', 'kilometros_llegada', 'kilometros_total', 'estado', 'fk_id_vehiculo', 'fk_id_cometido', 'fk_id'], 'integer'],
             [['observaciones'], 'string', 'max' => 100],
@@ -68,7 +68,7 @@ class Viaje extends \yii\db\ActiveRecord
             'estado' => 'Estado',
             'observaciones' => 'Observaciones',
             'fk_id_vehiculo' => 'Vehiculo',
-            'fk_id_cometido' => 'Fk Id Cometido',
+            'fk_id_cometido' => 'Cometido',
             'fk_id' => 'Fk ID',
         ];
     }

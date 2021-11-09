@@ -65,7 +65,7 @@ use yii\widgets\ActiveForm;
             <?= $form->field($model, 'fk_id_departamento')
                 ->dropDownList(
                     ArrayHelper::map(
-                        Departamento::getDepartamento()->all(),
+                        Departamento::find()->all(),
                         'id_departamento',
                         function ($query) {
                             return $query['nombre'];

@@ -22,14 +22,15 @@ use Yii;
  * @property int $estado
  * @property string|null $descreipcion
  * @property int $fk_id_item
- * @property int $fk_id
- * @property int $fk_id_director
+ * @property int $fk_id_funcionario
+ * @property int|null $fk_id_director
+ * @property int|null $fk_id_jefe
  *
  * @property Destino[] $destinos
- * @property User $fk
  * @property User $fkIdDirector
+ * @property User $fkIdFuncionario
  * @property ItemPresupuestario $fkIdItem
- * @property ModificacionComitido[] $modificacionComitidos
+ * @property User $fkIdJefe
  * @property Viaje[] $viajes
  */
 class Cometido extends \yii\db\ActiveRecord
@@ -48,13 +49,14 @@ class Cometido extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['con_viatico', 'dias_sin_pernoctar', 'dias_con_pernoctar', 'monto', 'fecha_inicio', 'fecha_fin', 'hora_inicio', 'hora_fin', 'motivo_cometido', 'tranporte_ida', 'transporte_regreso', 'estado', 'fk_id_item', 'fk_id'], 'required'],
-            [['con_viatico', 'dias_sin_pernoctar', 'dias_con_pernoctar', 'monto', 'tranporte_ida', 'transporte_regreso', 'estado', 'fk_id_item', 'fk_id', 'fk_id_director'], 'integer'],
+            [['con_viatico', 'dias_sin_pernoctar', 'dias_con_pernoctar', 'monto', 'fecha_inicio', 'fecha_fin', 'hora_inicio', 'hora_fin', 'motivo_cometido', 'tranporte_ida', 'transporte_regreso', 'fk_id_item', 'fk_id_funcionario'], 'required'],
+            [['con_viatico', 'dias_sin_pernoctar', 'dias_con_pernoctar', 'monto', 'tranporte_ida', 'transporte_regreso', 'estado', 'fk_id_item', 'fk_id_funcionario', 'fk_id_director', 'fk_id_jefe'], 'integer'],
             [['fecha_inicio', 'fecha_fin', 'hora_inicio', 'hora_fin'], 'safe'],
             [['motivo_cometido', 'descreipcion'], 'string', 'max' => 100],
             [['fk_id_item'], 'exist', 'skipOnError' => true, 'targetClass' => ItemPresupuestario::className(), 'targetAttribute' => ['fk_id_item' => 'id_item']],
-            [['fk_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['fk_id' => 'id']],
-            [['fk_id_director'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['fk_id_director' => 'id']],
+            [['fk_id_director'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['fk_id_director' => 'id']],
+            [['fk_id_funcionario'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['fk_id_funcionario' => 'id']],
+            [['fk_id_jefe'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['fk_id_jefe' => 'id']],
         ];
     }
 
@@ -77,10 +79,11 @@ class Cometido extends \yii\db\ActiveRecord
             'tranporte_ida' => 'Tranporte Ida',
             'transporte_regreso' => 'Transporte Regreso',
             'estado' => 'Estado',
-            'descreipcion' => 'Descreipcion',
-            'fk_id_item' => 'Seleccione Item Presupuestario',
-            'fk_id' => 'Fk ID',
-            'fk_id_director' => 'Fk Id Director',
+            'descreipcion' => 'Descripcion',
+            'fk_id_item' => 'Fk Id Item',
+            'fk_id_funcionario' => 'Funcionario',
+            'fk_id_director' => 'Director',
+            'fk_id_jefe' => 'Jefe',
         ];
     }
 
@@ -95,16 +98,6 @@ class Cometido extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Fk]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getFk()
-    {
-        return $this->hasOne(User::className(), ['id' => 'fk_id']);
-    }
-
-    /**
      * Gets query for [[FkIdDirector]].
      *
      * @return \yii\db\ActiveQuery
@@ -112,6 +105,16 @@ class Cometido extends \yii\db\ActiveRecord
     public function getFkIdDirector()
     {
         return $this->hasOne(User::className(), ['id' => 'fk_id_director']);
+    }
+
+    /**
+     * Gets query for [[FkIdFuncionario]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFkIdFuncionario()
+    {
+        return $this->hasOne(User::className(), ['id' => 'fk_id_funcionario']);
     }
 
     /**
@@ -125,13 +128,13 @@ class Cometido extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[ModificacionComitidos]].
+     * Gets query for [[FkIdJefe]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getModificacionComitidos()
+    public function getFkIdJefe()
     {
-        return $this->hasMany(ModificacionComitido::className(), ['fk_id_cometido' => 'id_cometido']);
+        return $this->hasOne(User::className(), ['id' => 'fk_id_jefe']);
     }
 
     /**

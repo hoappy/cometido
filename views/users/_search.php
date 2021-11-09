@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'nombre') ?>
 
-    <?= $form->field($model, 'mail') ?>
+    <?= $form->field($model, 'email') ?>
 
     <?= $form->field($model, 'rut') ?>
 
@@ -30,6 +30,14 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'tipo_funcionario') ?>
 
     <?php // echo $form->field($model, 'role') ?>
+
+    <?php // echo $form->field($model, 'password') ?>
+
+    <?php // echo $form->field($model, 'authKey') ?>
+
+    <?php // echo $form->field($model, 'accessToken') ?>
+
+    <?php // echo $form->field($model, 'activate') ?>
 
     <?php // echo $form->field($model, 'fk_id_departamento') ?>
 

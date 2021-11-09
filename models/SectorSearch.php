@@ -17,7 +17,7 @@ class SectorSearch extends Sector
     public function rules()
     {
         return [
-            [['id_sector', 'fk_id_ciudad'], 'integer'],
+            [['id_sector', 'estado', 'fk_id_ciudad'], 'integer'],
             [['nombre_sector'], 'safe'],
         ];
     }
@@ -59,6 +59,7 @@ class SectorSearch extends Sector
         // grid filtering conditions
         $query->andFilterWhere([
             'id_sector' => $this->id_sector,
+            'estado' => $this->estado,
             'fk_id_ciudad' => $this->fk_id_ciudad,
         ]);
 

@@ -108,9 +108,9 @@ class ProvinciaController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete($id_provincia)
     {
-        $this->findModel($id)->delete();
+        $this->findModel($id_provincia)->delete();
 
         return $this->redirect(['index']);
     }

@@ -17,7 +17,7 @@ class VehiculoSearch extends Vehiculo
     public function rules()
     {
         return [
-            [['id_vehiculo', 'tipo_combustible', 'estado', 'kilometraje', 'rendimiento', 'fk_id'], 'integer'],
+            [['id_vehiculo', 'tipo_combustible', 'estado', 'kilometraje', 'rendimiento'], 'integer'],
             [['patente', 'modelo', 'marca', 'num_chasis'], 'safe'],
         ];
     }
@@ -63,7 +63,6 @@ class VehiculoSearch extends Vehiculo
             'estado' => $this->estado,
             'kilometraje' => $this->kilometraje,
             'rendimiento' => $this->rendimiento,
-            'fk_id' => $this->fk_id,
         ]);
 
         $query->andFilterWhere(['like', 'patente', $this->patente])

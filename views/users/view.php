@@ -31,12 +31,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'nombre',
-            'mail',
+            'email:email',
             'rut',
             'estado',
             'grado',
             'tipo_funcionario',
             'role',
+            'password',
+            'authKey',
+            'accessToken',
+            'activate',
             'fk_id_departamento',
         ],
     ]) ?>

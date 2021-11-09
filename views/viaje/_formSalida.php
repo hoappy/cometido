@@ -21,20 +21,6 @@ use yii\widgets\ActiveForm;
         <div class="col-md">
             <?= $form->field($model, 'kilometros_salida')->textInput(['type' => 'number']) ?>
         </div>
-        <div class="col-md">
-            <?php //aqui el chofer tendra que seleccionar el vehiculo a ocupar en el cometi
-            echo  $form->field($model, 'fk_id_vehiculo')
-                ->dropDownList(
-                    ArrayHelper::map(
-                        Vehiculo::find()->all(),
-                        'id_vehiculo',
-                        function ($query) {
-                            return $query['marca'] . ' ' . $query['modelo'] . ' ' . $query['patente'];
-                        }
-                    ),
-                    ['prompt' => 'Seleccione un Vehiculo']
-                ) ?>
-        </div>
     </div>
 
     <div class="form-group">

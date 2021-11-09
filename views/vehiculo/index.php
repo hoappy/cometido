@@ -35,7 +35,6 @@ $this->params['breadcrumbs'][] = $this->title;
             //'estado',
             //'kilometraje',
             //'rendimiento',
-            //'fk_id',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

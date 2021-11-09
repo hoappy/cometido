@@ -32,7 +32,7 @@ class ItemPresupuestario extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nombre_item', 'porcentaje', 'estado', 'descripcion'], 'required'],
+            [['nombre_item', 'porcentaje', 'descripcion'], 'required'],
             [['porcentaje', 'estado'], 'integer'],
             [['nombre_item'], 'string', 'max' => 50],
             [['descripcion'], 'string', 'max' => 250],
@@ -45,8 +45,8 @@ class ItemPresupuestario extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_item' => 'Id Item',
-            'nombre_item' => 'Nombre Item Presupuestario',
+            'id_item' => 'Nombre Item Presupuestario',
+            'nombre_item' => 'Nombre Item',
             'porcentaje' => 'Porcentaje',
             'estado' => 'Estado',
             'descripcion' => 'Descripcion',
@@ -71,14 +71,5 @@ class ItemPresupuestario extends \yii\db\ActiveRecord
     public function getMontos()
     {
         return $this->hasMany(Monto::className(), ['fk_id_item' => 'id_item']);
-    }
-
-    public static function getItems()
-    {
-        $query = (new \yii\db\Query())
-            -> select('*')
-            ->from('item_presupuestario');
-            
-        return $query;
     }
 }

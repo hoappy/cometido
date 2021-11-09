@@ -14,8 +14,6 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?php // $form->field($model, 'fk_id_ciudad')->textInput() ?>
-
     <div class="form-row">
         <div class="col-md">
         <?= $form->field($model, 'nombre_sector')->textInput(['maxlength' => true]) ?>
@@ -25,16 +23,15 @@ use yii\widgets\ActiveForm;
                 ->dropDownList(
                     ArrayHelper::map(
                         Ciudad::find()->all(), 
-                        'id_ciudad',
+                        'id_region',
                         function ($query) {
                             return $query['nombre_ciudad'];
                         }
                     ),
-                    ['prompt' => 'Seleccione una Provincia']
+                    ['prompt' => 'Seleccione una Ciudad']
                 ) ?>
         </div>
     </div>
-
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

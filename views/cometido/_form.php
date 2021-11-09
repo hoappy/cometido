@@ -88,10 +88,10 @@ use yii\widgets\ActiveForm;
             <?= $form->field($model, 'fk_id_item')
                 ->dropDownList(
                     ArrayHelper::map(
-                        ItemPresupuestario::getItems()->all(), 
+                        ItemPresupuestario::find()->all(),
                         'id_item',
                         function ($query) {
-                            return $query['nombre_item']. ' - ' .$query['porcentaje'].'%';
+                            return $query['nombre_item'] . ' - ' . $query['porcentaje'] . '%';
                         }
                     ),
                     ['prompt' => 'Seleccione un Item Presupuestario']
@@ -109,10 +109,13 @@ use yii\widgets\ActiveForm;
     <?php // $form->field($model, 'estado')->textInput() 
     ?>
 
-    <?php //  $form->field($model, 'fk_id')->textInput() 
+    <?php //  $form->field($model, 'fk_id_funcionario')->textInput() 
     ?>
 
     <?php //  $form->field($model, 'fk_id_director')->textInput() 
+    ?>
+
+    <?php //  $form->field($model, 'fk_id_jefe')->textInput() 
     ?>
 
     <div class="form-group">

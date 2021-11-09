@@ -10,6 +10,7 @@ use Yii;
  * @property int $id_region
  * @property string $nombre_region
  * @property int $numero_region
+ * @property int $estado
  *
  * @property Provincia[] $provincias
  */
@@ -30,7 +31,7 @@ class Region extends \yii\db\ActiveRecord
     {
         return [
             [['nombre_region', 'numero_region'], 'required'],
-            [['numero_region'], 'integer'],
+            [['numero_region', 'estado'], 'integer'],
             [['nombre_region'], 'string', 'max' => 50],
         ];
     }
@@ -44,6 +45,7 @@ class Region extends \yii\db\ActiveRecord
             'id_region' => 'Id Region',
             'nombre_region' => 'Nombre Region',
             'numero_region' => 'Numero Region',
+            'estado' => 'Estado',
         ];
     }
 

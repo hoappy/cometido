@@ -32,7 +32,7 @@ class Monto extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_monto', 'monto_sin_pernoctar', 'monto_con_pernoctar', 'grado', 'estado', 'fk_id_item'], 'required'],
+            [['id_monto', 'monto_sin_pernoctar', 'monto_con_pernoctar', 'grado', 'fk_id_item'], 'required'],
             [['id_monto', 'monto_sin_pernoctar', 'monto_con_pernoctar', 'grado', 'estado', 'fk_id_item'], 'integer'],
             [['id_monto'], 'unique'],
             [['fk_id_item'], 'exist', 'skipOnError' => true, 'targetClass' => ItemPresupuestario::className(), 'targetAttribute' => ['fk_id_item' => 'id_item']],
@@ -50,7 +50,7 @@ class Monto extends \yii\db\ActiveRecord
             'monto_con_pernoctar' => 'Monto Con Pernoctar',
             'grado' => 'Grado',
             'estado' => 'Estado',
-            'fk_id_item' => 'Item Presupuestario',
+            'fk_id_item' => 'Fk Id Item',
         ];
     }
 

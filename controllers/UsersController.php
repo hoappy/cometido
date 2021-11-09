@@ -68,8 +68,6 @@ class UsersController extends Controller
     {
         $model = new Users();
 
-        $model->estado = 1;
-
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);

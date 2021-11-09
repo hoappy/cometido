@@ -130,4 +130,60 @@ class ViajeController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    public function actionAsignar()
+    {
+        $model = new Viaje();
+
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id_viaje]);
+            }
+        } else {
+            $model->loadDefaultValues();
+        }
+
+        return $this->render('asignar', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionSalida($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id_viaje]);
+        }
+
+        return $this->render('salida', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionLlegada($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id_viaje]);
+        }
+
+        return $this->render('llegada', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionCometido($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id_viaje]);
+        }
+
+        return $this->render('llegada', [
+            'model' => $model,
+        ]);
+    }
 }

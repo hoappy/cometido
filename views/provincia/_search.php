@@ -19,6 +19,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'nombre_provincia') ?>
 
+    <?= $form->field($model, 'estado') ?>
+
     <?= $form->field($model, 'fk_id_region') ?>
 
     <div class="form-group">

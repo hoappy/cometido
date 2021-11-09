@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'porcentaje')->textInput() ?>
 
-    <?php // $form->field($model, 'estado')->textInput() ?>
+    <?= $form->field($model, 'estado')->textInput() ?>
 
     <?= $form->field($model, 'descripcion')->textInput(['maxlength' => true]) ?>
 

@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Users;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
@@ -12,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="cometido-view">
 
-    <h1 class='text-center'>Solicitud de Cometido Numero: <?= ' '. $cometido->id_cometido ?></h1>
+    <h1 class='text-center'>Solicitud de Cometido Numero: <?= ' ' . $cometido->id_cometido ?></h1>
     <br>
     <br>
     <br>
@@ -24,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         </div>
         <div class="col-md">
-            <h5>Rut: <?= $funcionario->rut ?> - <?= $funcionario->rut ?></h5>
+            <h5>Rut: <?= $funcionario->rut ?> - <?= Users::dv($funcionario->rut)?></h5>
         </div>
         <div class="col-md">
             <h5>Jefe Directo: <?= $jefe->nombre ?></h5>

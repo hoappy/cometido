@@ -17,7 +17,7 @@ class CiudadSearch extends Ciudad
     public function rules()
     {
         return [
-            [['id_ciudad', 'fk_id_provincia'], 'integer'],
+            [['id_ciudad', 'estado', 'fk_id_provincia'], 'integer'],
             [['nombre_ciudad'], 'safe'],
         ];
     }
@@ -59,6 +59,7 @@ class CiudadSearch extends Ciudad
         // grid filtering conditions
         $query->andFilterWhere([
             'id_ciudad' => $this->id_ciudad,
+            'estado' => $this->estado,
             'fk_id_provincia' => $this->fk_id_provincia,
         ]);
 

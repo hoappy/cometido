@@ -45,9 +45,11 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'fk_id_item') ?>
 
-    <?php // echo $form->field($model, 'fk_id') ?>
+    <?php // echo $form->field($model, 'fk_id_funcionario') ?>
 
     <?php // echo $form->field($model, 'fk_id_director') ?>
+
+    <?php // echo $form->field($model, 'fk_id_jefe') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

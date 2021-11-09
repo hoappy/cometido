@@ -10,7 +10,8 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="<?=$assetDir?>/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                <!--<img src="<?=$assetDir?>/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">-->
+                <!-- Aqui insertar el nombre del usuario -->
             </div>
             <div class="info">
                 <a href="#" class="d-block"></a>
@@ -58,6 +59,17 @@
                             ['label' => 'Cometidos por Autorizar', 'iconStyle' => 'far', 'url' => ['cometido/index2']],
                             ['label' => 'Cometidos por Aprobar', 'iconStyle' => 'far', 'url' => ['cometido/index3']],
                             ['label' => 'Cometidos ya Aprobados', 'iconStyle' => 'far', 'url' => ['cometido/index4']],
+                        ]
+                    ], 
+                    ['label' => 'Viajes', 'header' => true],
+                    [
+                        'label' => 'Viajes',
+                        'items' => [
+                            ['label' => 'Todos mis Viajes', 'iconStyle' => 'far', 'url' => ['viaje/cometido']],
+                            ['label' => 'Viajes por iniciar', 'iconStyle' => 'far', 'url' => ['viaje/cometido1']],
+                            ['label' => 'Viajes iniciados', 'iconStyle' => 'far', 'url' => ['viaje/cometido2']],
+                            ['label' => 'Viajes Terminados', 'iconStyle' => 'far', 'url' => ['viaje/cometido3']],
+                            ['label' => 'Asignar Vehiculo', 'iconStyle' => 'far', 'url' => ['viaje/cometido4']],
                         ]
                     ],   
                     //link Menu Izquierdo para el mantenimiento de maestros

@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id_provincia
  * @property string $nombre_provincia
+ * @property int $estado
  * @property int $fk_id_region
  *
  * @property Ciudad[] $ciudads
@@ -31,7 +32,7 @@ class Provincia extends \yii\db\ActiveRecord
     {
         return [
             [['nombre_provincia', 'fk_id_region'], 'required'],
-            [['fk_id_region'], 'integer'],
+            [['estado', 'fk_id_region'], 'integer'],
             [['nombre_provincia'], 'string', 'max' => 50],
             [['fk_id_region'], 'exist', 'skipOnError' => true, 'targetClass' => Region::className(), 'targetAttribute' => ['fk_id_region' => 'id_region']],
         ];
@@ -45,6 +46,7 @@ class Provincia extends \yii\db\ActiveRecord
         return [
             'id_provincia' => 'Id Provincia',
             'nombre_provincia' => 'Nombre Provincia',
+            'estado' => 'Estado',
             'fk_id_region' => 'Region',
         ];
     }

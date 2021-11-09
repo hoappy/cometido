@@ -38,7 +38,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'estado',
             'kilometraje',
             'rendimiento',
-            'fk_id',
         ],
     ]) ?>
 

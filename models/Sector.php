@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id_sector
  * @property string $nombre_sector
+ * @property int $estado
  * @property int $fk_id_ciudad
  *
  * @property Destino[] $destinos
@@ -31,7 +32,7 @@ class Sector extends \yii\db\ActiveRecord
     {
         return [
             [['nombre_sector', 'fk_id_ciudad'], 'required'],
-            [['fk_id_ciudad'], 'integer'],
+            [['estado', 'fk_id_ciudad'], 'integer'],
             [['nombre_sector'], 'string', 'max' => 50],
             [['fk_id_ciudad'], 'exist', 'skipOnError' => true, 'targetClass' => Ciudad::className(), 'targetAttribute' => ['fk_id_ciudad' => 'id_ciudad']],
         ];
@@ -45,6 +46,7 @@ class Sector extends \yii\db\ActiveRecord
         return [
             'id_sector' => 'Id Sector',
             'nombre_sector' => 'Nombre Sector',
+            'estado' => 'Estado',
             'fk_id_ciudad' => 'Ciudad',
         ];
     }

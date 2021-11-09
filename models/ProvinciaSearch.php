@@ -17,7 +17,7 @@ class ProvinciaSearch extends Provincia
     public function rules()
     {
         return [
-            [['id_provincia', 'fk_id_region'], 'integer'],
+            [['id_provincia', 'estado', 'fk_id_region'], 'integer'],
             [['nombre_provincia'], 'safe'],
         ];
     }
@@ -59,6 +59,7 @@ class ProvinciaSearch extends Provincia
         // grid filtering conditions
         $query->andFilterWhere([
             'id_provincia' => $this->id_provincia,
+            'estado' => $this->estado,
             'fk_id_region' => $this->fk_id_region,
         ]);
 
