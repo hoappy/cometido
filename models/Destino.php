@@ -44,8 +44,8 @@ class Destino extends \yii\db\ActiveRecord
     {
         return [
             'id_destino' => 'Id Destino',
-            'fk_id_cometido' => 'Fk Id Cometido',
-            'fk_id_sector' => 'Fk Id Sector',
+            'fk_id_cometido' => 'Cometido seleccione cometido',
+            'fk_id_sector' => 'Seleccione Sector',
         ];
     }
 

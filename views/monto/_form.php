@@ -14,24 +14,6 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?php // $form->field($model, 'id_monto')->textInput() 
-    ?>
-
-    <?php // $form->field($model, 'monto_sin_pernoctar')->textInput() 
-    ?>
-
-    <?php // $form->field($model, 'monto_con_pernoctar')->textInput() 
-    ?>
-
-    <?php // $form->field($model, 'grado')->textInput() 
-    ?>
-
-    <?php // $form->field($model, 'estado')->textInput() 
-    ?>
-
-    <?php // $form->field($model, 'fk_id_item')->textInput() 
-    ?>
-
     <div class="form-row">
         <div class="col-md">
             <?= $form->field($model, 'monto_con_pernoctar')->textInput(['type' => 'number'])->hint('Ingrese el Monto correspondiente') ?>
@@ -60,7 +42,7 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

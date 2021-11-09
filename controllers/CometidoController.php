@@ -135,7 +135,7 @@ class CometidoController extends Controller
         $director = Users::findOne($cometido->fk_id_director);
 
         $destinos = new SqlDataProvider([
-            'sql' => "select * from destino 
+            'sql' => "select nombre_region, numero_region, nombre_provincia, nombre_ciudad, nombre_sector from destino 
             join sector on sector.id_sector = destino.fk_id_sector 
             join ciudad on ciudad.id_ciudad = sector.fk_id_ciudad
             join provincia on provincia.id_provincia = ciudad.fk_id_provincia
@@ -164,12 +164,13 @@ class CometidoController extends Controller
     {
         $model = new Cometido();
 
-        $model->fk_id = 2; //temporar, aqui extrarr el id de la sesion 
+        $model->fk_id_funcionario = 1; //temporar, aqui extrarr el id de la sesion 
+
         $model->estado = 0;
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id_cometido]);
+                return $this->redirect(['destino/create', 'id_cometido' => $model->id_cometido]);
             }
         } else {
             $model->loadDefaultValues();

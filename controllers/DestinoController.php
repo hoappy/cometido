@@ -2,8 +2,14 @@
 
 namespace app\controllers;
 
+use app\models\Ciudad;
 use app\models\Destino;
+use app\models\Destinos;
 use app\models\DestinoSearch;
+use app\models\Provincia;
+use app\models\Region;
+use app\models\Sector;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -64,16 +70,22 @@ class DestinoController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id_cometido)
     {
-        $model = new Destino();
+        $model = new Destinos();
+        $model->fk_id_cometido = $id_cometido;
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id_destino]);
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate()) {
+                $destino = new Destino();
+
+                $destino->fk_id_cometido = $model->fk_id_cometido;
+                $destino->fk_id_sector = $model->fk_id_sector;
+
+                if ($destino->save(false)) {
+                    return $this->redirect(['destino/create', 'id_cometido' => $destino->fk_id_cometido]);
+                }
             }
-        } else {
-            $model->loadDefaultValues();
         }
 
         return $this->render('create', [

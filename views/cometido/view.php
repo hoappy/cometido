@@ -25,10 +25,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
         </div>
         <div class="col-md">
-            <h5>Rut: <?= $funcionario->rut ?> - <?= Users::dv($funcionario->rut)?></h5>
+            <h5>Rut: <?= $funcionario->rut ?> - <?= Users::dv($funcionario->rut) ?></h5>
         </div>
         <div class="col-md">
-            <h5>Jefe Directo: <?= $jefe->nombre ?></h5>
+            <h5>Jefe Directo:
+                <?php
+                if ($jefe != null) {
+                    echo $jefe->nombre;
+                };
+                ?></h5>
         </div>
         <div class="col-md">
             <h5>Grado: <?= $funcionario->grado ?></h5>
@@ -182,7 +187,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-md">
             <h5>Firma Jefe Director</h5>
             <?php
-            if ($cometido->estado != '0') {
+            if ($jefe != null) {
                 echo $jefe->nombre;
             };
             ?>

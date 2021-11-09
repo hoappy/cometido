@@ -2,8 +2,11 @@
 
 namespace app\controllers;
 
+use app\models\Cometido;
 use app\models\Viaje;
 use app\models\ViajeSearch;
+use Yii;
+use yii\data\SqlDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -183,6 +186,91 @@ class ViajeController extends Controller
         }
 
         return $this->render('llegada', [
+            'model' => $model,
+        ]);
+    }
+
+    //todos los cometidos
+    public function actionCometidos()
+    {
+
+        $model = new SqlDataProvider([
+            'sql' => "select * from cometido 
+            where estado >= 3 and estado <= 6 and tranporte_ida = 0 or transporte_regreso = 0",
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
+
+        return $this->render('index', [
+            'model' => $model,
+        ]);
+    }
+
+    //cometidos por iniciar
+    public function actionCometidos1()
+    {
+
+        $model = new SqlDataProvider([
+            'sql' => "select * from cometido 
+            where estado = 4 and tranporte_ida = 0 or transporte_regreso = 0",
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
+
+        return $this->render('index', [
+            'model' => $model,
+        ]);
+    }
+
+    //cometidos iniciados
+    public function actionCometidos2()
+    {
+
+        $model = new SqlDataProvider([
+            'sql' => "select * from cometido 
+            where estado = 5 and tranporte_ida = 0 or transporte_regreso = 0",
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
+
+        return $this->render('index', [
+            'model' => $model,
+        ]);
+    }
+
+    //cometidos terminados
+    public function actionCometidos3()
+    {
+
+        $model = new SqlDataProvider([
+            'sql' => "select * from cometido 
+            where estado = 6 and tranporte_ida = 0 or transporte_regreso = 0",
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
+
+        return $this->render('index', [
+            'model' => $model,
+        ]);
+    }
+
+    //asignar vehiculo
+    public function actionCometidos4()
+    {
+
+        $model = new SqlDataProvider([
+            'sql' => "select * from cometido 
+            where estado = 3 and tranporte_ida = 0 or transporte_regreso = 0",
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
+
+        return $this->render('index', [
             'model' => $model,
         ]);
     }

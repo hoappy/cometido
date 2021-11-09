@@ -130,4 +130,19 @@ class CiudadController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    public function actionList($id)
+    {
+        $ciudades = Ciudad::find()
+            ->where(['fk_id_provincia' => $id])
+            ->all();
+
+        if (isset($ciudades) && count($ciudades) > 0) {
+            foreach ($ciudades as $result) {
+                echo "<option value='", $result->id_ciudad . "'>" . $result->nombre_ciudad . "</option>";
+            }
+        } else {
+            echo "<option> No se ha asignado un detalle para este artículo </option>";
+        }
+    }
 }

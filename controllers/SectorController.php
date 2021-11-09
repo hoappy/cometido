@@ -130,4 +130,19 @@ class SectorController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    public function actionList($id)
+    {
+        $sectores = Sector::find()
+            ->where(['fk_id_ciudad' => $id])
+            ->all();
+
+        if (isset($sectores) && count($sectores) > 0) {
+            foreach ($sectores as $result) {
+                echo "<option value='", $result->id_sector . "'>" . $result->nombre_sector . "</option>";
+            }
+        } else {
+            echo "<option> No se ha asignado un detalle para este artículo </option>";
+        }
+    }
 }

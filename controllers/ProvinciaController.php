@@ -130,4 +130,19 @@ class ProvinciaController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    public function actionList($id)
+    {
+        $provincias = Provincia::find()
+            ->where(['fk_id_region' => $id])
+            ->all();
+
+        if (isset($provincias) && count($provincias) > 0) {
+            foreach ($provincias as $result) {
+                echo "<option value='", $result->id_provincia . "'>" . $result->nombre_provincia . "</option>";
+            }
+        } else {
+            echo "<option> No se ha asignado un detalle para este artículo </option>";
+        }
+    }
 }

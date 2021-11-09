@@ -54,9 +54,9 @@ class Cometido extends \yii\db\ActiveRecord
             [['fecha_inicio', 'fecha_fin', 'hora_inicio', 'hora_fin'], 'safe'],
             [['motivo_cometido', 'descreipcion'], 'string', 'max' => 100],
             [['fk_id_item'], 'exist', 'skipOnError' => true, 'targetClass' => ItemPresupuestario::className(), 'targetAttribute' => ['fk_id_item' => 'id_item']],
-            [['fk_id_director'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['fk_id_director' => 'id']],
-            [['fk_id_funcionario'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['fk_id_funcionario' => 'id']],
-            [['fk_id_jefe'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['fk_id_jefe' => 'id']],
+            [['fk_id_director'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['fk_id_director' => 'id']],
+            [['fk_id_funcionario'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['fk_id_funcionario' => 'id']],
+            [['fk_id_jefe'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['fk_id_jefe' => 'id']],
         ];
     }
 
@@ -80,7 +80,7 @@ class Cometido extends \yii\db\ActiveRecord
             'transporte_regreso' => 'Transporte Regreso',
             'estado' => 'Estado',
             'descreipcion' => 'Descripcion',
-            'fk_id_item' => 'Fk Id Item',
+            'fk_id_item' => 'Item Presupuestario',
             'fk_id_funcionario' => 'Funcionario',
             'fk_id_director' => 'Director',
             'fk_id_jefe' => 'Jefe',

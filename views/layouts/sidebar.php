@@ -65,13 +65,15 @@
                     [
                         'label' => 'Viajes',
                         'items' => [
-                            ['label' => 'Todos mis Viajes', 'iconStyle' => 'far', 'url' => ['viaje/cometido']],
-                            ['label' => 'Viajes por iniciar', 'iconStyle' => 'far', 'url' => ['viaje/cometido1']],
-                            ['label' => 'Viajes iniciados', 'iconStyle' => 'far', 'url' => ['viaje/cometido2']],
-                            ['label' => 'Viajes Terminados', 'iconStyle' => 'far', 'url' => ['viaje/cometido3']],
-                            ['label' => 'Asignar Vehiculo', 'iconStyle' => 'far', 'url' => ['viaje/cometido4']],
+                            ['label' => 'Todos mis Viajes', 'iconStyle' => 'far', 'url' => ['viaje/cometidos']],
+                            ['label' => 'Viajes por iniciar', 'iconStyle' => 'far', 'url' => ['viaje/cometidos1']],
+                            ['label' => 'Viajes iniciados', 'iconStyle' => 'far', 'url' => ['viaje/cometidos2']],
+                            ['label' => 'Viajes Terminados', 'iconStyle' => 'far', 'url' => ['viaje/cometidos3']],
+                            
                         ]
-                    ],   
+                    ],
+                    ['label' => 'Asignar', 'header' => true],
+                    ['label' => 'Asignar Vehiculo', 'iconStyle' => 'far', 'url' => ['viaje/cometidos4']],   
                     //link Menu Izquierdo para el mantenimiento de maestros
                     ['label' => 'Mantenimiento Maestro', 'header' => true],
                     [
@@ -81,20 +83,20 @@
                             ['label' => 'Agregar', 'iconStyle' => 'far', 'url' => ['users/create']],
                         ]
                     ],
-                    [
-                        'label' => 'Cometidos',
-                        'items' => [
-                            ['label' => 'Listas', 'iconStyle' => 'far', 'url' => ['cometido/index']],
-                            ['label' => 'Agregar', 'iconStyle' => 'far', 'url' => ['cometido/create']],
-                        ],
-                        [
-                            'label' => 'Modificacion Cometido',
-                            'items' => [
-                                ['label' => 'Listas', 'iconStyle' => 'far', 'url' => ['modificacionCometido/index']],
-                                ['label' => 'Agregar', 'iconStyle' => 'far', 'url' => ['modificacionCometido/create']],
-                            ]
-                        ],
-                    ],
+                    // [
+                    //     'label' => 'Cometidos',
+                    //     'items' => [
+                    //         ['label' => 'Listas', 'iconStyle' => 'far', 'url' => ['cometido/index']],
+                    //         ['label' => 'Agregar', 'iconStyle' => 'far', 'url' => ['cometido/create']],
+                    //     ],
+                    //     [
+                    //         'label' => 'Modificacion Cometido',
+                    //         'items' => [
+                    //             ['label' => 'Listas', 'iconStyle' => 'far', 'url' => ['modificacionCometido/index']],
+                    //             ['label' => 'Agregar', 'iconStyle' => 'far', 'url' => ['modificacionCometido/create']],
+                    //         ]
+                    //     ],
+                    // ],
                     [
                         'label' => 'Vehiculo',
                         'items' => [
@@ -142,20 +144,20 @@
                             ],
                         ]
                     ],
-                    [
-                        'label' => 'Destino',
-                        'items' => [
-                            ['label' => 'Listas', 'iconStyle' => 'far', 'url' => ['destino/index']],
-                            ['label' => 'Agregar', 'iconStyle' => 'far', 'url' => ['destino/create']],
-                        ]
-                    ],
-                    [
-                        'label' => 'Viaje',
-                        'items' => [
-                            ['label' => 'Listas', 'iconStyle' => 'far', 'url' => ['viaje/index']],
-                            ['label' => 'Agregar', 'iconStyle' => 'far', 'url' => ['viaje/create']],
-                        ]
-                    ],
+                    // [
+                    //     'label' => 'Destino',
+                    //     'items' => [
+                    //         ['label' => 'Listas', 'iconStyle' => 'far', 'url' => ['destino/index']],
+                    //         ['label' => 'Agregar', 'iconStyle' => 'far', 'url' => ['destino/create']],
+                    //     ]
+                    // ],
+                    // [
+                    //     'label' => 'Viaje',
+                    //     'items' => [
+                    //         ['label' => 'Listas', 'iconStyle' => 'far', 'url' => ['viaje/index']],
+                    //         ['label' => 'Agregar', 'iconStyle' => 'far', 'url' => ['viaje/create']],
+                    //     ]
+                    // ],
                     [
                         'label' => 'Item Presupuestario',
                         'items' => [
