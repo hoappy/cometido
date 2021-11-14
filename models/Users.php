@@ -32,52 +32,17 @@ class Users extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+    public static function getDb()
+    {
+        return Yii::$app->db;
+    }
+
     public static function tableName()
     {
         return 'user';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
-    {
-        return [
-            [['nombre', 'email', 'rut', 'estado', 'grado', 'tipo_funcionario', 'role', 'password', 'authKey', 'accessToken', 'fk_id_departamento'], 'required'],
-            [['rut', 'estado', 'grado', 'tipo_funcionario', 'role', 'activate', 'fk_id_departamento'], 'integer'],
-            [['nombre', 'email'], 'string', 'max' => 100],
-            [['password', 'authKey', 'accessToken'], 'string', 'max' => 250],
-            [['fk_id_departamento'], 'exist', 'skipOnError' => true, 'targetClass' => Departamento::className(), 'targetAttribute' => ['fk_id_departamento' => 'id_departamento']],
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'nombre' => 'Nombre',
-            'email' => 'Correo Electronico',
-            'rut' => 'Rut',
-            'estado' => 'Estado',
-            'grado' => 'Grado',
-            'tipo_funcionario' => 'Tipo Funcionario',
-            'role' => 'Nivel de Usuario',
-            'password' => 'Password',
-            'authKey' => 'Auth Key',
-            'accessToken' => 'Access Token',
-            'activate' => 'Activate',
-            'fk_id_departamento' => 'Departamento',
-        ];
-    }
-
-    /**
-     * Gets query for [[Cometidos]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
+    
     public function getCometidos()
     {
         return $this->hasMany(Cometido::className(), ['fk_id_director' => 'id']);
@@ -129,4 +94,5 @@ class Users extends \yii\db\ActiveRecord
             $s = ($s + $r % 10 * (9 - $m++ % 6)) % 11;
         return chr($s ? $s + 47 : 75);
     }
+    
 }

@@ -8,12 +8,12 @@ use yii\base\Model;
 /**
  * LoginForm is the model behind the login form.
  *
- * @property-read User|null $user This property is read-only.
+ * @property User|null $user This property is read-only.
  *
  */
 class LoginForm extends Model
 {
-    public $username;
+    public $rut;
     public $password;
     public $rememberMe = true;
 
@@ -27,7 +27,7 @@ class LoginForm extends Model
     {
         return [
             // username and password are both required
-            [['username', 'password'], 'required'],
+            [['rut', 'password'], 'required'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
@@ -45,10 +45,10 @@ class LoginForm extends Model
     public function validatePassword($attribute, $params)
     {
         if (!$this->hasErrors()) {
-            $user = $this->getUser();
+            $Usuario = $this->getUser();
 
-            if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect username or password.');
+            if (!$Usuario || !$Usuario->validatePassword($this->password)) {
+                $this->addError($attribute, 'Incorrect rut or password.');
             }
         }
     }
@@ -73,7 +73,7 @@ class LoginForm extends Model
     public function getUser()
     {
         if ($this->_user === false) {
-            $this->_user = User::findByUsername($this->username);
+            $this->_user = User::findByRut($this->rut);
         }
 
         return $this->_user;

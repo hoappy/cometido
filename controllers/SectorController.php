@@ -2,11 +2,13 @@
 
 namespace app\controllers;
 
+use app\models\Destino;
 use app\models\Sector;
 use app\models\SectorSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 
 /**
  * SectorController implements the CRUD actions for Sector model.
@@ -131,10 +133,18 @@ class SectorController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function actionList($id)
+    public function actionList($id/*, $idd*/)
     {
+        /*$destinos = ArrayHelper::getColumn(Destino::find()
+                            ->select(['fk_id_sector as id_sector'])
+                            ->where(['fk_id_cometido' => $idd])
+                            ->asArray()
+                            ->all()
+                    ,'id_sector');*/
+
         $sectores = Sector::find()
             ->where(['fk_id_ciudad' => $id])
+            //->andWhere(['not in', 'id_sector',  $destinos])
             ->all();
 
         if (isset($sectores) && count($sectores) > 0) {
@@ -142,7 +152,7 @@ class SectorController extends Controller
                 echo "<option value='", $result->id_sector . "'>" . $result->nombre_sector . "</option>";
             }
         } else {
-            echo "<option> No se ha asignado un detalle para este artículo </option>";
+            echo "<option> Esta Ciudad no Tienes ningun Sector Creado, Contacte con su Administrador para que Agregue un sector </option>";
         }
     }
 }

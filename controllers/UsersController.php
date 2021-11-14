@@ -3,10 +3,14 @@
 namespace app\controllers;
 
 use app\models\Users;
+use app\models\User;
+use app\models\FormUserUpdate;
 use app\models\UsersSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Html;
 
 /**
  * UsersController implements the CRUD actions for Users model.
@@ -59,6 +63,14 @@ class UsersController extends Controller
         ]);
     }
 
+    public function actionVieww($id, $msg)
+    {
+
+        return $this->render('view', [
+            'model' => $this->findModel($id), "msg" => $msg,
+        ]);
+    }
+
     /**
      * Creates a new Users model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -90,15 +102,76 @@ class UsersController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model = new FormUserUpdate;
+        $msg = null;
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        if($model->load(Yii::$app->request->post()))
+        {
+            if($model->validate())
+            {
+                $table = Users::findOne($id);
+                if($table)
+                {
+                    $table->email = $model->email;
+                    $table->grado = $model->grado;
+                    $table->tipo_funcionario = $model->tipo_funcionario;
+                    $table->role = $model->role;
+                    $table->fk_id_departamento = $model->fk_id_departamento;
+                    
+                    if ($table->update())
+                    {
+                        $msg = "El Usuario ha sido actualizado correctamente";
+                        $this->redirect(['vieww', 'id' => $id, "msg" => $msg]);
+                    }
+                    else
+                    {
+                        $msg = "El Usuario no ha podido ser actualizado: Se han ingresado los mismos parametros o se produjo un error";
+                    }
+                }
+                else
+                {
+                    $msg = "El Usuario seleccionado no ha sido encontrado";
+                }
+            }
+            else
+            {
+                $model->getErrors();
+            }
+        }
+        
+        
+        if (Yii::$app->request->get("id"))
+        {
+            $id = Html::encode($_GET["id"]);
+            if ((int) $id)
+            {
+                $table = Users::findOne($id);
+                if($table)
+                {
+                    $model->id = $table->id;
+                    $model->nombre = $table->nombre;
+                    $model->grado = $table->grado;
+                    $model->fk_id_departamento = $table->fk_id_departamento;
+                    $model->rut = $table->rut;
+                    $model->email = $table->email;
+                    $model->tipo_funcionario = $table->tipo_funcionario;
+                    $model->role = $table->role;
+                }
+                else
+                {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            }
+            else
+            {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+        }
+        else
+        {
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+        return $this->render("update", ["model" => $model, "msg" => $msg]);
     }
 
     /**

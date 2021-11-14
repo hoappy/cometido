@@ -3,6 +3,9 @@ $this->title = 'Sistema Cometidos';
 $this->params['breadcrumbs'] = [['label' => $this->title]];
 ?>
 <div class="container-fluid">
+
+<h3><?= $msg  ?></h3>
+
     <div class="row">
         <div class="col-lg-6">
             <?= \hail812\adminlte\widgets\Alert::widget([

@@ -75,21 +75,38 @@ class DestinoController extends Controller
         $model = new Destinos();
         $model->fk_id_cometido = $id_cometido;
 
+        $msg = null;
+
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
-                $destino = new Destino();
 
-                $destino->fk_id_cometido = $model->fk_id_cometido;
-                $destino->fk_id_sector = $model->fk_id_sector;
+                $validacion = Destino::find()
+                            ->select(['fk_id_sector as id_sector'])
+                            ->where(['fk_id_cometido' => $model->fk_id_cometido])
+                            ->andWhere(['fk_id_sector' => $model->fk_id_sector])
+                            ;
+                
+                if($validacion->count() >= 1){
+                    $msg = 'El Destino Ya ha Sido Agregado';
+                    return $this->redirect(['destino/create', 'id_cometido' => $model->fk_id_cometido, 'msg' => $msg]);
+                }else{
 
-                if ($destino->save(false)) {
-                    return $this->redirect(['destino/create', 'id_cometido' => $destino->fk_id_cometido]);
+                    $destino = new Destino();
+
+                    $destino->fk_id_cometido = $model->fk_id_cometido;
+                    $destino->fk_id_sector = $model->fk_id_sector;
+
+                    if ($destino->save(false)) {
+                        $msg = 'Destino Agregado Corecctamente';
+                        return $this->redirect(['destino/create', 'id_cometido' => $destino->fk_id_cometido, 'msg' => $msg]);
+                    }
                 }
             }
         }
 
         return $this->render('create', [
             'model' => $model,
+            'msg' => $msg,
         ]);
     }
 

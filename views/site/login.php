@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
         <div class="col-md">
-            <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+            <?= $form->field($model, 'rut')->textInput(['autofocus' => true]) ?>
             <?= $form->field($model, 'password')->passwordInput() ?>
         </div>
 
@@ -41,8 +41,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php ActiveForm::end(); ?>
 
         <div class="offset-lg-1" style="color:#999;">
-            You may login with <strong>admin/admin</strong> or <strong>demo/demo</strong>.<br>
-            To modify the username/password, please check out the code <code>app\models\User::$users</code>.
+        <div class="col-md">
+            <?php echo Html::a('<i >Recuperar Contrasenia</i>', ['/site/recoverpass'], ['data-method' => 'post', 'class' => 'nav-link']); ?>
+        </div>
         </div>
     </div>
 </div>

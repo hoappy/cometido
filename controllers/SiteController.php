@@ -75,7 +75,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $msg = 'Bienvenido';
+        return $this->render('index', ['msg' => $msg]);
     }
 
     /**
@@ -226,11 +227,12 @@ class SiteController extends Controller
                 $table->email = $model->email;
                 $table->role = $model->role;
                 $table->rut = $model->rut;
-                $table->nombres = $model->nombres;
-                $table->apellidoA = $model->apellidoA;
-                $table->apellidoM = $model->apellidoM;
-                $table->telefono = $model->telefono;
-                $table->direccion = $model->direccion;
+                $table->nombre = $model->nombre;
+                $table->tipo_funcionario = $model->tipo_funcionario;
+                $table->grado = $model->grado;
+                $table->fk_id_departamento = $model->fk_id_departamento;
+                $table->estado = 1;
+                $table->activate = 0;
 
                 //Encriptamos el password
                 $table->password = crypt($model->password, Yii::$app->params["salt"]);
@@ -248,9 +250,9 @@ class SiteController extends Controller
                     $id = urlencode($user->id);
                     $authKey = urlencode($user->authKey);
 
-                    $subject = "Activar usuario Sistema de Gestion de Archivos Online";
-                    $body = "<h1>Haga click en el siguiente enlace para activar su usuario en el Sistema de Gestion de Archivos Online</h1>";
-                    $body .= "<a href='http://127.0.0.1/gestordearchivos/web/index.php?r=site/confirm&id=" . $id . "&authKey=" . $authKey . "'>Confirmar</a>";
+                    $subject = "Activar usuario Sistema de Cometidos";
+                    $body = "<h1>Haga click en el siguiente enlace para activar su usuario en el Sistema de Cometidos</h1>";
+                    $body .= "<a href='http://127.0.0.1/cometido/web/index.php?r=site/confirm&id=" . $id . "&authKey=" . $authKey . "'>Confirmar</a>";
                     $body .= "<h2>Su Usuario es: </h2>" . $model->rut . "<h2>y su contrasenia es:  </h2>" . $model->password;
 
                     //Enviamos el correo
@@ -268,14 +270,13 @@ class SiteController extends Controller
 
                     $model->role = null;
                     $model->rut = null;
-                    $model->nombres = null;
-                    $model->apellidoA = null;
-                    $model->apellidoM = null;
-                    $model->telefono = null;
-                    $model->direccion = null;
+                    $model->nombre = null;
+                    $model->tipo_funcionario = null;
+                    $model->grado = null;
+                    $model->fk_id_departamento = null;
 
                     $msg = "Enhorabuena, ahora sólo falta que confirmen el registro enviado a la cuenta de correo";
-                    $this->redirect(['vieww', 'id' => $id, "msg" => $msg]);
+                    $this->render('index', ['msg' => $msg]);
                 } else {
                     $msg = "Ha ocurrido un error al llevar a cabo tu registro";
                 }
@@ -330,7 +331,7 @@ class SiteController extends Controller
                     $subject = "Recuperar password";
                     $body = "<p>Copie el siguiente código de verificación para restablecer su password ... ";
                     $body .= "<strong>" . $verification_code . "</strong></p>";
-                    $body .= "<p><a href='http://127.0.0.1/gestordearchivos/web/index.php?r=site/resetpass'>Recuperar password</a></p>";
+                    $body .= "<p><a href='http://127.0.0.1/cometido/web/index.php?r=site/resetpass'>Recuperar password</a></p>";
 
                     //Enviamos el correo
                     Yii::$app->mailer->compose()
@@ -393,6 +394,9 @@ class SiteController extends Controller
                     $table = Users::findOne(["email" => $model->email, "id" => $id_recover, "verification_code" => $model->verification_code]);
 
                     //Encriptar el password
+
+                    //return print_r($session["id_recover"]);
+                    
                     $table->password = crypt($model->password, Yii::$app->params["salt"]);
 
                     //Si la actualización se lleva a cabo correctamente

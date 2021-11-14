@@ -18,6 +18,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
+
     <?= $form->field($model, 'fk_id_region')
         ->dropDownList(
             ArrayHelper::map(

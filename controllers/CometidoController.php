@@ -9,6 +9,7 @@ use app\models\Departamento;
 use app\models\Destino;
 use app\models\ItemPresupuestario;
 use app\models\Users;
+use Yii;
 use yii\data\SqlDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -100,6 +101,18 @@ class CometidoController extends Controller
         ]);
     }
 
+    //cometidos ya autorizados
+    public function actionIndex5()
+    {
+        $searchModel = new CometidoSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     /**
      * Displays a single Cometido model.
      * @param int $id_cometido Id Cometido
@@ -123,6 +136,10 @@ class CometidoController extends Controller
     public function actionView($id)
     {
         $cometido = Cometido::findOne($id);
+
+        $cometido->fecha_fin = date("d/m/Y", strtotime($cometido->fecha_fin));
+        $cometido->fecha_inicio = date("d/m/Y", strtotime($cometido->fecha_inicio));
+
         $funcionario = Users::findOne($cometido->fk_id_funcionario);
         $departamento = Departamento::findOne($funcionario->fk_id_departamento);
         /*$jefe = Users::findOne([
@@ -164,13 +181,15 @@ class CometidoController extends Controller
     {
         $model = new Cometido();
 
-        $model->fk_id_funcionario = 1; //temporar, aqui extrarr el id de la sesion 
+        $model->fk_id_funcionario = Yii::$app->user->identity->id;
 
         $model->estado = 0;
 
+
+
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['destino/create', 'id_cometido' => $model->id_cometido]);
+                return $this->redirect(['destino/create', 'id_cometido' => $model->id_cometido, 'msg' => '']);
             }
         } else {
             $model->loadDefaultValues();
