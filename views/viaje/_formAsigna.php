@@ -31,7 +31,7 @@ use yii\widgets\ActiveForm;
         ->dropDownList(
             ArrayHelper::map(
                 Users::find(['role' => '2'])->all(),
-                'id_vehiculo',
+                'id',
                 function ($query) {
                     return $query['nombre'] . ' ' . $query['rut'] . ' - ' . Users::dv($query['rut']);
                 }

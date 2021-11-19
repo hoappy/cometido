@@ -41,12 +41,12 @@ class Viaje extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['hora_salida', 'observaciones', 'fk_id_vehiculo', 'fk_id_cometido', 'fk_id'], 'required'],
+            [['fk_id_vehiculo', 'fk_id_cometido'], 'required'],
             [['hora_salida', 'hora_llegada'], 'safe'],
             [['combustible_litros', 'combustible_pesos', 'kilometros_salida', 'kilometros_llegada', 'kilometros_total', 'estado', 'fk_id_vehiculo', 'fk_id_cometido', 'fk_id'], 'integer'],
             [['observaciones'], 'string', 'max' => 100],
             [['fk_id_cometido'], 'exist', 'skipOnError' => true, 'targetClass' => Cometido::className(), 'targetAttribute' => ['fk_id_cometido' => 'id_cometido']],
-            [['fk_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['fk_id' => 'id']],
+            [['fk_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['fk_id' => 'id']],
             [['fk_id_vehiculo'], 'exist', 'skipOnError' => true, 'targetClass' => Vehiculo::className(), 'targetAttribute' => ['fk_id_vehiculo' => 'id_vehiculo']],
         ];
     }

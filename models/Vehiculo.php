@@ -35,8 +35,8 @@ class Vehiculo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_vehiculo', 'patente', 'modelo', 'marca', 'tipo_combustible', 'kilometraje', 'rendimiento'], 'required'],
-            [['id_vehiculo', 'tipo_combustible', 'estado', 'kilometraje', 'rendimiento'], 'integer'],
+            [[ 'patente', 'modelo', 'marca', 'tipo_combustible', 'kilometraje', 'rendimiento'], 'required'],
+            [[ 'tipo_combustible', 'estado', 'kilometraje', 'rendimiento'], 'integer'],
             [['patente'], 'string', 'max' => 8],
             [['modelo', 'marca', 'num_chasis'], 'string', 'max' => 100],
             [['id_vehiculo'], 'unique'],

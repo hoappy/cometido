@@ -92,7 +92,8 @@ use yii\widgets\ActiveForm;
                 '4' => 'Jefe Departamento',
                 '5' => 'Director Suplente',
                 '6' => 'Director',
-                '7' => 'Administrador'
+                '7' => 'Administrador',
+                //'8' => 'Supoer Administrador'
             ],
             ['prompt' => 'Seleccion nivel de Usuario']
         );

@@ -1,5 +1,6 @@
 <?php
 
+use app\models\User;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -135,8 +136,31 @@ $this->params['breadcrumbs'][] = $this->title;
             //'fk_id_item',
             //'fk_id',
             //'fk_id_director',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            //User::isUserChofer(Yii::$app->user->identity->id) ?
+            //['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{link}',
+                'buttons' => [
+                    'link' => function ($url, $model, $key) {
+                        if($model['estado'] == '3'){
+                            return Html::a('<a class="btn btn-success" href="index.php?r=viaje/create&id=' . $model['id_cometido'] . '">Asignar</a>');
+                        }
+                        if($model['estado'] == '4'){
+                            return Html::a('<a class="btn btn-success" href="index.php?r=viaje/salida&id=' . $model['id_cometido'] . '">Salir</a>');
+                        }
+                        if($model['estado'] == '5'){
+                            return Html::a('<a class="btn btn-success" href="index.php?r=viaje/llegada&id=' . $model['id_cometido'] . '">Llegar</a>');
+                        }
+                    },
+                ],
+            ]
+            /*:
+            [
+                'label' => 'ESTADO',
+                'value' => 'Ya ha sido asignado'
+            ],*/
+            
         ],
     ]); ?>
 

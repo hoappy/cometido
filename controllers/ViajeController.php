@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Cometido;
+use app\models\Users;
 use app\models\Viaje;
 use app\models\ViajeSearch;
 use Yii;
@@ -67,13 +68,20 @@ class ViajeController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id)
     {
         $model = new Viaje();
 
+        $model->fk_id_cometido = $id;
+
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id_viaje]);
+
+            $cometido = Cometido::findOne($model->fk_id_cometido);
+            $cometido->estado = '4';
+
+
+            if ($model->load($this->request->post()) && $cometido->update(false) && $model->save()) {
+                return $this->redirect(['cometidos4']);
             }
         } else {
             $model->loadDefaultValues();
@@ -134,29 +142,20 @@ class ViajeController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function actionAsignar()
-    {
-        $model = new Viaje();
-
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id_viaje]);
-            }
-        } else {
-            $model->loadDefaultValues();
-        }
-
-        return $this->render('asignar', [
-            'model' => $model,
-        ]);
-    }
-
     public function actionSalida($id)
     {
-        $model = $this->findModel($id);
+        $model = Viaje::find('fk_id_cometido',$id)->one();
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_viaje]);
+        //return print_r($model);
+
+        if ($this->request->isPost) {
+
+            $cometido = Cometido::findOne($model->fk_id_cometido);
+            $cometido->estado = '5';
+
+            if ($model->load($this->request->post()) && $cometido->update(false) && $model->save()) {
+                return $this->redirect(['cometidos1']);
+            }
         }
 
         return $this->render('salida', [
@@ -166,11 +165,20 @@ class ViajeController extends Controller
 
     public function actionLlegada($id)
     {
-        $model = $this->findModel($id);
+        $model = Viaje::find('fk_id_cometido',$id)->one();
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_viaje]);
+        //return print_r($model);
+
+        if ($this->request->isPost) {
+
+            $cometido = Cometido::findOne($model->fk_id_cometido);
+            $cometido->estado = '6';
+
+            if ($model->load($this->request->post()) && $cometido->update(false) && $model->save()) {
+                return $this->redirect(['cometidos2']);
+            }
         }
+
 
         return $this->render('llegada', [
             'model' => $model,
@@ -213,7 +221,7 @@ class ViajeController extends Controller
 
         $model = new SqlDataProvider([
             'sql' => "select * from cometido 
-            where estado = 4 and tranporte_ida = 0 or transporte_regreso = 0",
+            where estado = 4 and (tranporte_ida = 0 or transporte_regreso = 0)",
             'pagination' => [
                 'pageSize' => 10,
             ],
@@ -230,7 +238,7 @@ class ViajeController extends Controller
 
         $model = new SqlDataProvider([
             'sql' => "select * from cometido 
-            where estado = 5 and tranporte_ida = 0 or transporte_regreso = 0",
+            where estado = 5 and (tranporte_ida = 0 or transporte_regreso = 0)",
             'pagination' => [
                 'pageSize' => 10,
             ],
@@ -247,7 +255,7 @@ class ViajeController extends Controller
 
         $model = new SqlDataProvider([
             'sql' => "select * from cometido 
-            where estado = 6 and tranporte_ida = 0 or transporte_regreso = 0",
+            where estado = 6 and (tranporte_ida = 0 or transporte_regreso = 0)",
             'pagination' => [
                 'pageSize' => 10,
             ],
@@ -264,7 +272,7 @@ class ViajeController extends Controller
 
         $model = new SqlDataProvider([
             'sql' => "select * from cometido 
-            where estado = 3 and tranporte_ida = 0 or transporte_regreso = 0",
+            where (tranporte_ida = 0 or transporte_regreso = 0) and estado = 3",
             'pagination' => [
                 'pageSize' => 10,
             ],

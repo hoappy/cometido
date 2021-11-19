@@ -122,6 +122,125 @@
                 if (Yii::$app->user->identity->role == 7) {
                     echo \hail812\adminlte\widgets\Menu::widget([
                         'items' => [
+                            ['label' => 'Cometido', 'header' => true],
+                            ['label' => 'Mis Cometidos', 'iconStyle' => 'far', 'url' => ['cometido/index1']],
+                            [
+                                'label' => 'Vehiculo',
+                                'items' => [
+                                    ['label' => 'Listas', 'iconStyle' => 'far', 'url' => ['vehiculo/index']],
+                                    ['label' => 'Agregar', 'iconStyle' => 'far', 'url' => ['vehiculo/create']],
+                                ]
+                            ],
+                            [
+                                'label' => 'Departamento',
+                                'items' => [
+                                    ['label' => 'Listas', 'iconStyle' => 'far', 'url' => ['departamento/index']],
+                                    ['label' => 'Agregar', 'iconStyle' => 'far', 'url' => ['departamento/create']],
+                                ]
+                            ],
+                            [
+                                'label' => 'Destinos',
+                                'items' => [
+                                    [
+                                        'label' => 'Provincia',
+                                        'items' => [
+                                            ['label' => 'Listas', 'iconStyle' => 'far', 'url' => ['provincia/index']],
+                                            ['label' => 'Agregar', 'iconStyle' => 'far', 'url' => ['provincia/create']],
+                                        ]
+                                    ],
+                                    [
+                                        'label' => 'Region',
+                                        'items' => [
+                                            ['label' => 'Listas', 'iconStyle' => 'far', 'url' => ['region/index']],
+                                            ['label' => 'Agregar', 'iconStyle' => 'far', 'url' => ['region/create']],
+                                        ]
+                                    ],
+                                    [
+                                        'label' => 'Ciudad',
+                                        'items' => [
+                                            ['label' => 'Listas', 'iconStyle' => 'far', 'url' => ['ciudad/index']],
+                                            ['label' => 'Agregar', 'iconStyle' => 'far', 'url' => ['ciudad/create']],
+                                        ]
+                                    ],
+                                    [
+                                        'label' => 'Sector',
+                                        'items' => [
+                                            ['label' => 'Listas', 'iconStyle' => 'far', 'url' => ['sector/index']],
+                                            ['label' => 'Agregar', 'iconStyle' => 'far', 'url' => ['sector/create']],
+                                        ]
+                                    ],
+                                ]
+                            ],
+                            [
+                                'label' => 'Item Presupuestario',
+                                'items' => [
+                                    ['label' => 'Listas', 'iconStyle' => 'far', 'url' => ['item-presupuestario/index']],
+                                    ['label' => 'Agregar', 'iconStyle' => 'far', 'url' => ['item-presupuestario/create']],
+                                    [
+                                        'label' => 'Monto',
+                                        'items' => [
+                                            ['label' => 'Listas', 'iconStyle' => 'far', 'url' => ['monto/index']],
+                                            ['label' => 'Agregar', 'iconStyle' => 'far', 'url' => ['monto/create']],
+                                        ]
+                                    ],
+                                ],
+
+                            ],
+
+                            ['label' => 'Usuarios', 'header' => true],
+                            [
+                                'label' => 'Usuarios',
+                                'items' => [
+                                    ['label' => 'Listas', 'iconStyle' => 'far', 'url' => ['users/index']],
+                                    ['label' => 'Agregar', 'iconStyle' => 'far', 'url' => ['site/register']],
+                                ]
+                            ],
+                        ]
+                    ]);
+                }
+                //menu super administrador
+                if (Yii::$app->user->identity->role == 8) {
+                    echo \hail812\adminlte\widgets\Menu::widget([
+                        'items' => [
+                            //menu funcionario
+                            ['label' => 'Cometido', 'header' => true],
+                            ['label' => 'Mis Cometidos', 'iconStyle' => 'far', 'url' => ['cometido/index1']],
+
+                            //menu asignador
+                            ['label' => 'Asignar', 'header' => true],
+                            ['label' => 'Asignar Vehiculo', 'iconStyle' => 'far', 'url' => ['viaje/cometidos4']],
+
+                            //menu chofer
+                            ['label' => 'Viajes (chofer)', 'header' => true],
+                            [
+                                'label' => 'Viajes',
+                                'items' => [
+                                    ['label' => 'Todos mis Viajes', 'iconStyle' => 'far', 'url' => ['viaje/cometidos']],
+                                    ['label' => 'Viajes por iniciar', 'iconStyle' => 'far', 'url' => ['viaje/cometidos1']],
+                                    ['label' => 'Viajes iniciados', 'iconStyle' => 'far', 'url' => ['viaje/cometidos2']],
+                                    ['label' => 'Viajes Terminados', 'iconStyle' => 'far', 'url' => ['viaje/cometidos3']],
+
+                                ],
+                            ],
+                            //menbu jefes
+                            ['label' => 'Jefes', 'header' => true],
+                            [
+                                'label' => 'Cometidos',
+                                'items' => [
+                                    ['label' => 'Cometidos por Aprobar', 'iconStyle' => 'far', 'url' => ['cometido/index3']],
+                                    ['label' => 'Cometidos ya Aprobados', 'iconStyle' => 'far', 'url' => ['cometido/index4']],
+                                ],
+                            ],
+                            // menu directores
+                            ['label' => 'Directores', 'header' => true],
+                            [
+                                'label' => 'Cometidos',
+                                'items' => [
+                                    ['label' => 'Cometidos por Autorizar', 'iconStyle' => 'far', 'url' => ['cometido/index2']],
+                                    ['label' => 'Cometidos ya Autorizados', 'iconStyle' => 'far', 'url' => ['cometido/index5']],
+                                ],
+                            ],
+                            ['label' => 'Administrador', 'header' => true],
                             [
                                 'label' => 'Vehiculo',
                                 'items' => [

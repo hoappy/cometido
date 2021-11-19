@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id_vehiculo')->textInput() ?>
+
 
     <?= $form->field($model, 'patente')->textInput(['maxlength' => true]) ?>
 
@@ -24,7 +24,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'num_chasis')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'estado')->textInput() ?>
+
 
     <?= $form->field($model, 'kilometraje')->textInput() ?>
 
