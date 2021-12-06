@@ -13,6 +13,7 @@ class FormRegister extends model
     public $password_repeat;
 
     public $rut;
+    public $dv;
 
     public $role;
     public $nombre;
@@ -24,7 +25,7 @@ class FormRegister extends model
     public function rules()
     {
         return [
-            [['rut', 'role', 'nombre', 'grado', 'fk_id_departamento', 'tipo_funcionario',/*'username',*/ 'email', 'password', 'password_repeat'], 'required', 'message' => 'Campo requerido'],
+            [['rut', 'dv',  'role', 'nombre', 'grado', 'fk_id_departamento', 'tipo_funcionario',/*'username',*/ 'email', 'password', 'password_repeat'], 'required', 'message' => 'Campo requerido'],
             //['username', 'match', 'pattern' => "/^.{3,50}$/", 'message' => 'Mínimo 3 y máximo 50 caracteres'],
             //['username', 'match', 'pattern' => "/^[0-9a-z]+$/i", 'message' => 'Sólo se aceptan letras y números'],
             ['rut', 'match', 'pattern' => "/^[0-9]+$/i", 'message' => 'Ingrese el Rut sin puntos ni guion y sin digito verificador'],
@@ -67,13 +68,11 @@ class FormRegister extends model
         }
     }
 
-    public function valida_rut($attribute)
+    public function valida_rut($attribute)//modificar
     {
         $dv  = Users::dv($this->rut);
 
-        if ($dv == 'k' || $dv <= 9 || $dv >= 0) {
-            
-        }else{
+        if ($dv != $this->dv) {
             $this->addError($attribute, "Rut ingresado es Invalido " . $dv);
         }
     }

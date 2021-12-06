@@ -1,5 +1,8 @@
 <?php
 
+use app\models\User;
+use app\models\Users;
+use app\models\Vehiculo;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -7,7 +10,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Viaje */
 
 $this->title = $model->id_viaje;
-$this->params['breadcrumbs'][] = ['label' => 'Viajes', 'url' => ['index']];
+//$this->params['breadcrumbs'][] = ['label' => 'Viajes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -29,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id_viaje',
+            //'id_viaje',
             'hora_salida',
             'hora_llegada',
             'combustible_litros',
@@ -37,11 +40,25 @@ $this->params['breadcrumbs'][] = $this->title;
             'kilometros_salida',
             'kilometros_llegada',
             'kilometros_total',
-            'estado',
+            //'estado',
             'observaciones',
-            'fk_id_vehiculo',
-            'fk_id_cometido',
-            'fk_id',
+            [
+                'label' => 'Vehiculo',
+                'value' => function($model){
+                    $vehiculo = Vehiculo::find()->where('id_vehiculo', $model->fk_id_vehiculo)->one();
+                    return $vehiculo['marca'] . ' ' . $vehiculo['modelo'] .' ' . $vehiculo['patente'];
+                }
+            ],
+            /*[
+                'label' => 'Chofer',
+                'value' => function($model){
+                    $user = Users::find()->where('id', $model->fk_id)->one();
+                    return $user['nombre'] . ' ' . $user['rut'] . '-' . $user->dv($user['rut']);
+                }
+            ],*/
+            //'fk_id_vehiculo',
+            //'fk_id_cometido',
+            //'fk_id',
         ],
     ]) ?>
 

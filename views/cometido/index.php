@@ -43,19 +43,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => 
                 
                 function ($model) {
-                    if($model->tranporte_ida == '0'){
+                    if($model['tranporte_ida'] == '0'){
                         return 'Vehiculo SERVIU';
                     };
-                    if($model->tranporte_ida == '1'){
+                    if($model['tranporte_ida'] == '1'){
                         return 'Locomocion Colectiva';
                     };
-                    if($model->tranporte_ida == '2'){
+                    if($model['tranporte_ida'] == '2'){
                         return 'Bus Inter Urbano';
                     };
-                    if($model->tranporte_ida == '3'){
+                    if($model['tranporte_ida'] == '3'){
                         return 'Taxi / Uber / Didi / Cabify';
                     };
-                    if($model->tranporte_ida == '4'){
+                    if($model['tranporte_ida'] == '4'){
                         return 'Personal';
                     };
                     
@@ -71,19 +71,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => 
                 
                 function ($model) {
-                    if($model->transporte_regreso == '0'){
+                    if($model['transporte_regreso'] == '0'){
                         return 'Vehiculo SERVIU';
                     };
-                    if($model->transporte_regreso == '1'){
+                    if($model['transporte_regreso'] == '1'){
                         return 'Locomocion Colectiva';
                     };
-                    if($model->transporte_regreso == '2'){
+                    if($model['transporte_regreso'] == '2'){
                         return 'Bus Inter Urbano';
                     };
-                    if($model->transporte_regreso == '3'){
+                    if($model['transporte_regreso'] == '3'){
                         return 'Taxi / Uber / Didi / Cabify';
                     };
-                    if($model->transporte_regreso == '4'){
+                    if($model['transporte_regreso'] == '4'){
                         return 'Personal';
                     };
                     
@@ -98,37 +98,37 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => 
                 
                 function ($model) {
-                    if($model->estado == '0'){
+                    if($model['estado'] == '0'){
                         return 'Enviado por el Funcionario';
                     };
-                    if($model->estado == '1'){
+                    if($model['estado'] == '1'){
                         return 'Aceptado por el Jefe Departamento';
                     };
-                    if($model->estado == '2'){
+                    if($model['estado'] == '2'){
                         return 'Autorizado por el Director';
                     };
-                    if($model->estado == '3'){
+                    if($model['estado'] == '3'){
                         return 'Vehiculo Pendiente de Asignacion';
                     };
-                    if($model->estado == '4'){
+                    if($model['estado'] == '4'){
                         return 'Vehiculo Asignado';
                     };
-                    if($model->estado == '5'){
+                    if($model['estado'] == '5'){
                         return 'En Cometido';
                     };
-                    if($model->estado == '6'){
+                    if($model['estado'] == '6'){
                         return 'Cometido Finalizado';
                     };
-                    if($model->estado == '7'){
+                    if($model['estado'] == '7'){
                         return 'Rechazado por Jefe Departamento';
                     };
-                    if($model->estado == '8'){
+                    if($model['estado'] == '8'){
                         return 'Denegado por Director';
                     };
-                    if($model->estado == '9'){
+                    if($model['estado'] == '9'){
                         return 'Cancelado por el Usuario';
                     };
-                    if($model->estado == '10'){
+                    if($model['estado'] == '10'){
                         return 'Cancelado por Falta de Vehiculos';
                     };
                     
@@ -137,12 +137,26 @@ $this->params['breadcrumbs'][] = $this->title;
                 
 
             ] ,
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{Cancelar}',
+                'buttons' => [
+                    'Cancelar' => function ($url, $model, $key) {
+                        if ($model['estado'] == '0') {
+                            return Html::a('<a class="btn btn-danger" href="index.php?r=cometido/cancelar&id=' . $model['id_cometido'] . '">Cancelar</a>');
+                        }
+                    },
+                    'Ver' => function ($url, $model, $key) {
+                        return Html::a('<a class="btn btn-primary" href="index.php?r=cometido/view&id=' . $model['id_cometido'] . '">Ver Cometido</a>');
+                    },
+                ],
+            ]
             //'descreipcion',
             //'fk_id_item',
             //'fk_id',
             //'fk_id_director',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            //['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 

@@ -14,6 +14,7 @@ use yii\data\SqlDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Html;
 
 /**
  * CometidoController implements the CRUD actions for Cometido model.
@@ -56,60 +57,82 @@ class CometidoController extends Controller
     //mis cometidos
     public function actionIndex1()
     {
-        $searchModel = new CometidoSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $model = new SqlDataProvider([
+            'sql' => 'select * from cometido 
+            where fk_id_funcionario = '.Yii::$app->user->identity->id,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'dataProvider' => $model,
         ]);
     }
 
     //cometidos por autorizar
     public function actionIndex2()
     {
-        $searchModel = new CometidoSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $model = new SqlDataProvider([
+            'sql' => 'select * from cometido
+            where cometido.estado = 1',
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+        return $this->render('director', [
+            'dataProvider' => $model,
         ]);
     }
 
     //cometidos por aprobar
     public function actionIndex3()
     {
-        $searchModel = new CometidoSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $model = new SqlDataProvider([
+            'sql' => 'select cometido.estado, cometido.transporte_regreso, cometido.tranporte_ida, cometido.fecha_fin, cometido.fecha_inicio, cometido.fk_id_funcionario, cometido.id_cometido 
+            from cometido join user on cometido.fk_id_funcionario = user.id
+            where cometido.estado = 0 and user.fk_id_departamento = ' . Yii::$app->user->identity->fk_id_departamento,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+        return $this->render('jefe', [
+            'dataProvider' => $model,
         ]);
     }
 
     //cometidos ya aprobados
     public function actionIndex4()
     {
-        $searchModel = new CometidoSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $model = new SqlDataProvider([
+            'sql' => 'select cometido.estado, cometido.transporte_regreso, cometido.tranporte_ida, cometido.fecha_fin, cometido.fecha_inicio, cometido.fk_id_funcionario, cometido.id_cometido 
+            from cometido join user on cometido.fk_id_funcionario = user.id
+            where cometido.estado > 0 and user.fk_id_departamento = ' . Yii::$app->user->identity->fk_id_departamento,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+        return $this->render('jefe', [
+            'dataProvider' => $model,
         ]);
     }
 
     //cometidos ya autorizados
     public function actionIndex5()
     {
-        $searchModel = new CometidoSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $model = new SqlDataProvider([
+            'sql' => 'select * from cometido
+            where cometido.estado > 1',
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+        return $this->render('director', [
+            'dataProvider' => $model,
         ]);
     }
 
@@ -249,4 +272,209 @@ class CometidoController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    public function actionCancelar()
+    {
+        $table = new Cometido;
+        $msg = null;
+        
+        if (Yii::$app->request->get()) {
+
+            //Obtenemos el valor de los parámetros get
+            $id = Html::encode($_GET["id"]);
+
+            if ((int)$id) {
+                //Realizamos la consulta para obtener el registro
+                $model = $table
+                    ->find()
+                    ->where("id_cometido=:id", [":id" => $id]);
+
+                //Si el registro existe
+                if ($model->count() == 1) {
+                    $estado = Cometido::findOne($id);
+                    $estado->estado = 9;
+                    if ($estado->update()) {
+                        $msg = "La cancelacion del usuario fue llevado a cabo correctamente";
+                        return $this->redirect(["cometido/index1"]);
+                        //return $this->actionView($id);
+                    } else {
+                        $msg = "Ha ocurrido un error al realizar la cancelqacion";
+                        return $this->redirect(["cometido/index1"]);
+                        //return $this->actionView($id);
+                    }
+                } else //Si no existe redireccionamos a login
+                {
+                    return $this->redirect(["cometido/index1"]);
+                }
+            } else //Si id no es un número entero redireccionamos a login
+            {
+                return $this->redirect(["cometido/index1"]);
+            }
+        }
+    }
+
+    public function actionAceptar()
+    {
+        $table = new Cometido;
+        $msg = null;
+        
+        if (Yii::$app->request->get()) {
+
+            //Obtenemos el valor de los parámetros get
+            $id = Html::encode($_GET["id"]);
+
+            if ((int)$id) {
+                //Realizamos la consulta para obtener el registro
+                $model = $table
+                    ->find()
+                    ->where("id_cometido=:id", [":id" => $id]);
+
+                //Si el registro existe
+                if ($model->count() == 1) {
+                    $estado = Cometido::findOne($id);
+                    $estado->estado = 1;
+                    if ($estado->update()) {
+                        //$msg = "La cancelacion del usuario fue llevado a cabo correctamente";
+                        return $this->redirect(["cometido/index3"]);
+                        //return $this->actionView($id);
+                    } else {
+                        //$msg = "Ha ocurrido un error al realizar la cancelqacion";
+                        return $this->redirect(["cometido/index3"]);
+                        //return $this->actionView($id);
+                    }
+                } else //Si no existe redireccionamos a login
+                {
+                    return $this->redirect(["cometido/index3"]);
+                }
+            } else //Si id no es un número entero redireccionamos a login
+            {
+                return $this->redirect(["cometido/index3"]);
+            }
+        }
+    }
+
+    public function actionRechazar()
+    {
+        $table = new Cometido;
+        $msg = null;
+        
+        if (Yii::$app->request->get()) {
+
+            //Obtenemos el valor de los parámetros get
+            $id = Html::encode($_GET["id"]);
+
+            if ((int)$id) {
+                //Realizamos la consulta para obtener el registro
+                $model = $table
+                    ->find()
+                    ->where("id_cometido=:id", [":id" => $id]);
+
+                //Si el registro existe
+                if ($model->count() == 1) {
+                    $estado = Cometido::findOne($id);
+                    $estado->estado = 7;
+                    if ($estado->update()) {
+                        //$msg = "La cancelacion del usuario fue llevado a cabo correctamente";
+                        return $this->redirect(["cometido/index3"]);
+                        //return $this->actionView($id);
+                    } else {
+                        //$msg = "Ha ocurrido un error al realizar la cancelqacion";
+                        return $this->redirect(["cometido/index3"]);
+                        //return $this->actionView($id);
+                    }
+                } else //Si no existe redireccionamos a login
+                {
+                    return $this->redirect(["cometido/index3"]);
+                }
+            } else //Si id no es un número entero redireccionamos a login
+            {
+                return $this->redirect(["cometido/index3"]);
+            }
+        }
+    }
+
+    public function actionAutorizar()
+    {
+        $table = new Cometido;
+        $msg = null;
+        
+        if (Yii::$app->request->get()) {
+
+            //Obtenemos el valor de los parámetros get
+            $id = Html::encode($_GET["id"]);
+
+            if ((int)$id) {
+                //Realizamos la consulta para obtener el registro
+                $model = $table
+                    ->find()
+                    ->where("id_cometido=:id", [":id" => $id]);
+
+                //Si el registro existe
+                if ($model->count() == 1) {
+                    $estado = Cometido::findOne($id);
+                    if ($estado->tranporte_ida == '0' || $estado->transporte_regreso == '0'){
+                        $estado->estado = 3;
+                    }else{
+                        $estado->estado = 2;
+                    }
+                    if ($estado->update()) {
+                        //$msg = "La cancelacion del usuario fue llevado a cabo correctamente";
+                        return $this->redirect(["cometido/index2"]);
+                        //return $this->actionView($id);
+                    } else {
+                        //$msg = "Ha ocurrido un error al realizar la cancelqacion";
+                        return $this->redirect(["cometido/index2"]);
+                        //return $this->actionView($id);
+                    }
+                } else //Si no existe redireccionamos a login
+                {
+                    return $this->redirect(["cometido/index2"]);
+                }
+            } else //Si id no es un número entero redireccionamos a login
+            {
+                return $this->redirect(["cometido/index2"]);
+            }
+        }
+    }
+
+    public function actionDenegar()
+    {
+        $table = new Cometido;
+        $msg = null;
+        
+        if (Yii::$app->request->get()) {
+
+            //Obtenemos el valor de los parámetros get
+            $id = Html::encode($_GET["id"]);
+
+            if ((int)$id) {
+                //Realizamos la consulta para obtener el registro
+                $model = $table
+                    ->find()
+                    ->where("id_cometido=:id", [":id" => $id]);
+
+                //Si el registro existe
+                if ($model->count() == 1) {
+                    $estado = Cometido::findOne($id);
+                    $estado->estado = 8;
+                    if ($estado->update()) {
+                        //$msg = "La cancelacion del usuario fue llevado a cabo correctamente";
+                        return $this->redirect(["cometido/index2"]);
+                        //return $this->actionView($id);
+                    } else {
+                        //$msg = "Ha ocurrido un error al realizar la cancelqacion";
+                        return $this->redirect(["cometido/index2"]);
+                        //return $this->actionView($id);
+                    }
+                } else //Si no existe redireccionamos a login
+                {
+                    return $this->redirect(["cometido/index2"]);
+                }
+            } else //Si id no es un número entero redireccionamos a login
+            {
+                return $this->redirect(["cometido/index2"]);
+            }
+        }
+    }
+    
 }

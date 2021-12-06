@@ -50,6 +50,7 @@ use yii\widgets\ActiveForm;
 
 <div class="form-group">
     <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+    <?= Html::a('<a class="btn btn-danger" href="index.php?r=viaje/denegar&id=' . $model->fk_id_cometido . '">Denegar Asignacion</a>')?>
 </div>
 
 <?php ActiveForm::end(); ?>

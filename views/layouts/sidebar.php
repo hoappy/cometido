@@ -78,7 +78,7 @@
                             [
                                 'label' => 'Viajes',
                                 'items' => [
-                                    ['label' => 'Todos mis Viajes', 'iconStyle' => 'far', 'url' => ['viaje/cometidos']],
+                                    //['label' => 'Todos mis Viajes', 'iconStyle' => 'far', 'url' => ['viaje/cometidos']],
                                     ['label' => 'Viajes por iniciar', 'iconStyle' => 'far', 'url' => ['viaje/cometidos1']],
                                     ['label' => 'Viajes iniciados', 'iconStyle' => 'far', 'url' => ['viaje/cometidos2']],
                                     ['label' => 'Viajes Terminados', 'iconStyle' => 'far', 'url' => ['viaje/cometidos3']],
@@ -92,6 +92,7 @@
                 if (Yii::$app->user->identity->role == 3 || Yii::$app->user->identity->role == 4) {
                     echo \hail812\adminlte\widgets\Menu::widget([
                         'items' => [
+                            ['label' => 'Cometidos', 'header' => true],
                             [
                                 'label' => 'Cometidos',
                                 'items' => [
@@ -99,7 +100,19 @@
                                     ['label' => 'Cometidos por Aprobar', 'iconStyle' => 'far', 'url' => ['cometido/index3']],
                                     ['label' => 'Cometidos ya Aprobados', 'iconStyle' => 'far', 'url' => ['cometido/index4']],
                                 ],
-                            ]
+                            ],
+                            ['label' => 'Estadisticas', 'header' => true],
+                            [
+                                'label' => 'Estadisticas',
+                                'items' => [
+                                    //['label' => 'Todos mis Viajes', 'iconStyle' => 'far', 'url' => ['viaje/cometidos']],
+                                    ['label' => 'Reporte Cometido', 'iconStyle' => 'far', 'url' => ['reporte/cometido']],
+                                    ['label' => 'Reporte Viatico', 'iconStyle' => 'far', 'url' => ['reporte/viatico']],
+                                    ['label' => 'Reporte Sector', 'iconStyle' => 'far', 'url' => ['reporte/sector']],
+                                    ['label' => 'Reporte Viaje', 'iconStyle' => 'far', 'url' => ['reporte/viaje']],
+
+                                ],
+                            ],
                         ]
                     ]);
                 }
@@ -114,7 +127,19 @@
                                     ['label' => 'Cometidos por Autorizar', 'iconStyle' => 'far', 'url' => ['cometido/index2']],
                                     ['label' => 'Cometidos ya Autorizados', 'iconStyle' => 'far', 'url' => ['cometido/index5']],
                                 ],
-                            ]
+                            ],
+                            ['label' => 'Estadisticas', 'header' => true],
+                            [
+                                'label' => 'Estadisticas',
+                                'items' => [
+                                    //['label' => 'Todos mis Viajes', 'iconStyle' => 'far', 'url' => ['viaje/cometidos']],
+                                    ['label' => 'Reporte Cometido', 'iconStyle' => 'far', 'url' => ['reporte/cometido']],
+                                    ['label' => 'Reporte Viatico', 'iconStyle' => 'far', 'url' => ['reporte/viatico']],
+                                    ['label' => 'Reporte Sector', 'iconStyle' => 'far', 'url' => ['reporte/sector']],
+                                    ['label' => 'Reporte Viaje', 'iconStyle' => 'far', 'url' => ['reporte/viaje']],
+
+                                ],
+                            ],
                         ]
                     ]);
                 }
@@ -204,6 +229,7 @@
                         'items' => [
                             //menu funcionario
                             ['label' => 'Cometido', 'header' => true],
+                            //['label' => 'Todos Los Cometidos', 'iconStyle' => 'far', 'url' => ['cometido/index']],
                             ['label' => 'Mis Cometidos', 'iconStyle' => 'far', 'url' => ['cometido/index1']],
 
                             //menu asignador
@@ -215,7 +241,7 @@
                             [
                                 'label' => 'Viajes',
                                 'items' => [
-                                    ['label' => 'Todos mis Viajes', 'iconStyle' => 'far', 'url' => ['viaje/cometidos']],
+                                    //['label' => 'Todos mis Viajes', 'iconStyle' => 'far', 'url' => ['viaje/cometidos']],
                                     ['label' => 'Viajes por iniciar', 'iconStyle' => 'far', 'url' => ['viaje/cometidos1']],
                                     ['label' => 'Viajes iniciados', 'iconStyle' => 'far', 'url' => ['viaje/cometidos2']],
                                     ['label' => 'Viajes Terminados', 'iconStyle' => 'far', 'url' => ['viaje/cometidos3']],
@@ -311,6 +337,18 @@
                                     ['label' => 'Listas', 'iconStyle' => 'far', 'url' => ['users/index']],
                                     ['label' => 'Agregar', 'iconStyle' => 'far', 'url' => ['site/register']],
                                 ]
+                            ],
+                            ['label' => 'Estadisticas', 'header' => true],
+                            [
+                                'label' => 'Estadisticas',
+                                'items' => [
+                                    //['label' => 'Todos mis Viajes', 'iconStyle' => 'far', 'url' => ['viaje/cometidos']],
+                                    ['label' => 'Reporte Cometido', 'iconStyle' => 'far', 'url' => ['reporte/cometido']],
+                                    ['label' => 'Reporte Viatico', 'iconStyle' => 'far', 'url' => ['reporte/viatico']],
+                                    ['label' => 'Reporte Sector', 'iconStyle' => 'far', 'url' => ['reporte/sector']],
+                                    ['label' => 'Reporte Viaje', 'iconStyle' => 'far', 'url' => ['reporte/viaje']],
+
+                                ],
                             ],
                         ]
                     ]);

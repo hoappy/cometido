@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-11-2021 a las 18:56:58
+-- Tiempo de generación: 02-12-2021 a las 02:55:52
 -- Versión del servidor: 10.4.20-MariaDB
 -- Versión de PHP: 7.3.29
 
@@ -55,7 +55,7 @@ CREATE TABLE `cometido` (
   `con_viatico` tinyint(1) NOT NULL,
   `dias_sin_pernoctar` int(11) NOT NULL,
   `dias_con_pernoctar` int(11) NOT NULL,
-  `monto` int(11) NOT NULL,
+  `monto` int(11) DEFAULT NULL,
   `fecha_inicio` date NOT NULL,
   `fecha_fin` date NOT NULL,
   `hora_inicio` time NOT NULL,
@@ -76,8 +76,18 @@ CREATE TABLE `cometido` (
 --
 
 INSERT INTO `cometido` (`id_cometido`, `con_viatico`, `dias_sin_pernoctar`, `dias_con_pernoctar`, `monto`, `fecha_inicio`, `fecha_fin`, `hora_inicio`, `hora_fin`, `motivo_cometido`, `tranporte_ida`, `transporte_regreso`, `estado`, `descreipcion`, `fk_id_item`, `fk_id_funcionario`, `fk_id_director`, `fk_id_jefe`) VALUES
-(1, 1, 1, 1, 12000, '2021-11-07', '2021-11-01', '15:36:00', '14:36:00', 'asd', 0, 2, 0, 'asd', 1, 1, NULL, NULL),
-(2, 1, 1, 2, 12000, '2021-11-12', '2021-11-20', '00:47:00', '19:51:00', 'asd', 1, 0, 0, 'asd', 2, 1, NULL, NULL);
+(1, 1, 1, 1, 12000, '2021-11-07', '2021-11-01', '15:36:00', '14:36:00', 'asd', 0, 2, 0, 'asd', 1, 4, NULL, NULL),
+(2, 1, 1, 2, 12000, '2021-11-12', '2021-11-20', '00:47:00', '19:51:00', 'asd', 1, 0, 0, 'asd', 2, 4, NULL, NULL),
+(7, 1, 1, 1, 12000, '2021-11-07', '2021-11-01', '15:36:00', '14:36:00', 'asd', 0, 2, 0, 'asd', 1, 4, NULL, NULL),
+(14, 1, 1, 1, 12000, '2021-11-07', '2021-11-01', '15:36:00', '14:36:00', 'asd', 0, 2, 1, 'asd', 1, 4, NULL, NULL),
+(15, 1, 1, 1, 12000, '2021-11-07', '2021-11-01', '15:36:00', '14:36:00', 'asd', 0, 2, 1, 'asd', 1, 4, NULL, NULL),
+(16, 1, 1, 2, 12000, '2021-11-12', '2021-11-20', '00:47:00', '19:51:00', 'asd', 1, 0, 1, 'asd', 2, 4, NULL, NULL),
+(17, 1, 1, 1, 12000, '2021-11-07', '2021-11-01', '15:36:00', '14:36:00', 'asd', 0, 2, 2, 'asd', 1, 4, NULL, NULL),
+(18, 1, 1, 1, 12000, '2021-11-07', '2021-11-01', '15:36:00', '14:36:00', 'asd', 0, 2, 2, 'asd', 1, 4, NULL, NULL),
+(19, 1, 1, 1, 12000, '2021-11-07', '2021-11-01', '15:36:00', '14:36:00', 'asd', 0, 2, 2, 'asd', 1, 4, NULL, NULL),
+(20, 1, 1, 1, 12000, '2021-11-07', '2021-11-01', '15:36:00', '14:36:00', 'asd', 0, 2, 9, 'asd', 1, 4, NULL, NULL),
+(21, 1, 1, 1, 12000, '2021-11-07', '2021-11-01', '15:36:00', '14:36:00', 'asd', 0, 2, 9, 'asd', 1, 4, NULL, NULL),
+(22, 0, 2, 3, 12000, '2021-11-05', '2021-11-12', '19:07:00', '19:07:00', 'preuba calculo monto', 0, 0, 0, 'asd', 1, 4, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -132,7 +142,8 @@ INSERT INTO `destino` (`id_destino`, `fk_id_cometido`, `fk_id_sector`) VALUES
 (14, 1, 2),
 (15, 1, 3),
 (16, 1, 2),
-(17, 2, 3);
+(17, 2, 3),
+(18, 22, 1);
 
 -- --------------------------------------------------------
 
@@ -273,8 +284,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `nombre`, `email`, `rut`, `estado`, `grado`, `tipo_funcionario`, `role`, `password`, `authKey`, `accessToken`, `activate`, `fk_id_departamento`) VALUES
-(1, 'Chofer', 'null', 22222222, 1, 25, 1, 2, 'asd', 'asd', 'asd', 1, 1),
-(3, 'Chofer', 'null', 22222222, 1, 25, 1, 1, 'asd', 'asd', 'asd', 1, 1);
+(4, 'Rodrigo Andres Garcia Trautmann', 'hoappy.p@gmail.com', 19671144, 1, 0, 2, 8, 'canvMpHUCkkUg', 'f4d661e3e13840a61a474453ce7782d7e54a09673d8df2571fdf29794861f93116b7f396361a516c6b0f51c7a1603e2f4d35d73ee547aa6d7f139fd5f1a2e39c25550d32a89dddc0a302c907db0f84a4f4b7e3a5994b93e9342df5775624b2885b3b9376', 'fe5cb35c942326531317b67bd0a6c115bf5a74ee11a5e9feca2418aa70108aeb46ccf81affa3d58877fdc5ef534c1abfab57becb9c2830315d1dd8142834aed8c0ea8b5151586e632abf1ca0fb1e3e682b00da479cbcc97df721dea997df6384ecffaeaa', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -293,6 +303,13 @@ CREATE TABLE `vehiculo` (
   `kilometraje` int(11) NOT NULL,
   `rendimiento` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `vehiculo`
+--
+
+INSERT INTO `vehiculo` (`id_vehiculo`, `patente`, `modelo`, `marca`, `tipo_combustible`, `num_chasis`, `estado`, `kilometraje`, `rendimiento`) VALUES
+(0, 'ghgh12', 'modelo', 'marca', 0, 'as4d8546as45d', 1, 0, 10);
 
 -- --------------------------------------------------------
 
@@ -315,6 +332,15 @@ CREATE TABLE `viaje` (
   `fk_id_cometido` int(11) NOT NULL,
   `fk_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `viaje`
+--
+
+INSERT INTO `viaje` (`id_viaje`, `hora_salida`, `hora_llegada`, `combustible_litros`, `combustible_pesos`, `kilometros_salida`, `kilometros_llegada`, `kilometros_total`, `estado`, `observaciones`, `fk_id_vehiculo`, `fk_id_cometido`, `fk_id`) VALUES
+(17, NULL, '14:36:00', NULL, NULL, NULL, 55, 0, 1, 'sin observacones', 0, 22, 4),
+(18, '11:35:00', '11:40:00', NULL, NULL, 55, 66, -55, 1, 'sin observacones', 0, 16, 4),
+(19, '12:36:00', NULL, NULL, NULL, 11, NULL, NULL, 1, NULL, 0, 1, 4);
 
 --
 -- Índices para tablas volcadas
@@ -395,7 +421,8 @@ ALTER TABLE `user`
 -- Indices de la tabla `vehiculo`
 --
 ALTER TABLE `vehiculo`
-  ADD PRIMARY KEY (`id_vehiculo`);
+  ADD PRIMARY KEY (`id_vehiculo`),
+  ADD UNIQUE KEY `id_vehiculo` (`id_vehiculo`);
 
 --
 -- Indices de la tabla `viaje`
@@ -420,7 +447,7 @@ ALTER TABLE `ciudad`
 -- AUTO_INCREMENT de la tabla `cometido`
 --
 ALTER TABLE `cometido`
-  MODIFY `id_cometido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_cometido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `departamento`
@@ -432,7 +459,7 @@ ALTER TABLE `departamento`
 -- AUTO_INCREMENT de la tabla `destino`
 --
 ALTER TABLE `destino`
-  MODIFY `id_destino` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_destino` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `item_presupuestario`
@@ -468,13 +495,13 @@ ALTER TABLE `sector`
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `viaje`
 --
 ALTER TABLE `viaje`
-  MODIFY `id_viaje` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_viaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Restricciones para tablas volcadas

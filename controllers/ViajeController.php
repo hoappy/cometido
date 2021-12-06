@@ -11,6 +11,7 @@ use yii\data\SqlDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Html;
 
 /**
  * ViajeController implements the CRUD actions for Viaje model.
@@ -58,8 +59,9 @@ class ViajeController extends Controller
      */
     public function actionView($id)
     {
+        //return print_r(Viaje::find()->where(['id_viaje' => $id])->one());
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => Viaje::find()->where(['id_viaje' => $id])->one(),
         ]);
     }
 
@@ -144,7 +146,7 @@ class ViajeController extends Controller
 
     public function actionSalida($id)
     {
-        $model = Viaje::find('fk_id_cometido',$id)->one();
+        $model = Viaje::find()->where(['fk_id_cometido'=>$id])->one();
 
         //return print_r($model);
 
@@ -165,14 +167,16 @@ class ViajeController extends Controller
 
     public function actionLlegada($id)
     {
-        $model = Viaje::find('fk_id_cometido',$id)->one();
+        $model = Viaje::find()->where(['fk_id_cometido'=>$id])->one();
 
-        //return print_r($model);
+        //return print_r($model); 
 
         if ($this->request->isPost) {
 
             $cometido = Cometido::findOne($model->fk_id_cometido);
             $cometido->estado = '6';
+
+            $model->kilometros_total = $model->kilometros_llegada - $model->kilometros_salida;
 
             if ($model->load($this->request->post()) && $cometido->update(false) && $model->save()) {
                 return $this->redirect(['cometidos2']);
@@ -204,7 +208,7 @@ class ViajeController extends Controller
 
         $model = new SqlDataProvider([
             'sql' => "select * from cometido 
-            where estado >= 3 and estado <= 6 and tranporte_ida = 0 or transporte_regreso = 0",
+            where estado >= 3 and estado <= 6 and (tranporte_ida = 0 or transporte_regreso = 0)",
             'pagination' => [
                 'pageSize' => 10,
             ],
@@ -220,7 +224,7 @@ class ViajeController extends Controller
     {
 
         $model = new SqlDataProvider([
-            'sql' => "select * from cometido 
+            'sql' => "select * from cometido
             where estado = 4 and (tranporte_ida = 0 or transporte_regreso = 0)",
             'pagination' => [
                 'pageSize' => 10,
@@ -281,5 +285,45 @@ class ViajeController extends Controller
         return $this->render('index', [
             'model' => $model,
         ]);
+    }
+
+    public function actionDenegar()
+    {
+        $table = new Cometido;
+        $msg = null;
+        
+        if (Yii::$app->request->get()) {
+
+            //Obtenemos el valor de los parámetros get
+            $id = Html::encode($_GET["id"]);
+
+            if ((int)$id) {
+                //Realizamos la consulta para obtener el registro
+                $model = $table
+                    ->find()
+                    ->where("id_cometido=:id", [":id" => $id]);
+
+                //Si el registro existe
+                if ($model->count() == 1) {
+                    $estado = Cometido::findOne($id);
+                    $estado->estado = 10;
+                    if ($estado->update()) {
+                        //$msg = "La cancelacion del usuario fue llevado a cabo correctamente";
+                        return $this->redirect(["viaje/cometidos4"]);
+                        //return $this->actionView($id);
+                    } else {
+                        //$msg = "Ha ocurrido un error al realizar la cancelqacion";
+                        return $this->redirect(["viaje/cometidos4"]);
+                        //return $this->actionView($id);
+                    }
+                } else //Si no existe redireccionamos a login
+                {
+                    return $this->redirect(["viaje/cometidos4"]);
+                }
+            } else //Si id no es un número entero redireccionamos a login
+            {
+                return $this->redirect(["viaje/cometidos4"]);
+            }
+        }
     }
 }

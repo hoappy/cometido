@@ -1,7 +1,5 @@
 <?php
 
-use app\models\User;
-use app\models\Viaje;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -9,23 +7,23 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\CometidoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Listado Cometidos';
-//$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Cometidos';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="cometido-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?php // Html::a('Create Cometido', ['create'], ['class' => 'btn btn-success']) 
-        ?>
+        <?= Html::a('Create Cometido', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); 
     ?>
 
     <?= GridView::widget([
-        'dataProvider' => $model,
+        'dataProvider' => $dataProvider,
+        //'filterModel' => $searchModel,
         'columns' => [
             //['class' => 'yii\grid\SerialColumn'],
 
@@ -35,9 +33,9 @@ $this->title = 'Listado Cometidos';
             //'dias_con_pernoctar',
             //'monto',
             'fecha_inicio',
-            'hora_inicio',
             'fecha_fin',
-            'hora_fin',
+            //'hora_inicio',
+            //'hora_fin',
             //'motivo_cometido',
             //'tranporte_ida',
 
@@ -145,25 +143,15 @@ $this->title = 'Listado Cometidos';
                 'template' => '{ver}{link}',
                 'buttons' => [
                     'link' => function ($url, $model, $key) {
-                        if ($model['estado'] == '3') {
-                            return Html::a('<a class="btn btn-success" href="index.php?r=viaje/create&id=' . $model['id_cometido'] . '">Asignar</a>');
-                        }
-                        if ($model['estado'] == '4') {
-                            return Html::a('<a class="btn btn-success" href="index.php?r=viaje/salida&id=' . $model['id_cometido'] . '">Iniciar</a>');
-                        }
-                        if ($model['estado'] == '5') {
-                            return Html::a('<a class="btn btn-success" href="index.php?r=viaje/llegada&id=' . $model['id_cometido'] . '">Llegar</a>');
+                        if ($model['estado'] == '0') {
+  
+                            return Html::a('<a class="btn btn-success" href="index.php?r=cometido/aceptar&id=' . $model['id_cometido'] . '">aceptar</a>') 
+                                .Html::a('<a class="btn btn-danger" href="index.php?r=cometido/rechazar&id=' . $model['id_cometido'] . '">Rechazzar</a>');
+
                         }
                     },
                     'ver' => function ($url, $model, $key) {
-
-                        $viaje = Viaje::find()->where(['fk_id_cometido' => $model['id_cometido']])->one();
-
-                        //return $viaje['id_viaje'] . ' - ' . $viaje['fk_id_cometido'] . ' - ' . $model['id_cometido'];
-
-                        if ($viaje != null && $model['estado'] != '3') {
-                            return Html::a('<a class="btn btn-primary" href="index.php?r=viaje/view&id=' . $viaje->id_viaje . '">Ver Viaje</a>');
-                        }
+                        return Html::a('<a class="btn btn-primary" href="index.php?r=cometido/view&id=' . $model['id_cometido'] . '">Ver Cometido</a>');
                     },
                 ],
             ]
