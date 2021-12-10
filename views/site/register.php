@@ -29,7 +29,7 @@ use yii\widgets\ActiveForm;
                 <?= $form->field($model, 'rut')->textInput(['type' => 'number'])->hint('Ejemplo: 11222333 (sin puntos ni digito vereficador)') ?>
             </div>
             <div class="col-2">
-                <?= $form->field($model, 'dv')->textInput(['type' => 'number'])->hint('ingrese su digito verificador') ?>
+                <?= $form->field($model, 'dv')->textInput(['type' => 'text'])->hint('ingrese su digito verificador') ?>
             </div>
         </div>
     </div>

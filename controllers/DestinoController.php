@@ -10,6 +10,7 @@ use app\models\Provincia;
 use app\models\Region;
 use app\models\Sector;
 use Yii;
+use yii\data\SqlDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -75,6 +76,16 @@ class DestinoController extends Controller
         $model = new Destinos();
         $model->fk_id_cometido = $id_cometido;
 
+        $destinos = new SqlDataProvider([
+            'sql' => "select nombre_region, numero_region, nombre_provincia, nombre_ciudad, nombre_sector from destino 
+            join sector on sector.id_sector = destino.fk_id_sector 
+            join ciudad on ciudad.id_ciudad = sector.fk_id_ciudad
+            join provincia on provincia.id_provincia = ciudad.fk_id_provincia
+            join region on region.id_region = provincia.fk_id_region
+            where destino.fk_id_cometido = '$id_cometido'",
+           
+        ]);
+
         $msg = null;
 
         if ($model->load(Yii::$app->request->post())) {
@@ -107,6 +118,7 @@ class DestinoController extends Controller
         return $this->render('create', [
             'model' => $model,
             'msg' => $msg,
+            'destinos' => $destinos,
         ]);
     }
 

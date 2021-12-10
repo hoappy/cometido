@@ -41,7 +41,7 @@ class Viaje extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['fk_id_vehiculo', 'fk_id_cometido'], 'required'],
+            [['fk_id','fk_id_vehiculo', 'fk_id_cometido'], 'required'],
             [['hora_salida', 'hora_llegada'], 'safe'],
             [['combustible_litros', 'combustible_pesos', 'kilometros_salida', 'kilometros_llegada', 'kilometros_total', 'estado', 'fk_id_vehiculo', 'fk_id_cometido', 'fk_id'], 'integer'],
             [['observaciones'], 'string', 'max' => 100],
@@ -69,7 +69,7 @@ class Viaje extends \yii\db\ActiveRecord
             'observaciones' => 'Observaciones',
             'fk_id_vehiculo' => 'Vehiculo',
             'fk_id_cometido' => 'Cometido',
-            'fk_id' => 'Fk ID',
+            'fk_id' => 'Chofer',
         ];
     }
 

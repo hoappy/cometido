@@ -72,7 +72,13 @@ class FormRegister extends model
     {
         $dv  = Users::dv($this->rut);
 
-        if ($dv != $this->dv) {
+        $dv1 = $this->dv;
+
+        if ($dv1 == 'k'){
+            $dv1 = 'K';
+        }
+
+        if ($dv != $dv1) {
             $this->addError($attribute, "Rut ingresado es Invalido " . $dv);
         }
     }

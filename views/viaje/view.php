@@ -45,17 +45,18 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'Vehiculo',
                 'value' => function($model){
-                    $vehiculo = Vehiculo::find()->where('id_vehiculo', $model->fk_id_vehiculo)->one();
-                    return $vehiculo['marca'] . ' ' . $vehiculo['modelo'] .' ' . $vehiculo['patente'];
+                    $vehiculo = Vehiculo::findOne($model->fk_id_vehiculo);
+                    return $vehiculo->marca . ' + ' . $vehiculo->modelo .' + ' . $vehiculo->patente;
+                    //return $model->vehiculo->marca;
                 }
             ],
-            /*[
+            [
                 'label' => 'Chofer',
                 'value' => function($model){
-                    $user = Users::find()->where('id', $model->fk_id)->one();
-                    return $user['nombre'] . ' ' . $user['rut'] . '-' . $user->dv($user['rut']);
+                    $user = Users::findOne($model->fk_id);
+                    return $user->nombre . ' ' . $user->rut . '-' . $user->dv($user->rut);
                 }
-            ],*/
+            ],
             //'fk_id_vehiculo',
             //'fk_id_cometido',
             //'fk_id',

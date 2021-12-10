@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Cometido;
 use app\models\Users;
+use app\models\Vehiculo;
 use app\models\Viaje;
 use app\models\ViajeSearch;
 use Yii;
@@ -11,6 +12,7 @@ use yii\data\SqlDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
 /**
@@ -76,6 +78,34 @@ class ViajeController extends Controller
 
         $model->fk_id_cometido = $id;
 
+        $cometido = Cometido::findOne($id);
+
+        $user = ArrayHelper::getColumn(Viaje::find()
+                            ->select(['viaje.fk_id as id'])
+                            ->innerJoin('cometido', 'viaje.fk_id_cometido = cometido.id_cometido')
+                            ->where(['>=', 'fecha_inicio', $cometido->fecha_inicio])
+                            ->andWhere(['<=' , 'fecha_fin', $cometido->fecha_fin])
+                            ->asArray()
+                            ->all()
+                    ,'id');
+
+        $movil = ArrayHelper::getColumn(Viaje::find()
+                            ->select(['viaje.fk_id_vehiculo as id_vehiculo'])
+                            ->innerJoin('cometido', 'viaje.fk_id_cometido = cometido.id_cometido')
+                            ->where(['>=', 'fecha_inicio', $cometido->fecha_inicio])
+                            ->andWhere(['<=' , 'fecha_fin', $cometido->fecha_fin])
+                            ->asArray()
+                            ->all()
+                    ,'id_vehiculo');
+
+        //return print_r($user);
+
+        $users = Users::find(['role' => '2'])->andWhere(['not in', 'id',  $user])->all();
+
+        $movils = Vehiculo::find()->andWhere(['not in', 'id_vehiculo',  $movil])->all();
+
+        //return print_r($users);
+
         if ($this->request->isPost) {
 
             $cometido = Cometido::findOne($model->fk_id_cometido);
@@ -91,6 +121,8 @@ class ViajeController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'users' => $users,
+            'movils' => $movils,
         ]);
     }
 

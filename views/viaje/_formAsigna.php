@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
     echo  $form->field($model, 'fk_id_vehiculo')
         ->dropDownList(
             ArrayHelper::map(
-                Vehiculo::find()->all(),
+               $movils,
                 'id_vehiculo',
                 function ($query) {
                     return $query['marca'] . ' ' . $query['modelo'] . ' ' . $query['patente'];
@@ -30,7 +30,7 @@ use yii\widgets\ActiveForm;
     echo  $form->field($model, 'fk_id')//obtener estos valores por post ya que se tiene q hacer una consuklta sql elavorada
         ->dropDownList(
             ArrayHelper::map(
-                Users::find(['role' => '2'])->all(),
+                $users,
                 'id',
                 function ($query) {
                     return $query['nombre'] . ' ' . $query['rut'] . ' - ' . Users::dv($query['rut']);

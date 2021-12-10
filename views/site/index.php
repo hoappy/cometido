@@ -6,7 +6,7 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
 
 <h3><?= $msg  ?></h3>
 
-    <div class="row">
+    <!--<div class="row">
         <div class="col-lg-6">
             <?= \hail812\adminlte\widgets\Alert::widget([
                 'type' => 'success',
@@ -123,5 +123,5 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
                 'loadingStyle' => true
             ]) ?>
         </div>
-    </div>
+    </div>-->
 </div>

@@ -20,7 +20,7 @@ use yii\widgets\ActiveForm;
     </div>
     <div class="col-md">
         <?= $form->field($model, 'rut')->textInput(['type' => 'number'])->hint('Ejemplo: 11222333 (sin puntos ni digito vereficador)') ?>
-        <?= $form->field($model, 'dv')->textInput(['type' => 'number'])->hint('ingrese su digito verificador') ?>
+        <?= $form->field($model, 'dv')->textInput(['type' => 'text'])->hint('ingrese su digito verificador') ?>
     </div>
 </div>
 

@@ -139,7 +139,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ] ,
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{Cancelar}',
+                'template' => '{Cancelar}{Ver}',
                 'buttons' => [
                     'Cancelar' => function ($url, $model, $key) {
                         if ($model['estado'] == '0') {

@@ -1,5 +1,6 @@
 <?php
 
+use yii\grid\GridView;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
@@ -19,5 +20,25 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
+
+    <div class="row">
+        <div class="col-md">
+
+            <?= GridView::widget([
+                'dataProvider' => $destinos,
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
+
+                    'nombre_region',
+                    'numero_region',
+                    'nombre_provincia',
+                    'nombre_ciudad',
+                    'nombre_sector',
+
+                ],
+            ]); ?>
+
+        </div>
+    </div>
 
 </div>

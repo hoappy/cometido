@@ -333,6 +333,7 @@ class CometidoController extends Controller
                 if ($model->count() == 1) {
                     $estado = Cometido::findOne($id);
                     $estado->estado = 1;
+                    $estado->fk_id_jefe = Yii::$app->user->identity->id;
                     if ($estado->update()) {
                         //$msg = "La cancelacion del usuario fue llevado a cabo correctamente";
                         return $this->redirect(["cometido/index3"]);
@@ -373,6 +374,7 @@ class CometidoController extends Controller
                 if ($model->count() == 1) {
                     $estado = Cometido::findOne($id);
                     $estado->estado = 7;
+                    //$estado->fk_id_jefe = Yii::$app->user->identity->id;
                     if ($estado->update()) {
                         //$msg = "La cancelacion del usuario fue llevado a cabo correctamente";
                         return $this->redirect(["cometido/index3"]);
@@ -417,6 +419,7 @@ class CometidoController extends Controller
                     }else{
                         $estado->estado = 2;
                     }
+                    $estado->fk_id_director = Yii::$app->user->identity->id;
                     if ($estado->update()) {
                         //$msg = "La cancelacion del usuario fue llevado a cabo correctamente";
                         return $this->redirect(["cometido/index2"]);

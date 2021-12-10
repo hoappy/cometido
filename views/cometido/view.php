@@ -185,7 +185,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <br>
     <div class="row text-center">
         <div class="col-md">
-            <h5>Firma Jefe Director</h5>
+            <h5>Firma Jefe Departamento</h5>
             <?php
             if ($jefe != null) {
                 echo $jefe->nombre;
