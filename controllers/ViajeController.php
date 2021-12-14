@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Cometido;
+use app\models\FormLlegada;
 use app\models\Users;
 use app\models\Vehiculo;
 use app\models\Viaje;
@@ -199,19 +200,35 @@ class ViajeController extends Controller
 
     public function actionLlegada($id)
     {
-        $model = Viaje::find()->where(['fk_id_cometido'=>$id])->one();
+        $model = new FormLlegada();
 
+        $model->id_viaje = $id;
         //return print_r($model); 
 
         if ($this->request->isPost) {
 
-            $cometido = Cometido::findOne($model->fk_id_cometido);
-            $cometido->estado = '6';
+            if ($model->load($this->request->post())){
 
-            $model->kilometros_total = $model->kilometros_llegada - $model->kilometros_salida;
+                //return print_r($model);
 
-            if ($model->load($this->request->post()) && $cometido->update(false) && $model->save()) {
-                return $this->redirect(['cometidos2']);
+                $table = Viaje::find()->where(['fk_id_cometido'=>$model->id_viaje])->one();
+
+                $cometido = Cometido::findOne($table->fk_id_cometido);
+                $cometido->estado = '6';
+
+                $table->kilometros_total = ($model->kilometros_llegada - $table->kilometros_salida);
+
+                $table->kilometros_llegada = $model->kilometros_llegada;
+                $table->hora_llegada = $model->hora_llegada;
+                $table->combustible_litros = $model->combustible_litros;
+                $table->combustible_pesos = $model->combustible_pesos;
+                $table->observaciones = $model->observaciones;
+
+                //return print_r($table);
+
+                if ($cometido->update(false) && $table->save()) {
+                    return $this->redirect(['cometidos2']);
+                }
             }
         }
 

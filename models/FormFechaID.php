@@ -4,10 +4,11 @@ namespace app\models;
 
 use Yii;
 
-class FormFecha extends \yii\db\ActiveRecord
+class FormFechaID extends \yii\db\ActiveRecord
 {
     public $inicio;
     public $fin;
+    public $id;
     /**
      * {@inheritdoc}
      */
@@ -22,7 +23,7 @@ class FormFecha extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['inicio', 'fin'], 'required'],
+            [['inicio', 'fin', 'id'], 'required'],
             [['inicio', 'fin'], 'date', 'format' => 'dd-MM-yyyy'],
             [['inicio', 'fin'], 'rango'],
             ['fin', 'compare', 'compareAttribute' => 'inicio', 'operator' => '>'],
@@ -40,8 +41,7 @@ class FormFecha extends \yii\db\ActiveRecord
         }
     }
 
-
-    /*
+    /**
      * {@inheritdoc}
      */
     public function attributeLabels()
@@ -49,12 +49,13 @@ class FormFecha extends \yii\db\ActiveRecord
         return [
             'inicio' => 'Fecha Desde',
             'fin' => 'Fecha Hasta',
+            'id' => 'Seleccione un Parametro',
         ];
     }
 
     /**
      * Get the value of inicio
-     */
+     */ 
     public function getInicio()
     {
         return $this->inicio;
@@ -64,7 +65,7 @@ class FormFecha extends \yii\db\ActiveRecord
      * Set the value of inicio
      *
      * @return  self
-     */
+     */ 
     public function setInicio($inicio)
     {
         $this->inicio = $inicio;
@@ -74,7 +75,7 @@ class FormFecha extends \yii\db\ActiveRecord
 
     /**
      * Get the value of fin
-     */
+     */ 
     public function getFin()
     {
         return $this->fin;
@@ -84,10 +85,30 @@ class FormFecha extends \yii\db\ActiveRecord
      * Set the value of fin
      *
      * @return  self
-     */
+     */ 
     public function setFin($fin)
     {
         $this->fin = $fin;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of id
+     */ 
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set the value of id
+     *
+     * @return  self
+     */ 
+    public function setId($id)
+    {
+        $this->id = $id;
 
         return $this;
     }

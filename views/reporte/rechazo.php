@@ -6,7 +6,7 @@ use yii\widgets\ActiveForm;
 
 $form = ActiveForm::begin(); ?>
 
-<h1>Reporte de los Viaticos Por rango de meses seleccionado</h1>
+<h1>Reporte de los Cometidos Cancelados por falta de DisponibilidAS Por rango de meses seleccionado</h1>
 
 <div class="form-row">
     <div class="col-md">
@@ -26,13 +26,8 @@ $form = ActiveForm::begin(); ?>
 
 <div class="row">
     <div class="col-md">
-        <?= $chartGoogleSuma ?>
-    </div>
-    <div class="col-md">
         <?= $chartGoogleCant ?>
     </div>
-</div>
-<div class="row">
     <div class="col-md">
         <?php if ($model != null) {
             echo GridView::widget([
@@ -88,8 +83,6 @@ $form = ActiveForm::begin(); ?>
 
                     ],
                     'Cantidad',
-                    'Total',
-
                 ],
             ]);
         } ?>

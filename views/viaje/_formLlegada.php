@@ -36,7 +36,7 @@ use yii\widgets\ActiveForm;
     <?php // se calcula autmaticante como (kilometros_llegada - kilometros_salida)
     //lo siguiente se calculara en el controlador una vez ingresado todos los datos
     //$model->kilometros_total = ($model->kilometros_llegada-$model->kilometros_salida);
-    $form->field($model, 'kilometros_total')->textInput(['type' => 'number', 'readonly' => true]) ?>
+    //$form->field($model, 'kilometros_total')->textInput(['type' => 'number', 'readonly' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

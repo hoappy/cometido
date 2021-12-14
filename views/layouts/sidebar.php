@@ -347,6 +347,7 @@
                                     ['label' => 'Reporte Viatico', 'iconStyle' => 'far', 'url' => ['reporte/viatico']],
                                     ['label' => 'Reporte Sector', 'iconStyle' => 'far', 'url' => ['reporte/sector']],
                                     ['label' => 'Reporte Viaje', 'iconStyle' => 'far', 'url' => ['reporte/viaje']],
+                                    ['label' => 'Reporte Vehiculos Rechazados', 'iconStyle' => 'far', 'url' => ['reporte/rechazo']],
 
                                 ],
                             ],
