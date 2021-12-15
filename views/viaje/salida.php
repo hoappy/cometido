@@ -5,10 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Viaje */
 
-$this->title = 'Salida Viaje: ' . $model->id_viaje;
-$this->params['breadcrumbs'][] = ['label' => 'Viajes', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id_viaje, 'url' => ['view', 'id_viaje' => $model->id_viaje]];
-$this->params['breadcrumbs'][] = 'Salida';
+$this->title = 'Inicar Viaje: ' . $model->id_viaje;
+
 ?>
 <div class="viaje-salida">
 

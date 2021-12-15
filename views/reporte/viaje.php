@@ -46,11 +46,12 @@ $form = ActiveForm::begin(); ?>
     <div class="col-md">
         <?= $chartGoogleLitros ?>
     </div>
+
+</div>
+<div class="row">
     <div class="col-md">
         <?= $chartGooglePesos ?>
     </div>
-</div>
-<div class="row">
     <div class="col-md">
         <?php if ($model != null) {
             echo GridView::widget([

@@ -25,22 +25,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'combustible_pesos') ?>
 
-    <?php // echo $form->field($model, 'kilometros_salida') ?>
-
-    <?php // echo $form->field($model, 'kilometros_llegada') ?>
-
-    <?php // echo $form->field($model, 'kilometros_total') ?>
-
-    <?php // echo $form->field($model, 'estado') ?>
-
-    <?php // echo $form->field($model, 'observaciones') ?>
-
-    <?php // echo $form->field($model, 'fk_id_vehiculo') ?>
-
-    <?php // echo $form->field($model, 'fk_id_cometido') ?>
-
-    <?php // echo $form->field($model, 'fk_id') ?>
-
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>

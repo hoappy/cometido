@@ -151,7 +151,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
                     },
                     'ver' => function ($url, $model, $key) {
-                        return Html::a('<a class="btn btn-primary" href="index.php?r=cometido/view&id=' . $model['id_cometido'] . '">Ver Cometido</a>');
+                            if(($model['estado'] == '6' || $model['estado'] == '2') && $model['monto'] == null){
+                                return Html::a('<a class="btn btn-primary" href="index.php?r=cometido/view&id=' . $model['id_cometido'] . '">Ver Cometido</a>')
+                                    .Html::a('<a class="btn btn-success" href="index.php?r=cometido/monto&id=' . $model['id_cometido'] . '">Asignar Monto</a>');
+                            }else{
+                                return Html::a('<a class="btn btn-primary" href="index.php?r=cometido/view&id=' . $model['id_cometido'] . '">Ver Cometido</a>');
+                            };
                     },
                 ],
             ]

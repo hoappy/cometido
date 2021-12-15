@@ -9,25 +9,11 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Viaje */
 
-$this->title = $model->id_viaje;
-//$this->params['breadcrumbs'][] = ['label' => 'Viajes', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="viaje-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id_viaje], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id_viaje], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
 
     <?= DetailView::widget([
         'model' => $model,
@@ -46,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Vehiculo',
                 'value' => function($model){
                     $vehiculo = Vehiculo::findOne($model->fk_id_vehiculo);
-                    return $vehiculo->marca . ' + ' . $vehiculo->modelo .' + ' . $vehiculo->patente;
+                    return $vehiculo->marca . '  ' . $vehiculo->modelo .'  ' . $vehiculo->patente;
                     //return $model->vehiculo->marca;
                 }
             ],

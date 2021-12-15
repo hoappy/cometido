@@ -7,6 +7,7 @@ use app\models\Cometido;
 use app\models\CometidoSearch;
 use app\models\Departamento;
 use app\models\Destino;
+use app\models\FormMonto;
 use app\models\ItemPresupuestario;
 use app\models\Users;
 use Yii;
@@ -59,7 +60,7 @@ class CometidoController extends Controller
     {
         $model = new SqlDataProvider([
             'sql' => 'select * from cometido 
-            where fk_id_funcionario = '.Yii::$app->user->identity->id,
+            where fk_id_funcionario = ' . Yii::$app->user->identity->id,
             'pagination' => [
                 'pageSize' => 10,
             ],
@@ -107,7 +108,7 @@ class CometidoController extends Controller
     public function actionIndex4()
     {
         $model = new SqlDataProvider([
-            'sql' => 'select cometido.estado, cometido.transporte_regreso, cometido.tranporte_ida, cometido.fecha_fin, cometido.fecha_inicio, cometido.fk_id_funcionario, cometido.id_cometido 
+            'sql' => 'select cometido.monto, cometido.estado, cometido.transporte_regreso, cometido.tranporte_ida, cometido.fecha_fin, cometido.fecha_inicio, cometido.fk_id_funcionario, cometido.id_cometido 
             from cometido join user on cometido.fk_id_funcionario = user.id
             where cometido.estado > 0 and user.fk_id_departamento = ' . Yii::$app->user->identity->fk_id_departamento,
             'pagination' => [
@@ -147,13 +148,13 @@ class CometidoController extends Controller
         $model = Cometido::findOne($id);
         $funcionario = Users::findOne($model->fk_id);
         $departamento = Departamento::findOne($funcionario->fk_id_departamento);
-        
+
 
         return $this->render('view-original', [
-            'model' => $model, 
+            'model' => $model,
             'funcionario' => $funcionario,
             'departamento' => $departamento,
-            
+
         ]);
     }
     public function actionView($id)
@@ -169,7 +170,7 @@ class CometidoController extends Controller
             'fk_id_departamento'=>$funcionario->fk_id_departamento, 
             //agregar relacion entre cometido u usuario para ver la relacion entre jefe o jefe suplente
             'role' => '4'  // el rol 4 es jefe de departamento
-        ]); *///consulta antes de modificar la BDD
+        ]); */ //consulta antes de modificar la BDD
         $jefe = Users::findOne($cometido->fk_id_jefe);
         $item = ItemPresupuestario::findOne($cometido->fk_id_item);
         $director = Users::findOne($cometido->fk_id_director);
@@ -181,11 +182,11 @@ class CometidoController extends Controller
             join provincia on provincia.id_provincia = ciudad.fk_id_provincia
             join region on region.id_region = provincia.fk_id_region
             where destino.fk_id_cometido = '$id'",
-           
+
         ]);
 
         return $this->render('view', [
-            'cometido' => $cometido, 
+            'cometido' => $cometido,
             'funcionario' => $funcionario,
             'departamento' => $departamento,
             'jefe' => $jefe,
@@ -207,6 +208,8 @@ class CometidoController extends Controller
         $model->fk_id_funcionario = Yii::$app->user->identity->id;
 
         $model->estado = 0;
+
+        $model->monto = null;
 
 
 
@@ -277,7 +280,7 @@ class CometidoController extends Controller
     {
         $table = new Cometido;
         $msg = null;
-        
+
         if (Yii::$app->request->get()) {
 
             //Obtenemos el valor de los parámetros get
@@ -317,7 +320,7 @@ class CometidoController extends Controller
     {
         $table = new Cometido;
         $msg = null;
-        
+
         if (Yii::$app->request->get()) {
 
             //Obtenemos el valor de los parámetros get
@@ -358,7 +361,7 @@ class CometidoController extends Controller
     {
         $table = new Cometido;
         $msg = null;
-        
+
         if (Yii::$app->request->get()) {
 
             //Obtenemos el valor de los parámetros get
@@ -399,7 +402,7 @@ class CometidoController extends Controller
     {
         $table = new Cometido;
         $msg = null;
-        
+
         if (Yii::$app->request->get()) {
 
             //Obtenemos el valor de los parámetros get
@@ -414,9 +417,9 @@ class CometidoController extends Controller
                 //Si el registro existe
                 if ($model->count() == 1) {
                     $estado = Cometido::findOne($id);
-                    if ($estado->tranporte_ida == '0' || $estado->transporte_regreso == '0'){
+                    if ($estado->tranporte_ida == '0' || $estado->transporte_regreso == '0') {
                         $estado->estado = 3;
-                    }else{
+                    } else {
                         $estado->estado = 2;
                     }
                     $estado->fk_id_director = Yii::$app->user->identity->id;
@@ -444,7 +447,7 @@ class CometidoController extends Controller
     {
         $table = new Cometido;
         $msg = null;
-        
+
         if (Yii::$app->request->get()) {
 
             //Obtenemos el valor de los parámetros get
@@ -479,5 +482,51 @@ class CometidoController extends Controller
             }
         }
     }
-    
+
+    public function actionMonto($id)
+    {
+        $model = new FormMonto();
+
+        $cometido = Cometido::find()->where(['id_cometido' => $id])->one();
+        $item = ItemPresupuestario::findOne($cometido->fk_id_item);
+        $funcionario = Users::findOne($cometido->fk_id_funcionario);
+        $departamento = Departamento::findOne($funcionario->fk_id_departamento);
+
+
+        $model->id_cometido = $id;
+        //return print_r($model); 
+
+        if ($this->request->isPost) {
+
+            if ($model->load($this->request->post())) 
+            {
+
+                //return print_r($model);
+
+                $table = Cometido::find()->where(['id_cometido' => $model->id_cometido])->one();
+
+                if ($table->estado == '2')
+                {
+                    $table->estado = '6';
+                }
+
+                $table->monto = $model->monto;
+
+                //return print_r($table);
+
+                if ($table->save()) {
+                    return $this->redirect(["cometido/index4"]);
+                }
+            }
+        }
+
+        return $this->render('monto', [
+            'model' => $model,
+            'cometido' => $cometido,
+            'item' => $item,
+            'funcionario' => $funcionario,
+            'departamento' => $departamento,
+        ]);
+
+    }
 }

@@ -49,7 +49,7 @@ class Cometido extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['con_viatico', 'dias_sin_pernoctar', 'dias_con_pernoctar', 'monto', 'fecha_inicio', 'fecha_fin', 'hora_inicio', 'hora_fin', 'motivo_cometido', 'tranporte_ida', 'transporte_regreso', 'fk_id_item', 'fk_id_funcionario'], 'required'],
+            [['con_viatico', 'dias_sin_pernoctar', 'dias_con_pernoctar', 'fecha_inicio', 'fecha_fin', 'hora_inicio', 'hora_fin', 'motivo_cometido', 'tranporte_ida', 'transporte_regreso', 'fk_id_item', 'fk_id_funcionario'], 'required'],
             [['con_viatico', 'dias_sin_pernoctar', 'dias_con_pernoctar', 'monto', 'tranporte_ida', 'transporte_regreso', 'estado', 'fk_id_item', 'fk_id_funcionario', 'fk_id_director', 'fk_id_jefe'], 'integer'],
             [['fecha_inicio', 'fecha_fin', 'hora_inicio', 'hora_fin'], 'safe'],
             [['motivo_cometido', 'descreipcion'], 'string', 'max' => 100],

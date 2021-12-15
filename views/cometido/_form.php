@@ -97,13 +97,6 @@ use yii\widgets\ActiveForm;
                     ['prompt' => 'Seleccione un Item Presupuestario']
                 ) ?>
         </div>
-        <div class="col-md">
-            <?php /* ejemplo*/ $model->monto = 12000; // verlo en el controlador mas detalladamento o en el modelo
-            echo $form->field($model, 'monto')->textInput(['type' => 'number', 'readonly' => true])
-            // revisar el tema del calculo del monto automotaco dependiendo de la cantidad de dias, item y grado
-            ?>
-
-        </div>
     </div>
 
     <?php // $form->field($model, 'estado')->textInput() 
