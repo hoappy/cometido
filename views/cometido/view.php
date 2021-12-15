@@ -2,6 +2,7 @@
 
 use app\models\Users;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Cometido */
@@ -10,8 +11,11 @@ $this->title = 'Solicitud de Cometido Numero: ' . $cometido->id_cometido;
 $this->params['breadcrumbs'][] = ['label' => 'Cometidos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
+
+ echo Html::a('<a class="btn btn-success" href="index.php?r=cometido/pdf&id=' . $cometido->id_cometido . '">Generar PDF</a>')
 ?>
 <div class="cometido-view">
+    
 
     <h1 class='text-center'>Solicitud de Cometido Numero: <?= ' ' . $cometido->id_cometido ?></h1>
     <br>

@@ -17,6 +17,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Html;
 
+use kartik\mpdf\Pdf;
+
 /**
  * CometidoController implements the CRUD actions for Cometido model.
  */
@@ -498,15 +500,13 @@ class CometidoController extends Controller
 
         if ($this->request->isPost) {
 
-            if ($model->load($this->request->post())) 
-            {
+            if ($model->load($this->request->post())) {
 
                 //return print_r($model);
 
                 $table = Cometido::find()->where(['id_cometido' => $model->id_cometido])->one();
 
-                if ($table->estado == '2')
-                {
+                if ($table->estado == '2') {
                     $table->estado = '6';
                 }
 
@@ -527,6 +527,102 @@ class CometidoController extends Controller
             'funcionario' => $funcionario,
             'departamento' => $departamento,
         ]);
+    }
 
+    public function actionPdf($id)
+    {
+
+        $cometido = Cometido::findOne($id);
+
+        $cometido->fecha_fin = date("d/m/Y", strtotime($cometido->fecha_fin));
+        $cometido->fecha_inicio = date("d/m/Y", strtotime($cometido->fecha_inicio));
+
+        $funcionario = Users::findOne($cometido->fk_id_funcionario);
+        $departamento = Departamento::findOne($funcionario->fk_id_departamento);
+        $jefe = Users::findOne($cometido->fk_id_jefe);
+        $item = ItemPresupuestario::findOne($cometido->fk_id_item);
+        $director = Users::findOne($cometido->fk_id_director);
+
+        $destinos = new SqlDataProvider([
+            'sql' => "select nombre_region, numero_region, nombre_provincia, nombre_ciudad, nombre_sector from destino 
+            join sector on sector.id_sector = destino.fk_id_sector 
+            join ciudad on ciudad.id_ciudad = sector.fk_id_ciudad
+            join provincia on provincia.id_provincia = ciudad.fk_id_provincia
+            join region on region.id_region = provincia.fk_id_region
+            where destino.fk_id_cometido = '$id'",
+
+        ]);
+
+        // get your HTML raw content without any layouts or scripts
+        $htmlContent = $this->renderPartial('_viewPdf', [
+            'cometido' => $cometido,
+            'funcionario' => $funcionario,
+            'departamento' => $departamento,
+            'jefe' => $jefe,
+            'item' => $item,
+            'director' => $director,
+            'destinos' => $destinos,
+        ]);
+        //return print_r($content);
+
+        /*$pdf =  new Pdf(['options' => [
+                // any mpdf options you wish to set
+                ],
+                'methods' => [
+                    'SetTitle' => ['Solicitud de Cometido N° ' . $cometido->id_cometido],
+                    'SetSubject' => ['Generar PDF Solicutud de Cometido N° ' . $cometido->id_cometido],
+                    'SetHeader' => ['Solicitud de Cometido' . $cometido->id_cometido],
+                    'SetFooter' => ['|Page {PAGENO}|'],
+                    'SetAuthor' => 'Serviu Ñuble',
+                    'SetCreator' => 'Serviu Ñuble',
+                    'SetKeywords' => 'Krajee, Yii2, Export, PDF, MPDF, Output, Privacy, Policy, yii2-mpdf',
+                ]
+            ]);
+
+        $pdf->content = $htmlContent;
+
+        return $pdf->render();*/
+
+        /*$stylesheet = file_get_contents('../web/css/bootstrap.css');
+        //return print_r($stylesheet);
+
+        $pdf =  new Pdf;
+        $mpdf = $pdf->api;
+        //$mpdf->WriteHTML($stylesheet,1);
+        //$mpdf->SetTitle('Solicitud de Cometido' . $cometido->id_cometido);
+        $mpdf->WriteHtml($htmlContent);
+        
+        return $mpdf->Output("Solicitud Cometido numero $cometido->id_cometido.pdf", 'I');*/
+
+        $pdf = new Pdf([
+            // set to use core fonts only
+            'mode' => Pdf::MODE_CORE, 
+            // A4 paper format
+            'format' => Pdf::FORMAT_A4, 
+            // portrait orientation
+            'orientation' => Pdf::ORIENT_PORTRAIT, 
+            // stream to browser inline
+            'destination' => Pdf::DEST_BROWSER, 
+            // your html content input
+            'content' => $htmlContent,  
+            // format content from your own css file if needed or use the
+            // enhanced bootstrap css built by Krajee for mPDF formatting 
+            'cssFile' => '../web/3-3-7/css/bootstrap.min.css',
+            // any css to be embedded if required
+            'cssInline' => file_get_contents('../web/3-3-7/css/bootstrap.min.css'), 
+            // set mPDF properties on the fly
+            'options' => ['title' => 'Solicitud Cometido N°'. $cometido->id_cometido],
+             // call mPDF methods on the fly
+            'methods' => [ 
+                'SetHeader'=>['Solicitud Cometido N°'. $cometido->id_cometido], 
+                'SetFooter'=>['{PAGENO}'],
+            ]
+        ]);
+        
+        // return the pdf output as per the destination setting
+        return $pdf->render();
+
+        //--------------------------------------------------
+        
     }
 }

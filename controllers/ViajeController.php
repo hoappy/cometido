@@ -101,7 +101,7 @@ class ViajeController extends Controller
 
         //return print_r($user);
 
-        $users = Users::find(['role' => '2'])->andWhere(['not in', 'id',  $user])->all();
+        $users = Users::find()->where(['=', 'role', '2'])->andWhere(['not in', 'id',  $user])->all();
 
         $movils = Vehiculo::find()->andWhere(['not in', 'id_vehiculo',  $movil])->all();
 

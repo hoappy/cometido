@@ -1,4 +1,5 @@
 <?php
+//use kartik\mpdf\Pdf;
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
@@ -13,6 +14,17 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
+        //export pdf
+        /*'pdf' => [
+            'class' => Pdf::classname(),
+            'format' => Pdf::FORMAT_A4,
+            'orientation' => Pdf::ORIENT_PORTRAIT,
+            'destination' => Pdf::DEST_BROWSER,
+            //'cssFile' => '../web/css/bootstrap.css',
+            //'cssInline' => "file_get_contents('../web/css/bootstrap.css')",
+            // refer settings section for all configuration options
+        ],*/
+        //-------------------------------
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => '-W-QgOjNh0J6LsAKccquTP0Ms4lDlsOF',
