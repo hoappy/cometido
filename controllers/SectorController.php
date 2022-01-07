@@ -5,10 +5,14 @@ namespace app\controllers;
 use app\models\Destino;
 use app\models\Sector;
 use app\models\SectorSearch;
+use app\models\User;
+use Yii;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 
 /**
  * SectorController implements the CRUD actions for Sector model.
@@ -20,18 +24,52 @@ class SectorController extends Controller
      */
     public function behaviors()
     {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['logout', 'index', 'create', 'update', 'view', 'delete'],
+                'rules' => [
+                    [
+                        //El administrador tiene permisos sobre las siguientes acciones
+                        'actions' => ['logout', 'index', 'update', 'view', 'create', 'delete'],
+                        //Esta propiedad establece que tiene permisos
+                        'allow' => true,
+                        //Usuarios autenticados, el signo ? es para invitados
+                        'roles' => ['@'],
+                        //Este método nos permite crear un filtro sobre la identidad del usuario
+                        //y así establecer si tiene permisos o no
+                        'matchCallback' => function ($rule, $action) {
+                            //Llamada al método que comprueba si es un administrador
+                            return User::isUserAdministrador(Yii::$app->user->identity->id);
+                        },
+                    ],
+                    [
+                        //El administrador tiene permisos sobre las siguientes acciones
+                        'actions' => ['logout', 'index', 'update', 'view', 'create', 'delete'],
+                        //Esta propiedad establece que tiene permisos
+                        'allow' => true,
+                        //Usuarios autenticados, el signo ? es para invitados
+                        'roles' => ['@'],
+                        //Este método nos permite crear un filtro sobre la identidad del usuario
+                        //y así establecer si tiene permisos o no
+                        'matchCallback' => function ($rule, $action) {
+                            //Llamada al método que comprueba si es un administrador
+                            return User::isUserSuperAdministrador(Yii::$app->user->identity->id);
+                        },
                     ],
                 ],
-            ]
-        );
+            ],
+            //Controla el modo en que se accede a las acciones, en este ejemplo a la acción logout
+            //sólo se puede acceder a través del método post
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
     }
+
 
     /**
      * Lists all Sector models.
@@ -112,9 +150,42 @@ class SectorController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $table = new Sector;
+        $msg = null;
 
-        return $this->redirect(['index']);
+        if (Yii::$app->request->get()) {
+
+            //Obtenemos el valor de los parámetros get
+            $id = Html::encode($_GET["id"]);
+
+            if ((int)$id) {
+                //Realizamos la consulta para obtener el registro
+                $model = $table
+                    ->find()
+                    ->where("id_sector=:id", [":id" => $id]);
+
+                //Si el registro existe
+                if ($model->count() == 1) {
+                    $estado = Sector::findOne($id);
+                    $estado->estado = 0;
+                    if ($estado->update()) {
+                        //$msg = "La cancelacion del usuario fue llevado a cabo correctamente";
+                        return $this->redirect(["sector/index"]);
+                        //return $this->actionView($id);
+                    } else {
+                        //$msg = "Ha ocurrido un error al realizar la cancelqacion";
+                        return $this->redirect(["sector/index"]);
+                        //return $this->actionView($id);
+                    }
+                } else //Si no existe redireccionamos a login
+                {
+                    return $this->redirect(["sector/index"]);
+                }
+            } else //Si id no es un número entero redireccionamos a login
+            {
+                return $this->redirect(["sector/index"]);
+            }
+        }
     }
 
     /**

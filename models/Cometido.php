@@ -57,6 +57,8 @@ class Cometido extends \yii\db\ActiveRecord
             [['fk_id_director'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['fk_id_director' => 'id']],
             [['fk_id_funcionario'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['fk_id_funcionario' => 'id']],
             [['fk_id_jefe'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['fk_id_jefe' => 'id']],
+
+            ['fecha_fin', 'compare', 'compareAttribute' => 'fecha_inicio', 'operator' => '>='],
         ];
     }
 

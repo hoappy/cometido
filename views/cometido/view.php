@@ -163,7 +163,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <hr>
     <div class="row">
         <div class="col-md">
-            <h5>Este apartado quedara pendiente cuando se implemente el crud de destino: </h5>
 
             <?= GridView::widget([
                 'dataProvider' => $destinos,

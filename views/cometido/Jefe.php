@@ -13,11 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="cometido-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Create Cometido', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
+    
     <?php // echo $this->render('_search', ['model' => $searchModel]); 
     ?>
 
@@ -151,7 +147,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
                     },
                     'ver' => function ($url, $model, $key) {
-                            if(($model['estado'] == '6' || $model['estado'] == '2') && $model['monto'] == null){
+                            if(($model['estado'] == '6' || $model['estado'] == '2') && $model['monto'] == 0){
                                 return Html::a('<a class="btn btn-primary" href="index.php?r=cometido/view&id=' . $model['id_cometido'] . '">Ver Cometido</a>')
                                     .Html::a('<a class="btn btn-success" href="index.php?r=cometido/monto&id=' . $model['id_cometido'] . '">Asignar Monto</a>');
                             }else{

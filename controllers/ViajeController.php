@@ -4,12 +4,14 @@ namespace app\controllers;
 
 use app\models\Cometido;
 use app\models\FormLlegada;
+use app\models\User;
 use app\models\Users;
 use app\models\Vehiculo;
 use app\models\Viaje;
 use app\models\ViajeSearch;
 use Yii;
 use yii\data\SqlDataProvider;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -26,17 +28,64 @@ class ViajeController extends Controller
      */
     public function behaviors()
     {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['logout', 'index', 'create', 'update', 'view','delete','salida','llegada','cometido','cometidos','cometidos1','cometidos2','cometidos3','cometidos4','denegar'],
+                'rules' => [
+                    [
+                        //El administrador tiene permisos sobre las siguientes acciones
+                        'actions' => ['logout', 'create', 'view', 'salida','llegada','cometidos1','cometidos2','cometidos3','cometidos4','denegar'],
+                        //Esta propiedad establece que tiene permisos
+                        'allow' => true,
+                        //Usuarios autenticados, el signo ? es para invitados
+                        'roles' => ['@'],
+                        //Este método nos permite crear un filtro sobre la identidad del usuario
+                        //y así establecer si tiene permisos o no
+                        'matchCallback' => function ($rule, $action) {
+                            //Llamada al método que comprueba si es un administrador
+                            return User::isUserSuperAdministrador(Yii::$app->user->identity->id);
+                        },
+                    ],
+                    [
+                        //El administrador tiene permisos sobre las siguientes acciones
+                        'actions' => ['logout', 'create', 'cometidos4', 'denegar'],
+                        //Esta propiedad establece que tiene permisos
+                        'allow' => true,
+                        //Usuarios autenticados, el signo ? es para invitados
+                        'roles' => ['@'],
+                        //Este método nos permite crear un filtro sobre la identidad del usuario
+                        //y así establecer si tiene permisos o no
+                        'matchCallback' => function ($rule, $action) {
+                            //Llamada al método que comprueba si es un administrador
+                            return User::isUserEncargado(Yii::$app->user->identity->id);
+                        },
+                    ],
+                    [
+                        //El administrador tiene permisos sobre las siguientes acciones
+                        'actions' => ['logout', 'view', 'salida','llegada','cometidos1','cometidos2','cometidos3'],
+                        //Esta propiedad establece que tiene permisos
+                        'allow' => true,
+                        //Usuarios autenticados, el signo ? es para invitados
+                        'roles' => ['@'],
+                        //Este método nos permite crear un filtro sobre la identidad del usuario
+                        //y así establecer si tiene permisos o no
+                        'matchCallback' => function ($rule, $action) {
+                            //Llamada al método que comprueba si es un administrador
+                            return User::isUserSuperAdministrador(Yii::$app->user->identity->id);
+                        },
                     ],
                 ],
-            ]
-        );
+            ],
+            //Controla el modo en que se accede a las acciones, en este ejemplo a la acción logout
+            //sólo se puede acceder a través del método post
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
     }
 
     /**
@@ -51,6 +100,7 @@ class ViajeController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'titulo' => 'Listado de Cometidos por Asignar',
         ]);
     }
 
@@ -282,6 +332,7 @@ class ViajeController extends Controller
 
         return $this->render('index', [
             'model' => $model,
+            'titulo' => 'Listado de Cometidos por Iniciar',
         ]);
     }
 
@@ -299,6 +350,7 @@ class ViajeController extends Controller
 
         return $this->render('index', [
             'model' => $model,
+            'titulo' => 'Listado de Cometidos por Terminar',
         ]);
     }
 
@@ -316,6 +368,7 @@ class ViajeController extends Controller
 
         return $this->render('index', [
             'model' => $model,
+            'titulo' => 'Listado de Cometidos Terminados',
         ]);
     }
 
@@ -333,6 +386,7 @@ class ViajeController extends Controller
 
         return $this->render('index', [
             'model' => $model,
+            'titulo' => 'Listado para Asignar',
         ]);
     }
 

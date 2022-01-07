@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Sector */
 
-$this->title = $model->id_sector;
+$this->title = $model->fkIdCiudad->nombre_ciudad . ' - ' . $model->nombre_sector;
 $this->params['breadcrumbs'][] = ['label' => 'Sectors', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -16,11 +16,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id_sector], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id_sector], [
+        <?= Html::a('Actualizar', ['update', 'id' => $model->id_sector], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Eliminar', ['delete', 'id' => $model->id_sector], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => '¿Estás segura de que quieres eliminar este artículo?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -29,10 +29,15 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id_sector',
+            //'id_sector',
             'nombre_sector',
             'estado',
-            'fk_id_ciudad',
+            [
+                'label'  => 'Ciudad',
+                'value'  => function ($model) {
+                    return $model->fkIdCiudad->nombre_ciudad;
+                },
+            ],
         ],
     ]) ?>
 

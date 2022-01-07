@@ -9,8 +9,10 @@ use app\models\DestinoSearch;
 use app\models\Provincia;
 use app\models\Region;
 use app\models\Sector;
+use app\models\User;
 use Yii;
 use yii\data\SqlDataProvider;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -25,18 +27,151 @@ class DestinoController extends Controller
      */
     public function behaviors()
     {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['logout', 'create', 'index', 'view', 'update', 'delete'],
+                'rules' => [
+                    [//eliminar este usuario al finalizar el proyecto
+                        //El administrador tiene permisos sobre las siguientes acciones
+                        'actions' =>  ['logout', 'create'],
+                        //Esta propiedad establece que tiene permisos
+                        'allow' => true,
+                        //Usuarios autenticados, el signo ? es para invitados
+                        'roles' => ['@'],
+                        //Este método nos permite crear un filtro sobre la identidad del usuario
+                        //y así establecer si tiene permisos o no
+                        'matchCallback' => function ($rule, $action) {
+                            //Llamada al método que comprueba si es un administrador
+                            return User::isUserSuperAdministrador(Yii::$app->user->identity->id);
+                        },
                     ],
+                    [
+                        //El administrador tiene permisos sobre las siguientes acciones
+                        'actions' =>  ['logout', 'create'],
+                        //Esta propiedad establece que tiene permisos
+                        'allow' => true,
+                        //Usuarios autenticados, el signo ? es para invitados
+                        'roles' => ['@'],
+                        //Este método nos permite crear un filtro sobre la identidad del usuario
+                        //y así establecer si tiene permisos o no
+                        'matchCallback' => function ($rule, $action) {
+                            //Llamada al método que comprueba si es un administrador
+                            return User::isUserAdministrador(Yii::$app->user->identity->id);
+                        },
+                    ],
+                    [
+                        //El administrador tiene permisos sobre las siguientes acciones
+                        'actions' =>  ['logout', 'create'],
+                        //Esta propiedad establece que tiene permisos
+                        'allow' => true,
+                        //Usuarios autenticados, el signo ? es para invitados
+                        'roles' => ['@'],
+                        //Este método nos permite crear un filtro sobre la identidad del usuario
+                        //y así establecer si tiene permisos o no
+                        'matchCallback' => function ($rule, $action) {
+                            //Llamada al método que comprueba si es un administrador
+                            return User::isUserDirector(Yii::$app->user->identity->id);
+                        },
+                    ],
+                    [
+                        //El administrador tiene permisos sobre las siguientes acciones
+                        'actions' =>  ['logout', 'create'],
+                        //Esta propiedad establece que tiene permisos
+                        'allow' => true,
+                        //Usuarios autenticados, el signo ? es para invitados
+                        'roles' => ['@'],
+                        //Este método nos permite crear un filtro sobre la identidad del usuario
+                        //y así establecer si tiene permisos o no
+                        'matchCallback' => function ($rule, $action) {
+                            //Llamada al método que comprueba si es un administrador
+                            return User::isUserDirectorSuplente(Yii::$app->user->identity->id);
+                        },
+                    ],
+                    [
+                        //El administrador tiene permisos sobre las siguientes acciones
+                        'actions' =>  ['logout', 'create'],
+                        //Esta propiedad establece que tiene permisos
+                        'allow' => true,
+                        //Usuarios autenticados, el signo ? es para invitados
+                        'roles' => ['@'],
+                        //Este método nos permite crear un filtro sobre la identidad del usuario
+                        //y así establecer si tiene permisos o no
+                        'matchCallback' => function ($rule, $action) {
+                            //Llamada al método que comprueba si es un administrador
+                            return User::isUserJefe(Yii::$app->user->identity->id);
+                        },
+                    ],
+                    [
+                        //El administrador tiene permisos sobre las siguientes acciones
+                        'actions' =>  ['logout', 'create'],
+                        //Esta propiedad establece que tiene permisos
+                        'allow' => true,
+                        //Usuarios autenticados, el signo ? es para invitados
+                        'roles' => ['@'],
+                        //Este método nos permite crear un filtro sobre la identidad del usuario
+                        //y así establecer si tiene permisos o no
+                        'matchCallback' => function ($rule, $action) {
+                            //Llamada al método que comprueba si es un administrador
+                            return User::isUserJefeSuplente(Yii::$app->user->identity->id);
+                        },
+                    ],
+                    [
+                        //El administrador tiene permisos sobre las siguientes acciones
+                        'actions' =>  ['logout', 'create'],
+                        //Esta propiedad establece que tiene permisos
+                        'allow' => true,
+                        //Usuarios autenticados, el signo ? es para invitados
+                        'roles' => ['@'],
+                        //Este método nos permite crear un filtro sobre la identidad del usuario
+                        //y así establecer si tiene permisos o no
+                        'matchCallback' => function ($rule, $action) {
+                            //Llamada al método que comprueba si es un administrador
+                            return User::isUserChofer(Yii::$app->user->identity->id);
+                        },
+                    ],
+                    [
+                        //El administrador tiene permisos sobre las siguientes acciones
+                        'actions' =>  ['logout', 'create'],
+                        //Esta propiedad establece que tiene permisos
+                        'allow' => true,
+                        //Usuarios autenticados, el signo ? es para invitados
+                        'roles' => ['@'],
+                        //Este método nos permite crear un filtro sobre la identidad del usuario
+                        //y así establecer si tiene permisos o no
+                        'matchCallback' => function ($rule, $action) {
+                            //Llamada al método que comprueba si es un administrador
+                            return User::isUserEncargado(Yii::$app->user->identity->id);
+                        },
+                    ],
+                    [
+                        //El administrador tiene permisos sobre las siguientes acciones
+                        'actions' =>  ['logout', 'create'],
+                        //Esta propiedad establece que tiene permisos
+                        'allow' => true,
+                        //Usuarios autenticados, el signo ? es para invitados
+                        'roles' => ['@'],
+                        //Este método nos permite crear un filtro sobre la identidad del usuario
+                        //y así establecer si tiene permisos o no
+                        'matchCallback' => function ($rule, $action) {
+                            //Llamada al método que comprueba si es un administrador
+                            return User::isUserFuncionario(Yii::$app->user->identity->id);
+                        },
+                    ],
+
                 ],
-            ]
-        );
+            ],
+            //Controla el modo en que se accede a las acciones, en este ejemplo a la acción logout
+            //sólo se puede acceder a través del método post
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
     }
+
 
     /**
      * Lists all Destino models.

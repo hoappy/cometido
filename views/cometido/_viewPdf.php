@@ -13,14 +13,11 @@ use yii\grid\GridView;
     <h2>Datos Personales</h2>
     <hr>
     <div class="row">
-        <div class="col-xs-2">
+        <div class="col-xs-3">
             <p>Nombre: <?= $funcionario->nombre ?></p>
-
-        </div>
-        <div class="col-xs-2">
             <p>Rut: <?= $funcionario->rut ?> - <?= Users::dv($funcionario->rut) ?></p>
         </div>
-        <div class="col-xs-2">
+        <div class="col-xs-3">
             <p>Jefe Directo:
                 <?php
                 if ($jefe != null) {
@@ -28,7 +25,7 @@ use yii\grid\GridView;
                 };
                 ?></p>
         </div>
-        <div class="col-xs-2">
+        <div class="col-xs-3">
             <p>Grado: <?= $funcionario->grado ?></p>
             <p>Departamento: <?= $departamento->nombre ?></p>
         </div>
@@ -122,7 +119,6 @@ use yii\grid\GridView;
 
         </div>
     </div>
-
     <br>
     <br>
     <div class="row text-left">
@@ -141,7 +137,6 @@ use yii\grid\GridView;
             <?= $funcionario->nombre ?>
         </div>
     </div>
-    <br>
     <br>
     <br>
     <div class="row text-center">

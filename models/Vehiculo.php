@@ -54,7 +54,7 @@ class Vehiculo extends \yii\db\ActiveRecord
             'modelo' => 'Modelo',
             'marca' => 'Marca',
             'tipo_combustible' => 'Tipo Combustible',
-            'num_chasis' => 'Num Chasis',
+            'num_chasis' => 'Numero Chasis',
             'estado' => 'Estado',
             'kilometraje' => 'Kilometraje',
             'rendimiento' => 'Rendimiento',

@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Provincia', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Agregar una Provincia', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -26,10 +26,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id_provincia',
+            //'id_provincia',
             'nombre_provincia',
             'estado',
-            'fk_id_region',
+            [
+                'label'  => 'Region',
+                'value'  => function ($model) {
+                    return $model->fkIdRegion->nombre_region;
+                },
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -22,7 +22,7 @@
         "hail812/yii2-adminlte-widgets": "~1.0",
         "almasaeed2010/adminlte": "~3.1",
         "scotthuangzl/yii2-google-chart": "dev-master",
-        "kartik-v/yii2-mpdf": "dev-master"
+        "kartik-v/yii2-mpdf": "*"
         
     },
     "require-dev": {

@@ -13,7 +13,7 @@ use yii\widgets\DetailView;
 ?>
 <div class="viaje-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= 'Viaje numero: '.$model->id_viaje ?></h1>
 
     <?= DetailView::widget([
         'model' => $model,

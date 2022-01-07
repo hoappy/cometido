@@ -244,7 +244,16 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
         if (Users::findOne(['id' => $id, 'activate' => '1', 'estado' => '1', 'role' => 7])){
             return true;
         } else {
+            return false;
+        }
 
+    }
+
+    public static function isUserSuperAdministrador($id)
+    {
+        if (Users::findOne(['id' => $id, 'activate' => '1', 'estado' => '1', 'role' => 8])){
+            return true;
+        } else {
             return false;
         }
 

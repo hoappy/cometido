@@ -15,21 +15,26 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Ciudad', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Agregar una Ciudad', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        //'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id_ciudad',
+            //'id_ciudad',
             'nombre_ciudad',
             'estado',
-            'fk_id_provincia',
+            [
+                'label'  => 'provincia',
+                'value'  => function ($model) {
+                    return $model->fkIdProvincia->nombre_provincia;
+                },
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -6,7 +6,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 ?>
 
-<h3><?= $msg ?></h3>
+<h3><?php $msg ?></h3>
 
 <h1>Registro de Usuarios</h1>
 <?php $form = ActiveForm::begin([

@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Sector', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Agregar un Sector', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -26,10 +26,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id_sector',
+            //'id_sector',
             'nombre_sector',
             'estado',
-            'fk_id_ciudad',
+            [
+                'label'  => 'Ciudad',
+                'value'  => function ($model) {
+                    return $model->fkIdCiudad->nombre_ciudad;
+                },
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

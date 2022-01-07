@@ -34,15 +34,40 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout'],
+                'only' => ['logout', 'register'],
                 'rules' => [
                     [
-                        'actions' => ['logout'],
+                        //El administrador tiene permisos sobre las siguientes acciones
+                        'actions' => ['logout', 'register'],
+                        //Esta propiedad establece que tiene permisos
                         'allow' => true,
+                        //Usuarios autenticados, el signo ? es para invitados
                         'roles' => ['@'],
+                        //Este método nos permite crear un filtro sobre la identidad del usuario
+                        //y así establecer si tiene permisos o no
+                        'matchCallback' => function ($rule, $action) {
+                            //Llamada al método que comprueba si es un administrador
+                            return User::isUserAdministrador(Yii::$app->user->identity->id);
+                        },
+                    ],
+                    [
+                        //El administrador tiene permisos sobre las siguientes acciones
+                        'actions' => ['logout', 'register'],
+                        //Esta propiedad establece que tiene permisos
+                        'allow' => true,
+                        //Usuarios autenticados, el signo ? es para invitados
+                        'roles' => ['@'],
+                        //Este método nos permite crear un filtro sobre la identidad del usuario
+                        //y así establecer si tiene permisos o no
+                        'matchCallback' => function ($rule, $action) {
+                            //Llamada al método que comprueba si es un administrador
+                            return User::isUserSuperAdministrador(Yii::$app->user->identity->id);
+                        },
                     ],
                 ],
             ],
+            //Controla el modo en que se accede a las acciones, en este ejemplo a la acción logout
+            //sólo se puede acceder a través del método post
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -253,7 +278,7 @@ class SiteController extends Controller
                     $subject = "Activar usuario Sistema de Cometidos";
                     $body = "<h1>Haga click en el siguiente enlace para activar su usuario en el Sistema de Cometidos</h1>";
                     $body .= "<a href='http://127.0.0.1/cometido/web/index.php?r=site/confirm&id=" . $id . "&authKey=" . $authKey . "'>Confirmar</a>";
-                    $body .= "<h2>Su Usuario es: </h2>" . $model->rut . "<h2>y su contrasenia es:  </h2>" . $model->password;
+                    $body .= "<h2>Su Usuario es: </h2>" . $model->rut . "<h2>y su contrasña es:  </h2>" . $model->password;
 
                     //Enviamos el correo
                     Yii::$app->mailer->compose()
@@ -275,7 +300,7 @@ class SiteController extends Controller
                     $model->grado = null;
                     $model->fk_id_departamento = null;
 
-                    $msg = "Enhorabuena, ahora sólo falta que confirmen el registro enviado a la cuenta de correo";
+                    $msg = "Enhorabuena, ahora sólo falta que confirmen el registro enviado a la cuenta de correo del funcionario";
                     $this->render('index', ['msg' => $msg]);
                 } else {
                     $msg = "Ha ocurrido un error al llevar a cabo tu registro";

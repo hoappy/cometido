@@ -82,4 +82,15 @@ class FormRegister extends model
             $this->addError($attribute, "Rut ingresado es Invalido " . $dv);
         }
     }
+
+    public function attributeLabels()
+    {
+        return [
+            'fk_id_departamento' => 'Seleccione Departamento',
+            'password' => 'Ingrese una Contraseña',
+            'password_repeat' => 'Repita la Contraseña',
+        ];
+    }
+
 }
+

@@ -9,6 +9,7 @@ use app\models\Departamento;
 use app\models\Destino;
 use app\models\FormMonto;
 use app\models\ItemPresupuestario;
+use app\models\User;
 use app\models\Users;
 use Yii;
 use yii\data\SqlDataProvider;
@@ -18,6 +19,8 @@ use yii\filters\VerbFilter;
 use yii\helpers\Html;
 
 use kartik\mpdf\Pdf;
+use Mpdf\Mpdf;
+use yii\filters\AccessControl;
 
 /**
  * CometidoController implements the CRUD actions for Cometido model.
@@ -29,17 +32,149 @@ class CometidoController extends Controller
      */
     public function behaviors()
     {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['logout', 'index', 'index1', 'index2','index3','index4', 'index5','create', 'update', 'view', 'view2', 'cancelar', 'aceptar', 'rechazar', 'autorizar', 'denegar', 'monto', 'pdf','delete'],
+                'rules' => [
+                    [//eliminar este usuario al finalizar el proyecto
+                        //El administrador tiene permisos sobre las siguientes acciones
+                        'actions' => ['logout', 'index', 'index1', 'index2','index3','index4', 'index5','create', 'update', 'view', 'view2', 'cancelar', 'aceptar', 'rechazar', 'autorizar', 'denegar', 'monto', 'pdf'],
+                        //Esta propiedad establece que tiene permisos
+                        'allow' => true,
+                        //Usuarios autenticados, el signo ? es para invitados
+                        'roles' => ['@'],
+                        //Este método nos permite crear un filtro sobre la identidad del usuario
+                        //y así establecer si tiene permisos o no
+                        'matchCallback' => function ($rule, $action) {
+                            //Llamada al método que comprueba si es un administrador
+                            return User::isUserSuperAdministrador(Yii::$app->user->identity->id);
+                        },
                     ],
+                    [
+                        //El administrador tiene permisos sobre las siguientes acciones
+                        'actions' => ['logout', 'cancelar', 'pdf', 'index1', 'view2', 'create'],
+                        //Esta propiedad establece que tiene permisos
+                        'allow' => true,
+                        //Usuarios autenticados, el signo ? es para invitados
+                        'roles' => ['@'],
+                        //Este método nos permite crear un filtro sobre la identidad del usuario
+                        //y así establecer si tiene permisos o no
+                        'matchCallback' => function ($rule, $action) {
+                            //Llamada al método que comprueba si es un administrador
+                            return User::isUserAdministrador(Yii::$app->user->identity->id);
+                        },
+                    ],
+                    [
+                        //El administrador tiene permisos sobre las siguientes acciones
+                        'actions' => ['logout', 'cancelar', 'pdf', 'index1', 'view2', 'create','autorizar', 'denegar', 'index2', 'index5'],
+                        //Esta propiedad establece que tiene permisos
+                        'allow' => true,
+                        //Usuarios autenticados, el signo ? es para invitados
+                        'roles' => ['@'],
+                        //Este método nos permite crear un filtro sobre la identidad del usuario
+                        //y así establecer si tiene permisos o no
+                        'matchCallback' => function ($rule, $action) {
+                            //Llamada al método que comprueba si es un administrador
+                            return User::isUserDirector(Yii::$app->user->identity->id);
+                        },
+                    ],
+                    [
+                        //El administrador tiene permisos sobre las siguientes acciones
+                        'actions' => ['logout', 'cancelar', 'pdf', 'index1', 'view2', 'create', 'autorizar', 'denegar', 'index2', 'index5'],
+                        //Esta propiedad establece que tiene permisos
+                        'allow' => true,
+                        //Usuarios autenticados, el signo ? es para invitados
+                        'roles' => ['@'],
+                        //Este método nos permite crear un filtro sobre la identidad del usuario
+                        //y así establecer si tiene permisos o no
+                        'matchCallback' => function ($rule, $action) {
+                            //Llamada al método que comprueba si es un administrador
+                            return User::isUserDirectorSuplente(Yii::$app->user->identity->id);
+                        },
+                    ],
+                    [
+                        //El administrador tiene permisos sobre las siguientes acciones
+                        'actions' => ['logout', 'cancelar', 'pdf', 'index1', 'view2', 'create', 'aceptar', 'rechazar', 'index3', 'index4'],
+                        //Esta propiedad establece que tiene permisos
+                        'allow' => true,
+                        //Usuarios autenticados, el signo ? es para invitados
+                        'roles' => ['@'],
+                        //Este método nos permite crear un filtro sobre la identidad del usuario
+                        //y así establecer si tiene permisos o no
+                        'matchCallback' => function ($rule, $action) {
+                            //Llamada al método que comprueba si es un administrador
+                            return User::isUserJefe(Yii::$app->user->identity->id);
+                        },
+                    ],
+                    [
+                        //El administrador tiene permisos sobre las siguientes acciones
+                        'actions' => ['logout', 'cancelar', 'pdf', 'index1', 'view2', 'create', 'aceptar', 'rechazar', 'index3', 'index4'],
+                        //Esta propiedad establece que tiene permisos
+                        'allow' => true,
+                        //Usuarios autenticados, el signo ? es para invitados
+                        'roles' => ['@'],
+                        //Este método nos permite crear un filtro sobre la identidad del usuario
+                        //y así establecer si tiene permisos o no
+                        'matchCallback' => function ($rule, $action) {
+                            //Llamada al método que comprueba si es un administrador
+                            return User::isUserJefeSuplente(Yii::$app->user->identity->id);
+                        },
+                    ],
+                    [
+                        //El administrador tiene permisos sobre las siguientes acciones
+                        'actions' => ['logout', 'cancelar', 'pdf', 'index1', 'view2', 'create'],
+                        //Esta propiedad establece que tiene permisos
+                        'allow' => true,
+                        //Usuarios autenticados, el signo ? es para invitados
+                        'roles' => ['@'],
+                        //Este método nos permite crear un filtro sobre la identidad del usuario
+                        //y así establecer si tiene permisos o no
+                        'matchCallback' => function ($rule, $action) {
+                            //Llamada al método que comprueba si es un administrador
+                            return User::isUserChofer(Yii::$app->user->identity->id);
+                        },
+                    ],
+                    [
+                        //El administrador tiene permisos sobre las siguientes acciones
+                        'actions' => ['logout', 'cancelar', 'pdf', 'index1', 'view2', 'create'],
+                        //Esta propiedad establece que tiene permisos
+                        'allow' => true,
+                        //Usuarios autenticados, el signo ? es para invitados
+                        'roles' => ['@'],
+                        //Este método nos permite crear un filtro sobre la identidad del usuario
+                        //y así establecer si tiene permisos o no
+                        'matchCallback' => function ($rule, $action) {
+                            //Llamada al método que comprueba si es un administrador
+                            return User::isUserEncargado(Yii::$app->user->identity->id);
+                        },
+                    ],
+                    [
+                        //El administrador tiene permisos sobre las siguientes acciones
+                        'actions' => ['logout', 'cancelar', 'pdf', 'index1', 'view2', 'create'],
+                        //Esta propiedad establece que tiene permisos
+                        'allow' => true,
+                        //Usuarios autenticados, el signo ? es para invitados
+                        'roles' => ['@'],
+                        //Este método nos permite crear un filtro sobre la identidad del usuario
+                        //y así establecer si tiene permisos o no
+                        'matchCallback' => function ($rule, $action) {
+                            //Llamada al método que comprueba si es un administrador
+                            return User::isUserFuncionario(Yii::$app->user->identity->id);
+                        },
+                    ],
+
                 ],
-            ]
-        );
+            ],
+            //Controla el modo en que se accede a las acciones, en este ejemplo a la acción logout
+            //sólo se puede acceder a través del método post
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
     }
 
     /**
@@ -47,7 +182,7 @@ class CometidoController extends Controller
      * @return mixed
      */
     //listado de todos los cometidos
-    public function actionIndex()
+    public function actionIndex()//nadie debe tener acceso
     {
         $searchModel = new CometidoSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
@@ -145,7 +280,7 @@ class CometidoController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView2($id)
+    public function actionView2($id)//nadie debe tener acceso
     {
         $model = Cometido::findOne($id);
         $funcionario = Users::findOne($model->fk_id);
@@ -235,7 +370,7 @@ class CometidoController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id)//nadie tendra acceso
     {
         $model = $this->findModel($id);
 
@@ -255,7 +390,7 @@ class CometidoController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public function actionDelete($id)//accion desabilitada
     {
         $this->findModel($id)->delete();
 
@@ -623,6 +758,20 @@ class CometidoController extends Controller
         return $pdf->render();
 
         //--------------------------------------------------
+
+        /*$this->layout = 'Solicitud de cometido'.$cometido->id_cometido;
+        $htmlContentTest = $this->renderPartial('_testPdf.php');
+        $stylesheet = file_get_contents('../web/bootstrap4/css/bootstrap.css');
+        //require_once(Yii::$app->basePath . "/../vendor/mpdf/mpdf/mpdf.php");
+        // puse use Mpdf\Mpdf; al inicio
+        $mpdf =  new mPdf();
+        //$mpdf->WriteHTML($stylesheet,1);
+        $mpdf->SetTitle('Solicitud de Cometido' . $cometido->id_cometido);
+        $mpdf->WriteHtml($htmlContentTest);
+        $mpdf->Output();*/
+
+        //-----------------------------------------------------------------
+        
         
     }
 }

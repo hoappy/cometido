@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Vehiculo', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Agregar un Vehiculo', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -26,14 +26,35 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id_vehiculo',
+            //'id_vehiculo',
             'patente',
             'modelo',
             'marca',
-            'tipo_combustible',
-            //'num_chasis',
+            [
+                'label' => 'Tipo de Combustible',
+                'value' => 
+                
+                function ($model) {
+                    if($model->tipo_combustible == '0'){
+                        return '93';
+                    };
+                    if($model->tipo_combustible == '1'){
+                        return '95';
+                    };
+                    if($model->tipo_combustible == '2'){
+                        return '97';
+                    };
+                    if($model->tipo_combustible == '3'){
+                        return 'Diesel';
+                    };
+                    return 'ERROR';
+                }
+                
+
+            ] ,
+            'num_chasis',
             //'estado',
-            //'kilometraje',
+            'kilometraje',
             //'rendimiento',
 
             ['class' => 'yii\grid\ActionColumn'],

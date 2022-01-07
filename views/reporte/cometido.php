@@ -55,6 +55,7 @@ $form = ActiveForm::begin(); ?>
 
 <div class="form-group">
     <?= Html::submitButton('Buscar', ['class' => 'btn btn-success']) ?>
+    <?php if($fecha->inicio != 0){ echo Html::a('General PDF', ['pdfcometido', 'inicio' => $fecha->inicio, 'fin' => $fecha->fin, 'id' => $fecha->id, 'estado' => $fecha->estado], ['class' => 'btn btn-primary']);}?>
 </div>
 
 <?php ActiveForm::end(); ?>

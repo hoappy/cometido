@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Monto', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Crear un Monto', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -26,13 +26,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id_monto',
+            //'id_monto',
             'monto_sin_pernoctar',
             'monto_con_pernoctar',
             'grado',
             'estado',
-            //'fk_id_item',
-
+            [
+                'label'  => 'Item Presupuestario',
+                'value'  => function ($model) {
+                    return $model->fkIdItem->nombre_item;
+                },
+            ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

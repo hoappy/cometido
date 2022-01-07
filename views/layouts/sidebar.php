@@ -110,6 +110,7 @@
                                     ['label' => 'Reporte Viatico', 'iconStyle' => 'far', 'url' => ['reporte/viatico']],
                                     ['label' => 'Reporte Sector', 'iconStyle' => 'far', 'url' => ['reporte/sector']],
                                     ['label' => 'Reporte Viaje', 'iconStyle' => 'far', 'url' => ['reporte/viaje']],
+                                    ['label' => 'Reporte Rechazo', 'iconStyle' => 'far', 'url' => ['reporte/rechazo']],
 
                                 ],
                             ],
@@ -137,6 +138,7 @@
                                     ['label' => 'Reporte Viatico', 'iconStyle' => 'far', 'url' => ['reporte/viatico']],
                                     ['label' => 'Reporte Sector', 'iconStyle' => 'far', 'url' => ['reporte/sector']],
                                     ['label' => 'Reporte Viaje', 'iconStyle' => 'far', 'url' => ['reporte/viaje']],
+                                    ['label' => 'Reporte Rechazo', 'iconStyle' => 'far', 'url' => ['reporte/rechazo']],
 
                                 ],
                             ],
@@ -149,6 +151,7 @@
                         'items' => [
                             ['label' => 'Cometido', 'header' => true],
                             ['label' => 'Mis Cometidos', 'iconStyle' => 'far', 'url' => ['cometido/index1']],
+                            ['label' => 'Mantencion Maestros', 'header' => true],
                             [
                                 'label' => 'Vehiculo',
                                 'items' => [

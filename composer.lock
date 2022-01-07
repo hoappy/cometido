@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bef7678ccb0790bedd53e7a0068590c3",
+    "content-hash": "b48d4bb3930e625ce8329ba740022678",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -486,22 +486,21 @@
         },
         {
             "name": "kartik-v/yii2-mpdf",
-            "version": "dev-master",
+            "version": "v1.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-mpdf.git",
-                "reference": "2679af91552c1919e10ac13fbb1f3b3eea02bbb5"
+                "reference": "7ea3a5f9bcf5bcf6d681bd82cbe843c356d1428c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-mpdf/zipball/2679af91552c1919e10ac13fbb1f3b3eea02bbb5",
-                "reference": "2679af91552c1919e10ac13fbb1f3b3eea02bbb5",
+                "url": "https://api.github.com/repos/kartik-v/yii2-mpdf/zipball/7ea3a5f9bcf5bcf6d681bd82cbe843c356d1428c",
+                "reference": "7ea3a5f9bcf5bcf6d681bd82cbe843c356d1428c",
                 "shasum": ""
             },
             "require": {
                 "mpdf/mpdf": "~8.0"
             },
-            "default-branch": true,
             "type": "yii2-extension",
             "extra": {
                 "branch-alias": {
@@ -545,7 +544,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2021-08-17T06:17:50+00:00"
+            "time": "2020-04-14T08:55:18+00:00"
         },
         {
             "name": "mpdf/mpdf",
@@ -1818,16 +1817,16 @@
         },
         {
             "name": "codeception/codeception",
-            "version": "4.1.23",
+            "version": "4.1.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "27d18cd5d5a1d77d3f1b01ea776238676faf5dcc"
+                "reference": "1fc3a8f4d6cf7350e1b69afd136708cfffc89e9e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/27d18cd5d5a1d77d3f1b01ea776238676faf5dcc",
-                "reference": "27d18cd5d5a1d77d3f1b01ea776238676faf5dcc",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/1fc3a8f4d6cf7350e1b69afd136708cfffc89e9e",
+                "reference": "1fc3a8f4d6cf7350e1b69afd136708cfffc89e9e",
                 "shasum": ""
             },
             "require": {
@@ -1904,7 +1903,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Codeception/Codeception/issues",
-                "source": "https://github.com/Codeception/Codeception/tree/4.1.23"
+                "source": "https://github.com/Codeception/Codeception/tree/4.1.24"
             },
             "funding": [
                 {
@@ -1912,7 +1911,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2021-12-11T18:05:26+00:00"
+            "time": "2021-12-16T12:57:06+00:00"
         },
         {
             "name": "codeception/lib-asserts",
@@ -5935,8 +5934,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "scotthuangzl/yii2-google-chart": 20,
-        "kartik-v/yii2-mpdf": 20
+        "scotthuangzl/yii2-google-chart": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

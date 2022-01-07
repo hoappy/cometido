@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Vehiculo */
 
-$this->title = $model->id_vehiculo;
+$this->title = $model->marca . '  ' . $model->modelo .'  ' . $model->patente;
 $this->params['breadcrumbs'][] = ['label' => 'Vehiculos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -16,11 +16,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id_vehiculo], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id_vehiculo], [
+        <?= Html::a('Actualizar', ['update', 'id' => $model->id_vehiculo], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Eliminar', ['delete', 'id' => $model->id_vehiculo], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => '¿Estás segura de que quieres eliminar este artículo?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -29,11 +29,32 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id_vehiculo',
+            //'id_vehiculo',
             'patente',
             'modelo',
             'marca',
-            'tipo_combustible',
+            [
+                'label' => 'Tipo de Combustible',
+                'value' => 
+                
+                function ($model) {
+                    if($model->tipo_combustible == '0'){
+                        return '93';
+                    };
+                    if($model->tipo_combustible == '1'){
+                        return '95';
+                    };
+                    if($model->tipo_combustible == '2'){
+                        return '97';
+                    };
+                    if($model->tipo_combustible == '3'){
+                        return 'Diesel';
+                    };
+                    return 'ERROR';
+                }
+                
+
+            ] ,
             'num_chasis',
             'estado',
             'kilometraje',

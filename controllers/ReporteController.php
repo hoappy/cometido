@@ -5,12 +5,16 @@ namespace app\controllers;
 use app\models\FormFecha;
 use app\models\FormFechaID;
 use app\models\FormFechaIDCometido;
-
+use app\models\User;
+use app\models\Users;
 use yii\data\SqlDataProvider;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 
 use scotthuangzl\googlechart\GoogleChart;
+use kartik\mpdf\Pdf;
+use Yii;
+use yii\filters\AccessControl;
 
 /**
  * SectorController implements the CRUD actions for Sector model.
@@ -22,17 +26,106 @@ class ReporteController extends Controller
      */
     public function behaviors()
     {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['logout', 'cometido', 'viatico', 'sector', 'rechazo', 'viaje', 'pdfcometido'],
+                'rules' => [
+                    [
+                        //El administrador tiene permisos sobre las siguientes acciones
+                        'actions' => ['logout', 'cometido', 'viatico', 'sector', 'rechazo', 'viaje', 'pdfcometido'],
+                        //Esta propiedad establece que tiene permisos
+                        'allow' => true,
+                        //Usuarios autenticados, el signo ? es para invitados
+                        'roles' => ['@'],
+                        //Este método nos permite crear un filtro sobre la identidad del usuario
+                        //y así establecer si tiene permisos o no
+                        'matchCallback' => function ($rule, $action) {
+                            //Llamada al método que comprueba si es un administrador
+                            return User::isUserAdministrador(Yii::$app->user->identity->id);
+                        },
+                    ],
+                    [
+                        //El administrador tiene permisos sobre las siguientes acciones
+                        'actions' => ['logout', 'cometido', 'viatico', 'sector', 'rechazo', 'viaje', 'pdfcometido'],
+                        //Esta propiedad establece que tiene permisos
+                        'allow' => true,
+                        //Usuarios autenticados, el signo ? es para invitados
+                        'roles' => ['@'],
+                        //Este método nos permite crear un filtro sobre la identidad del usuario
+                        //y así establecer si tiene permisos o no
+                        'matchCallback' => function ($rule, $action) {
+                            //Llamada al método que comprueba si es un administrador
+                            return User::isUserSuperAdministrador(Yii::$app->user->identity->id);
+                        },
+                    ],
+                    [
+                        //El administrador tiene permisos sobre las siguientes acciones
+                        'actions' => ['logout', 'cometido', 'viatico', 'sector', 'rechazo', 'viaje', 'pdfcometido'],
+                        //Esta propiedad establece que tiene permisos
+                        'allow' => true,
+                        //Usuarios autenticados, el signo ? es para invitados
+                        'roles' => ['@'],
+                        //Este método nos permite crear un filtro sobre la identidad del usuario
+                        //y así establecer si tiene permisos o no
+                        'matchCallback' => function ($rule, $action) {
+                            //Llamada al método que comprueba si es un administrador
+                            return User::isUserJefe(Yii::$app->user->identity->id);
+                        },
+                    ],
+                    [
+                        //El administrador tiene permisos sobre las siguientes acciones
+                        'actions' => ['logout', 'cometido', 'viatico', 'sector', 'rechazo', 'viaje', 'pdfcometido'],
+                        //Esta propiedad establece que tiene permisos
+                        'allow' => true,
+                        //Usuarios autenticados, el signo ? es para invitados
+                        'roles' => ['@'],
+                        //Este método nos permite crear un filtro sobre la identidad del usuario
+                        //y así establecer si tiene permisos o no
+                        'matchCallback' => function ($rule, $action) {
+                            //Llamada al método que comprueba si es un administrador
+                            return User::isUserJefeSuplente(Yii::$app->user->identity->id);
+                        },
+                    ],
+                    [
+                        //El administrador tiene permisos sobre las siguientes acciones
+                        'actions' => ['logout', 'cometido', 'viatico', 'sector', 'rechazo', 'viaje', 'pdfcometido'],
+                        //Esta propiedad establece que tiene permisos
+                        'allow' => true,
+                        //Usuarios autenticados, el signo ? es para invitados
+                        'roles' => ['@'],
+                        //Este método nos permite crear un filtro sobre la identidad del usuario
+                        //y así establecer si tiene permisos o no
+                        'matchCallback' => function ($rule, $action) {
+                            //Llamada al método que comprueba si es un administrador
+                            return User::isUserDirector(Yii::$app->user->identity->id);
+                        },
+                    ],
+                    [
+                        //El administrador tiene permisos sobre las siguientes acciones
+                        'actions' => ['logout', 'cometido', 'viatico', 'sector', 'rechazo', 'viaje', 'pdfcometido'],
+                        //Esta propiedad establece que tiene permisos
+                        'allow' => true,
+                        //Usuarios autenticados, el signo ? es para invitados
+                        'roles' => ['@'],
+                        //Este método nos permite crear un filtro sobre la identidad del usuario
+                        //y así establecer si tiene permisos o no
+                        'matchCallback' => function ($rule, $action) {
+                            //Llamada al método que comprueba si es un administrador
+                            return User::isUserDirectorSuplente(Yii::$app->user->identity->id);
+                        },
                     ],
                 ],
-            ]
-        );
+            ],
+            //Controla el modo en que se accede a las acciones, en este ejemplo a la acción logout
+            //sólo se puede acceder a través del método post
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
     }
 
     /**
@@ -111,7 +204,7 @@ class ReporteController extends Controller
                 }
             }
 
-            //return print_r($model). print_r($model2);
+            //return print_r($model);
 
             $chartGoogleCantidad =  GoogleChart::widget(
 
@@ -163,7 +256,7 @@ class ReporteController extends Controller
                 ->from('cometido')
                 ->where(['>=', 'fecha_inicio', $fecha->inicio])
                 ->andWhere(['<=', 'fecha_inicio', $fecha->fin])
-                ->andWhere(['<>','monto', 0])
+                ->andWhere(['<>', 'monto', 0])
                 ->groupBy('month(fecha_inicio)')
                 ->all();
 
@@ -331,7 +424,7 @@ class ReporteController extends Controller
                     group by sector.nombre_sector
                     LIMIT 10",
                 'pagination' => false,
-                        
+
             ]);
             //return print_r($modelsql);
 
@@ -375,7 +468,6 @@ class ReporteController extends Controller
                     )
                 )
             );
-
         } else {
             $model = null;
             $chartGoogleCant = null;
@@ -686,5 +778,137 @@ class ReporteController extends Controller
             'chartGooglePesos' => $chartGooglePesos,
             'model' => $modelsql,
         ]);
+    }
+
+    //export PDF
+    public function actionPdfcometido($inicio, $fin, $estado, $id)
+    {
+        
+        $fecha = new FormFechaIDCometido();
+
+        $fecha->inicio = $inicio;
+        $fecha->fin = $fin;
+        $fecha->id = $id;
+        $fecha->estado = $estado;
+
+        //return print_r($fecha);
+
+        $user = Users::findOne($fecha->id);
+
+        $modelArray  = (new \yii\db\Query())
+            ->select('MONTH(fecha_inicio) as mes, count(estado) as cantidad, estado')
+            ->from('cometido')
+            ->where(['>=', 'fecha_inicio', $fecha->inicio])
+            ->andWhere(['<=', 'fecha_inicio', $fecha->fin])
+            ->andWhere(['=', 'fk_id_funcionario', $fecha->id])
+            ->andWhere(['=', 'estado', $fecha->estado])
+            ->groupBy('estado')
+            ->all();
+        //return print_r($modelArray);
+
+        $modelsql = new SqlDataProvider([
+            'sql' => "select MONTH(fecha_inicio) as mes, count(estado) as cantidad, estado
+                from cometido
+                where fecha_inicio >= '$fecha->inicio'
+                and fecha_inicio <= '$fecha->fin'
+                and fk_id_funcionario = '$fecha->id'
+                and estado = '$fecha->estado'
+                group by estado",
+        ]);
+        //return print_r($modelsql);
+
+        $model[] = ['Mes', 'Cantidad de Cometidos'];
+
+        foreach ($modelArray as $value) {
+
+            if ($value['mes'] == 1) {
+                $model[] = ['Enero', (float)$value['cantidad']];
+            } elseif ($value['mes'] == 2) {
+                $model[] = ['Febrero', (float)$value['cantidad']];
+            } elseif ($value['mes'] == 3) {
+                $model[] = ['Marzo', (float)$value['cantidad']];
+            } elseif ($value['mes'] == 4) {
+                $model[] = ['Abril', (float)$value['cantidad']];
+            } elseif ($value['mes'] == 5) {
+                $model[] = ['Mayo', (float)$value['cantidad']];
+            } elseif ($value['mes'] == 6) {
+                $model[] = ['Junio', (float)$value['cantidad']];
+            } elseif ($value['mes'] == 7) {
+                $model[] = ['Julio', (float)$value['cantidad']];
+            } elseif ($value['mes'] == 8) {
+                $model[] = ['Agosto', (float)$value['cantidad']];
+            } elseif ($value['mes'] == 9) {
+                $model[] = ['Septrimbre', (float)$value['cantidad']];
+            } elseif ($value['mes'] == 10) {
+                $model[] = ['Octubre', (float)$value['cantidad']];
+            } elseif ($value['mes'] == 11) {
+                $model[] = ['Noviembre', (float)$value['cantidad']];
+            } elseif ($value['mes'] == 12) {
+                $model[] = ['Diciembre', (float)$value['cantidad']];
+            }
+        }
+
+        //return print_r($model). print_r($model2);
+
+        $chartGoogleCantidad =  GoogleChart::widget(
+
+            array(
+                'visualization' => 'ColumnChart',
+
+                'data' => $model,
+
+                'options' => array(
+
+                    'title' => 'Cantidad de Cometidos',
+
+                    'legend' => ['position' => 'top', 'alignment' => 'center'],
+
+                    'width' => '100%',
+
+                    'height' => 500,
+
+                    'backgroundColor' => ['fill' => 'transparent']
+
+                )
+            )
+        );
+
+
+        $htmlContent = $this->renderPartial('_cometido', [
+            'fecha' => $fecha,
+            'user' => $user,
+            'chartGoogleCantidad' => $chartGoogleCantidad,
+            'model' => $modelsql,
+        ]);
+
+        $pdf = new Pdf([
+            // set to use core fonts only
+            'mode' => Pdf::MODE_CORE,
+            // A4 paper format
+            'format' => Pdf::FORMAT_A4,
+            // portrait orientation
+            'orientation' => Pdf::ORIENT_PORTRAIT,
+            // stream to browser inline
+            'destination' => Pdf::DEST_BROWSER,
+            // your html content input
+            'content' => $htmlContent,
+            // format content from your own css file if needed or use the
+            // enhanced bootstrap css built by Krajee for mPDF formatting 
+            'cssFile' => '../web/bootstrap4/css/bootstrap.css',
+            // any css to be embedded if required
+            'cssInline' => '.kv-heading-1{font-size:18px}',
+            // set mPDF properties on the fly
+            'options' => ['title' => 'Reporte de Cometidos'],
+            // call mPDF methods on the fly
+            'methods' => [
+                'SetHeader' => ['Reporte de Cometidos'],
+                'SetFooter' => ['{PAGENO}'],
+            ]
+        ]);
+
+        // return the pdf output as per the destination setting
+        return $pdf->render();
+
+        //--------------------------------------------------
     }
 }

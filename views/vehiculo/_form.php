@@ -20,7 +20,20 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'marca')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'tipo_combustible')->textInput() ?>
+    <?php // $form->field($model, 'tipo_combustible')->textInput() 
+    ?>
+
+    <?php
+    echo $form->field($model, 'tipo_combustible')->dropDownList(
+        [
+            '0' => '93',
+            '1' => '95',
+            '2' => '97',
+            '3' => 'diesel',
+        ],
+        ['prompt' => 'Seleccion Tipo de Compustible']
+    );
+    ?>
 
     <?= $form->field($model, 'num_chasis')->textInput(['maxlength' => true]) ?>
 
@@ -31,7 +44,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'rendimiento')->textInput() ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

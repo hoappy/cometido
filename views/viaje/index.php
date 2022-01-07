@@ -9,7 +9,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\CometidoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Listado Cometidos';
+$this->title = $titulo;
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="cometido-index">

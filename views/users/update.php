@@ -1,6 +1,7 @@
 <?php
 
 use app\models\Departamento;
+use app\models\Users;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -8,16 +9,16 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\models\Users */
 
-$this->title = 'Update Users: ' . $model->nombre . ' ' . $model->rut;
-$this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->title = 'Actualizar Usuario: ' . $model->nombre . ' ' . $model->rut . '-' . Users::dv($model->rut);
+$this->params['breadcrumbs'][] = ['label' => 'Usuarios', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->nombre, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="users-update">
 
     <h3><?= $msg ?></h3>
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?php Html::encode($this->title) ?></h1>
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -115,4 +116,5 @@ $this->params['breadcrumbs'][] = 'Update';
 
         <?php ActiveForm::end(); ?>
 
+    </div>
     </div>
