@@ -53,7 +53,7 @@ class CometidoController extends Controller
                     ],
                     [
                         //El administrador tiene permisos sobre las siguientes acciones
-                        'actions' => ['logout', 'cancelar', 'pdf', 'index1', 'view2', 'create'],
+                        'actions' => ['logout', 'cancelar', 'pdf', 'index1','view', 'view2', 'create'],
                         //Esta propiedad establece que tiene permisos
                         'allow' => true,
                         //Usuarios autenticados, el signo ? es para invitados
@@ -67,7 +67,7 @@ class CometidoController extends Controller
                     ],
                     [
                         //El administrador tiene permisos sobre las siguientes acciones
-                        'actions' => ['logout', 'cancelar', 'pdf', 'index1', 'view2', 'create','autorizar', 'denegar', 'index2', 'index5'],
+                        'actions' => ['logout', 'cancelar', 'pdf', 'index1','view', 'view2', 'create','autorizar', 'denegar', 'index2', 'index5'],
                         //Esta propiedad establece que tiene permisos
                         'allow' => true,
                         //Usuarios autenticados, el signo ? es para invitados
@@ -81,7 +81,7 @@ class CometidoController extends Controller
                     ],
                     [
                         //El administrador tiene permisos sobre las siguientes acciones
-                        'actions' => ['logout', 'cancelar', 'pdf', 'index1', 'view2', 'create', 'autorizar', 'denegar', 'index2', 'index5'],
+                        'actions' => ['logout', 'cancelar', 'pdf', 'index1','view', 'view2', 'create', 'autorizar', 'denegar', 'index2', 'index5'],
                         //Esta propiedad establece que tiene permisos
                         'allow' => true,
                         //Usuarios autenticados, el signo ? es para invitados
@@ -95,7 +95,7 @@ class CometidoController extends Controller
                     ],
                     [
                         //El administrador tiene permisos sobre las siguientes acciones
-                        'actions' => ['logout', 'cancelar', 'pdf', 'index1', 'view2', 'create', 'aceptar', 'rechazar', 'index3', 'index4'],
+                        'actions' => ['logout', 'cancelar', 'pdf', 'index1','view', 'view2', 'create', 'aceptar', 'rechazar', 'index3', 'index4'],
                         //Esta propiedad establece que tiene permisos
                         'allow' => true,
                         //Usuarios autenticados, el signo ? es para invitados
@@ -109,7 +109,7 @@ class CometidoController extends Controller
                     ],
                     [
                         //El administrador tiene permisos sobre las siguientes acciones
-                        'actions' => ['logout', 'cancelar', 'pdf', 'index1', 'view2', 'create', 'aceptar', 'rechazar', 'index3', 'index4'],
+                        'actions' => ['logout', 'cancelar', 'pdf', 'index1','view', 'view2', 'create', 'aceptar', 'rechazar', 'index3', 'index4'],
                         //Esta propiedad establece que tiene permisos
                         'allow' => true,
                         //Usuarios autenticados, el signo ? es para invitados
@@ -123,7 +123,7 @@ class CometidoController extends Controller
                     ],
                     [
                         //El administrador tiene permisos sobre las siguientes acciones
-                        'actions' => ['logout', 'cancelar', 'pdf', 'index1', 'view2', 'create'],
+                        'actions' => ['logout', 'cancelar', 'pdf', 'index1','view', 'view2', 'create'],
                         //Esta propiedad establece que tiene permisos
                         'allow' => true,
                         //Usuarios autenticados, el signo ? es para invitados
@@ -137,7 +137,7 @@ class CometidoController extends Controller
                     ],
                     [
                         //El administrador tiene permisos sobre las siguientes acciones
-                        'actions' => ['logout', 'cancelar', 'pdf', 'index1', 'view2', 'create'],
+                        'actions' => ['logout', 'cancelar', 'pdf', 'index1','view', 'view2', 'create'],
                         //Esta propiedad establece que tiene permisos
                         'allow' => true,
                         //Usuarios autenticados, el signo ? es para invitados
@@ -151,7 +151,7 @@ class CometidoController extends Controller
                     ],
                     [
                         //El administrador tiene permisos sobre las siguientes acciones
-                        'actions' => ['logout', 'cancelar', 'pdf', 'index1', 'view2', 'create'],
+                        'actions' => ['logout', 'cancelar', 'pdf', 'index1','view', 'view2', 'create'],
                         //Esta propiedad establece que tiene permisos
                         'allow' => true,
                         //Usuarios autenticados, el signo ? es para invitados

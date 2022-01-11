@@ -3,9 +3,49 @@ $this->title = 'Sistema Cometidos';
 $this->params['breadcrumbs'] = [['label' => $this->title]];
 ?>
 <div class="container-fluid">
+    <div class="form-row">
 
-<h3><?= $msg  ?></h3>
-
+        <h3><?= $msg  ?></h3>
+        <div class="col-md">
+            <pre>Funcionario
+        15520026
+        asdasd123123</pre>
+            <pre>Funcionario
+        8690278
+        asdasd123123</pre>
+        </div>
+        <pre>Encargado Vehiculo
+        20832486
+        asdasd123123</pre>
+        <pre>Chofer
+        14450003
+        asdasd123123</pre>
+        <div class="col-md">
+            <pre>Jefe Suplente
+        15453458
+        asdasd123123</pre>
+        <pre>Jefe
+        23604017
+        asdasd123123</pre>
+        <pre>Director Supelnte
+        9254424
+        asdasd123123</pre>
+        <pre>Director
+        14690439
+        asdasd123123</pre>
+        </div>
+        <div class="col-md">
+            <pre>Admin
+        11461702
+        asdasd123123</pre>
+        </div>
+        <div class="col-md">
+            <p>Usuario temporar con todas las funciones de los usuarios</p>
+            <pre>Super Admin
+        19671144
+        asdasd123123</pre>
+        </div>
+    </div>
     <!--<div class="row">
         <div class="col-lg-6">
             <?= \hail812\adminlte\widgets\Alert::widget([
@@ -32,7 +72,7 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
             <?= \hail812\adminlte\widgets\InfoBox::widget([
                 'text' => 'Bookmarks',
                 'number' => '410',
-                 'theme' => 'success',
+                'theme' => 'success',
                 'icon' => 'far fa-flag',
             ]) ?>
         </div>
@@ -70,7 +110,7 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
                 ]
             ]) ?>
             <?= \hail812\adminlte\widgets\Ribbon::widget([
-                'id' => $infoBox->id.'-ribbon',
+                'id' => $infoBox->id . '-ribbon',
                 'text' => 'Ribbon',
             ]) ?>
             <?php \hail812\adminlte\widgets\InfoBox::end() ?>
@@ -106,7 +146,7 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
                 'theme' => 'success'
             ]) ?>
             <?= \hail812\adminlte\widgets\Ribbon::widget([
-                'id' => $smallBox->id.'-ribbon',
+                'id' => $smallBox->id . '-ribbon',
                 'text' => 'Ribbon',
                 'theme' => 'warning',
                 'size' => 'lg',

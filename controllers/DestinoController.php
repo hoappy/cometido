@@ -34,7 +34,7 @@ class DestinoController extends Controller
                 'rules' => [
                     [//eliminar este usuario al finalizar el proyecto
                         //El administrador tiene permisos sobre las siguientes acciones
-                        'actions' =>  ['logout', 'create'],
+                        'actions' =>  ['logout', 'create', 'delete'],
                         //Esta propiedad establece que tiene permisos
                         'allow' => true,
                         //Usuarios autenticados, el signo ? es para invitados
@@ -48,7 +48,7 @@ class DestinoController extends Controller
                     ],
                     [
                         //El administrador tiene permisos sobre las siguientes acciones
-                        'actions' =>  ['logout', 'create'],
+                        'actions' =>  ['logout', 'create', 'delete'],
                         //Esta propiedad establece que tiene permisos
                         'allow' => true,
                         //Usuarios autenticados, el signo ? es para invitados
@@ -62,7 +62,7 @@ class DestinoController extends Controller
                     ],
                     [
                         //El administrador tiene permisos sobre las siguientes acciones
-                        'actions' =>  ['logout', 'create'],
+                        'actions' =>  ['logout', 'create', 'delete'],
                         //Esta propiedad establece que tiene permisos
                         'allow' => true,
                         //Usuarios autenticados, el signo ? es para invitados
@@ -76,7 +76,7 @@ class DestinoController extends Controller
                     ],
                     [
                         //El administrador tiene permisos sobre las siguientes acciones
-                        'actions' =>  ['logout', 'create'],
+                        'actions' =>  ['logout', 'create', 'delete'],
                         //Esta propiedad establece que tiene permisos
                         'allow' => true,
                         //Usuarios autenticados, el signo ? es para invitados
@@ -90,7 +90,7 @@ class DestinoController extends Controller
                     ],
                     [
                         //El administrador tiene permisos sobre las siguientes acciones
-                        'actions' =>  ['logout', 'create'],
+                        'actions' =>  ['logout', 'create', 'delete'],
                         //Esta propiedad establece que tiene permisos
                         'allow' => true,
                         //Usuarios autenticados, el signo ? es para invitados
@@ -104,7 +104,7 @@ class DestinoController extends Controller
                     ],
                     [
                         //El administrador tiene permisos sobre las siguientes acciones
-                        'actions' =>  ['logout', 'create'],
+                        'actions' =>  ['logout', 'create', 'delete'],
                         //Esta propiedad establece que tiene permisos
                         'allow' => true,
                         //Usuarios autenticados, el signo ? es para invitados
@@ -118,7 +118,7 @@ class DestinoController extends Controller
                     ],
                     [
                         //El administrador tiene permisos sobre las siguientes acciones
-                        'actions' =>  ['logout', 'create'],
+                        'actions' =>  ['logout', 'create', 'delete'],
                         //Esta propiedad establece que tiene permisos
                         'allow' => true,
                         //Usuarios autenticados, el signo ? es para invitados
@@ -132,7 +132,7 @@ class DestinoController extends Controller
                     ],
                     [
                         //El administrador tiene permisos sobre las siguientes acciones
-                        'actions' =>  ['logout', 'create'],
+                        'actions' =>  ['logout', 'create', 'delete'],
                         //Esta propiedad establece que tiene permisos
                         'allow' => true,
                         //Usuarios autenticados, el signo ? es para invitados
@@ -146,7 +146,7 @@ class DestinoController extends Controller
                     ],
                     [
                         //El administrador tiene permisos sobre las siguientes acciones
-                        'actions' =>  ['logout', 'create'],
+                        'actions' =>  ['logout', 'create', 'delete'],
                         //Esta propiedad establece que tiene permisos
                         'allow' => true,
                         //Usuarios autenticados, el signo ? es para invitados
@@ -212,7 +212,7 @@ class DestinoController extends Controller
         $model->fk_id_cometido = $id_cometido;
 
         $destinos = new SqlDataProvider([
-            'sql' => "select nombre_region, numero_region, nombre_provincia, nombre_ciudad, nombre_sector from destino 
+            'sql' => "select id_destino, nombre_region, numero_region, nombre_provincia, nombre_ciudad, nombre_sector from destino 
             join sector on sector.id_sector = destino.fk_id_sector 
             join ciudad on ciudad.id_ciudad = sector.fk_id_ciudad
             join provincia on provincia.id_provincia = ciudad.fk_id_provincia
@@ -286,9 +286,12 @@ class DestinoController extends Controller
      */
     public function actionDelete($id)
     {
+        $destino = Destino::findOne($id);
+
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        $msg = 'Destino Eliminado Corecctamente';
+        return $this->redirect(['create', 'id_cometido' => $destino->fk_id_cometido, 'msg' => $msg]);
     }
 
     /**

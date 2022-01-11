@@ -8,7 +8,7 @@ use yii\helpers\Html;
 /* @var $model app\models\Cometido */
 
 $this->title = 'Solicitud de Cometido Numero: ' . $cometido->id_cometido;
-$this->params['breadcrumbs'][] = ['label' => 'Cometidos', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Cometidos', 'url' => ['index1']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 

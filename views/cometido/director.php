@@ -124,6 +124,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     if ($model['estado'] == '10') {
                         return 'Cancelado por Falta de Vehiculos';
                     };
+                    if($model['estado'] == '11'){
+                        return 'Pendiente de Asignacion de Monto';
+                    };
                     return 'ERROR';
                 }
 

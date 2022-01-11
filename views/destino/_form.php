@@ -23,7 +23,7 @@ use yii\widgets\ActiveForm;
         ->dropDownList(
             ArrayHelper::map(
                 Region::find()->all(),
-                'numero_region',
+                'id_region',
                 function ($query) {
                     return $query['nombre_region'] . ' - ' . $query['numero_region'];
                 }

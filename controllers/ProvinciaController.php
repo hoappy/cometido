@@ -209,6 +209,7 @@ class ProvinciaController extends Controller
             ->all();
 
         if (isset($provincias) && count($provincias) > 0) {
+            echo "<option value='", 0 . "'>" . 'Seleccione una Provincia' . "</option>";
             foreach ($provincias as $result) {
                 echo "<option value='", $result->id_provincia . "'>" . $result->nombre_provincia . "</option>";
             }

@@ -219,6 +219,7 @@ class SectorController extends Controller
             ->all();
 
         if (isset($sectores) && count($sectores) > 0) {
+            echo "<option value='", 0 . "'>" . 'Seleccione un Sector' . "</option>";
             foreach ($sectores as $result) {
                 echo "<option value='", $result->id_sector . "'>" . $result->nombre_sector . "</option>";
             }

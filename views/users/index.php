@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="users-index">
 
     <p>
-        <?= Html::a('Crear Usuario', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Crear Usuario', ['site/register'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

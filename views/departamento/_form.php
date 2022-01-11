@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'piso')->textInput() ?>
 
-    <?= $form->field($model, 'estado')->textInput() ?>
+    <?php // $form->field($model, 'estado')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>

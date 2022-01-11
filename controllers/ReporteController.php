@@ -441,7 +441,7 @@ class ReporteController extends Controller
             $model[] = ['Sector', 'Cantidad de Visitas'];
 
             foreach ($modelArray as $value) {
-                $model[] = ['sector', (float)$value['cantidad']];
+                $model[] = [$value['sector'], (float)$value['cantidad']];
             }
 
             //return print_r($model). print_r($model2);

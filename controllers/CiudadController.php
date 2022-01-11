@@ -208,6 +208,7 @@ class CiudadController extends Controller
             ->all();
 
         if (isset($ciudades) && count($ciudades) > 0) {
+            echo "<option value='", 0 . "'>" . 'Seleccione una Ciudad' . "</option>";
             foreach ($ciudades as $result) {
                 echo "<option value='", $result->id_ciudad . "'>" . $result->nombre_ciudad . "</option>";
             }

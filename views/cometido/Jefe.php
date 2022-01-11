@@ -124,6 +124,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     if ($model['estado'] == '10') {
                         return 'Cancelado por Falta de Vehiculos';
                     };
+                    if($model['estado'] == '11'){
+                        return 'Pendiente de Asignacion de Monto';
+                    };
                     return 'ERROR';
                 }
 
@@ -147,7 +150,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
                     },
                     'ver' => function ($url, $model, $key) {
-                            if(($model['estado'] == '6' || $model['estado'] == '2') && $model['monto'] == 0){
+                            if(($model['estado'] == '6' || $model['estado'] == '2' || $model['estado'] == 11) && ($model['monto'] == 0)){
                                 return Html::a('<a class="btn btn-primary" href="index.php?r=cometido/view&id=' . $model['id_cometido'] . '">Ver Cometido</a>')
                                     .Html::a('<a class="btn btn-success" href="index.php?r=cometido/monto&id=' . $model['id_cometido'] . '">Asignar Monto</a>');
                             }else{

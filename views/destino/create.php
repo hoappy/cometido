@@ -6,9 +6,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Destino */
 
-$this->title = 'Create Destino';
+/*$this->title = 'Create Destino';
 $this->params['breadcrumbs'][] = ['label' => 'Destinos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = $this->title;*/
 ?>
 <div class="destino-create">
 
@@ -34,6 +34,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     'nombre_provincia',
                     'nombre_ciudad',
                     'nombre_sector',
+                    [
+                        'class' => 'yii\grid\ActionColumn',
+                        'template' => '{link}',
+                        'buttons' => [
+                            'link' => function ($url, $destinos, $key) {
+                                return Html::a('<a class="btn btn-danger" href="index.php?r=destino/delete&id=' . $destinos['id_destino'] . '">Eliminar</a>');
+                            },
+                        ],
+                    ]
 
                 ],
             ]); ?>

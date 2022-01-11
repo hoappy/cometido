@@ -34,11 +34,11 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'register'],
+                'only' => ['register'],
                 'rules' => [
                     [
                         //El administrador tiene permisos sobre las siguientes acciones
-                        'actions' => ['logout', 'register'],
+                        'actions' => ['register'],
                         //Esta propiedad establece que tiene permisos
                         'allow' => true,
                         //Usuarios autenticados, el signo ? es para invitados
@@ -52,7 +52,7 @@ class SiteController extends Controller
                     ],
                     [
                         //El administrador tiene permisos sobre las siguientes acciones
-                        'actions' => ['logout', 'register'],
+                        'actions' => ['register'],
                         //Esta propiedad establece que tiene permisos
                         'allow' => true,
                         //Usuarios autenticados, el signo ? es para invitados
@@ -268,6 +268,7 @@ class SiteController extends Controller
                 $table->accessToken = $this->randKey("abcdef0123456789", 200);
 
                 //Si el registro es guardado correctamente
+                //return print_r($table);
                 if ($table->insert()) {
                     //Nueva consulta para obtener el id del usuario
                     //Para confirmar al usuario se requiere su id y su authKey
@@ -301,8 +302,10 @@ class SiteController extends Controller
                     $model->fk_id_departamento = null;
 
                     $msg = "Enhorabuena, ahora sólo falta que confirmen el registro enviado a la cuenta de correo del funcionario";
-                    $this->render('index', ['msg' => $msg]);
+                    //return print_r($table);
+                    return $this->redirect(['users/index', 'msg' => $msg]);
                 } else {
+                    //return print_r($table);
                     $msg = "Ha ocurrido un error al llevar a cabo tu registro";
                 }
             } else {

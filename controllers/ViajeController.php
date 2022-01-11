@@ -72,7 +72,7 @@ class ViajeController extends Controller
                         //y así establecer si tiene permisos o no
                         'matchCallback' => function ($rule, $action) {
                             //Llamada al método que comprueba si es un administrador
-                            return User::isUserSuperAdministrador(Yii::$app->user->identity->id);
+                            return User::isUserChofer(Yii::$app->user->identity->id);
                         },
                     ],
                 ],
