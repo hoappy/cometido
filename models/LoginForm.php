@@ -48,8 +48,9 @@ class LoginForm extends Model
             $Usuario = $this->getUser();
 
             if (!$Usuario || !$Usuario->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect rut or password.');
+                $this->addError($attribute, 'contraseña incorrecta o rut incorrecto.');
             }
+            
         }
     }
 

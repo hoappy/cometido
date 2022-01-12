@@ -257,7 +257,7 @@ class SiteController extends Controller
                 $table->grado = $model->grado;
                 $table->fk_id_departamento = $model->fk_id_departamento;
                 $table->estado = 1;
-                $table->activate = 0;
+                $table->activate = 1;
 
                 //Encriptamos el password
                 $table->password = crypt($model->password, Yii::$app->params["salt"]);

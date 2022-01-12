@@ -13,24 +13,25 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
             <pre>Funcionario
         8690278
         asdasd123123</pre>
-        </div>
+        
         <pre>Encargado Vehiculo
         20832486
         asdasd123123</pre>
         <pre>Chofer
-        14450003
+        16323255
         asdasd123123</pre>
+        </div>
         <div class="col-md">
             <pre>Jefe Suplente
         15453458
         asdasd123123</pre>
-        <pre>Jefe
+            <pre>Jefe
         23604017
         asdasd123123</pre>
-        <pre>Director Supelnte
+            <pre>Director Supelnte
         9254424
         asdasd123123</pre>
-        <pre>Director
+            <pre>Director
         14690439
         asdasd123123</pre>
         </div>
