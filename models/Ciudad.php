@@ -20,6 +20,9 @@ class Ciudad extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+
+    public $fk_id_region;
+
     public static function tableName()
     {
         return 'ciudad';
@@ -31,7 +34,7 @@ class Ciudad extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nombre_ciudad', 'fk_id_provincia'], 'required'],
+            [['fk_id_region' , 'nombre_ciudad', 'fk_id_provincia'], 'required'],
             [['estado', 'fk_id_provincia'], 'integer'],
             [['nombre_ciudad'], 'string', 'max' => 50],
             [['fk_id_provincia'], 'exist', 'skipOnError' => true, 'targetClass' => Provincia::className(), 'targetAttribute' => ['fk_id_provincia' => 'id_provincia']],
@@ -47,7 +50,8 @@ class Ciudad extends \yii\db\ActiveRecord
             'id_ciudad' => 'Id Ciudad',
             'nombre_ciudad' => 'Nombre Ciudad',
             'estado' => 'Estado',
-            'fk_id_provincia' => 'Provincia',
+            'fk_id_provincia' => 'Seleccione una Provincia',
+            'fk_id_region' => 'Seleccione una Region',
         ];
     }
 

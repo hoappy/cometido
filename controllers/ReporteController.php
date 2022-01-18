@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\FormFecha;
 use app\models\FormFechaID;
 use app\models\FormFechaIDCometido;
+use app\models\FormFechaSector;
 use app\models\User;
 use app\models\Users;
 use yii\data\SqlDataProvider;
@@ -29,11 +30,11 @@ class ReporteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'cometido', 'viatico', 'sector', 'rechazo', 'viaje', 'pdfcometido'],
+                'only' => ['logout', 'cometido', 'viatico', 'sector', 'rechazo', 'viaje', 'pdfcometido', 'cometido2', 'pdfcometido2'],
                 'rules' => [
                     [
                         //El administrador tiene permisos sobre las siguientes acciones
-                        'actions' => ['logout', 'cometido', 'viatico', 'sector', 'rechazo', 'viaje', 'pdfcometido'],
+                        'actions' => ['logout', 'cometido', 'viatico', 'sector', 'rechazo', 'viaje', 'pdfcometido', 'cometido2', 'pdfcometido2'],
                         //Esta propiedad establece que tiene permisos
                         'allow' => true,
                         //Usuarios autenticados, el signo ? es para invitados
@@ -47,7 +48,7 @@ class ReporteController extends Controller
                     ],
                     [
                         //El administrador tiene permisos sobre las siguientes acciones
-                        'actions' => ['logout', 'cometido', 'viatico', 'sector', 'rechazo', 'viaje', 'pdfcometido'],
+                        'actions' => ['logout', 'cometido', 'viatico', 'sector', 'rechazo', 'viaje', 'pdfcometido', 'cometido2', 'pdfcometido2'],
                         //Esta propiedad establece que tiene permisos
                         'allow' => true,
                         //Usuarios autenticados, el signo ? es para invitados
@@ -61,7 +62,7 @@ class ReporteController extends Controller
                     ],
                     [
                         //El administrador tiene permisos sobre las siguientes acciones
-                        'actions' => ['logout', 'cometido', 'viatico', 'sector', 'rechazo', 'viaje', 'pdfcometido'],
+                        'actions' => ['logout', 'cometido', 'viatico', 'sector', 'rechazo', 'viaje', 'pdfcometido', 'cometido2', 'pdfcometido2'],
                         //Esta propiedad establece que tiene permisos
                         'allow' => true,
                         //Usuarios autenticados, el signo ? es para invitados
@@ -75,7 +76,7 @@ class ReporteController extends Controller
                     ],
                     [
                         //El administrador tiene permisos sobre las siguientes acciones
-                        'actions' => ['logout', 'cometido', 'viatico', 'sector', 'rechazo', 'viaje', 'pdfcometido'],
+                        'actions' => ['logout', 'cometido', 'viatico', 'sector', 'rechazo', 'viaje', 'pdfcometido', 'cometido2', 'pdfcometido2'],
                         //Esta propiedad establece que tiene permisos
                         'allow' => true,
                         //Usuarios autenticados, el signo ? es para invitados
@@ -89,7 +90,7 @@ class ReporteController extends Controller
                     ],
                     [
                         //El administrador tiene permisos sobre las siguientes acciones
-                        'actions' => ['logout', 'cometido', 'viatico', 'sector', 'rechazo', 'viaje', 'pdfcometido'],
+                        'actions' => ['logout', 'cometido', 'viatico', 'sector', 'rechazo', 'viaje', 'pdfcometido', 'cometido2', 'pdfcometido2'],
                         //Esta propiedad establece que tiene permisos
                         'allow' => true,
                         //Usuarios autenticados, el signo ? es para invitados
@@ -103,7 +104,7 @@ class ReporteController extends Controller
                     ],
                     [
                         //El administrador tiene permisos sobre las siguientes acciones
-                        'actions' => ['logout', 'cometido', 'viatico', 'sector', 'rechazo', 'viaje', 'pdfcometido'],
+                        'actions' => ['logout', 'cometido', 'viatico', 'sector', 'rechazo', 'viaje', 'pdfcometido', 'cometido2', 'pdfcometido2'],
                         //Esta propiedad establece que tiene permisos
                         'allow' => true,
                         //Usuarios autenticados, el signo ? es para invitados
@@ -239,6 +240,123 @@ class ReporteController extends Controller
             'fecha' => $fecha,
             'chartGoogleCantidad' => $chartGoogleCantidad,
             'model' => $modelsql,
+        ]);
+    }
+
+    public function actionCometido2()
+    {
+        $fecha = new FormFecha();
+
+        if ($this->request->isPost) {
+
+            $fecha->load($this->request->post());
+            //return print_r($this->request->post());
+
+            //return print_r($fecha->id);
+
+            $modelArray  = (new \yii\db\Query())
+                ->select('MONTH(fecha_inicio) as mes, count(MONTH(fecha_inicio)) as cantidad')
+                ->from('cometido')
+                ->where(['>=', 'fecha_inicio', $fecha->inicio])
+                ->andWhere(['<=', 'fecha_inicio', $fecha->fin])
+                ->groupBy('MONTH(fecha_inicio)')
+                ->all();
+            //return print_r($modelArray);
+
+            $modelsql = new SqlDataProvider([
+                'sql' => "select MONTH(fecha_inicio) as mes, count(MONTH(fecha_inicio)) as cantidad
+                from cometido
+                where fecha_inicio >= '$fecha->inicio'
+                and fecha_inicio <= '$fecha->fin'
+                group by MONTH(fecha_inicio)",
+            ]);
+            //return print_r($modelsql);
+
+            $modelAll = new SqlDataProvider([
+                'sql' => "select *
+                from cometido
+                where fecha_inicio >= '$fecha->inicio'
+                and fecha_inicio <= '$fecha->fin'
+                ORDER BY fecha_inicio, fecha_fin ASC",
+            ]);
+
+            if ($modelArray == null) {
+                return $this->render('cometido2', [
+                    'fecha' => $fecha,
+                    'chartGoogleCantidad' => 'No existen Datos en el Rango de Fechas Seleccionado',
+                    'model' => $modelsql,
+                    'modelAll' => $modelAll,
+                ]);
+            }
+
+            $model[] = ['Mes', 'Cantidad de Cometidos'];
+
+            foreach ($modelArray as $value) {
+
+                if ($value['mes'] == 1) {
+                    $model[] = ['Enero', (float)$value['cantidad']];
+                } elseif ($value['mes'] == 2) {
+                    $model[] = ['Febrero', (float)$value['cantidad']];
+                } elseif ($value['mes'] == 3) {
+                    $model[] = ['Marzo', (float)$value['cantidad']];
+                } elseif ($value['mes'] == 4) {
+                    $model[] = ['Abril', (float)$value['cantidad']];
+                } elseif ($value['mes'] == 5) {
+                    $model[] = ['Mayo', (float)$value['cantidad']];
+                } elseif ($value['mes'] == 6) {
+                    $model[] = ['Junio', (float)$value['cantidad']];
+                } elseif ($value['mes'] == 7) {
+                    $model[] = ['Julio', (float)$value['cantidad']];
+                } elseif ($value['mes'] == 8) {
+                    $model[] = ['Agosto', (float)$value['cantidad']];
+                } elseif ($value['mes'] == 9) {
+                    $model[] = ['Septrimbre', (float)$value['cantidad']];
+                } elseif ($value['mes'] == 10) {
+                    $model[] = ['Octubre', (float)$value['cantidad']];
+                } elseif ($value['mes'] == 11) {
+                    $model[] = ['Noviembre', (float)$value['cantidad']];
+                } elseif ($value['mes'] == 12) {
+                    $model[] = ['Diciembre', (float)$value['cantidad']];
+                }
+            }
+
+            //return print_r($model);
+
+            $chartGoogleCantidad =  GoogleChart::widget(
+
+                array(
+                    'visualization' => 'ColumnChart',
+
+                    'data' => $model,
+
+                    'options' => array(
+
+                        'title' => 'Cantidad de Cometidos',
+
+                        'legend' => ['position' => 'top', 'alignment' => 'center'],
+
+                        'width' => '100%',
+
+                        'height' => 500,
+
+                        'backgroundColor' => ['fill' => 'transparent']
+
+                    )
+                )
+            );
+        } else {
+            $model = null;
+            $chartGoogleCantidad = null;
+            $modelsql = null;
+            $modelAll = null;
+        }
+
+
+        return $this->render('cometido2', [
+            'fecha' => $fecha,
+            'chartGoogleCantidad' => $chartGoogleCantidad,
+            'model' => $modelsql,
+            'modelAll' => $modelAll,
         ]);
     }
 
@@ -393,7 +511,7 @@ class ReporteController extends Controller
 
     public function actionSector()
     {
-        $fecha = new FormFechaID();
+        $fecha = new FormFechaSector();
 
         if ($this->request->isPost) {
 
@@ -406,9 +524,11 @@ class ReporteController extends Controller
                 ->select('sector.nombre_sector as sector, count(sector.nombre_sector) as cantidad')
                 ->from('sector')
                 ->innerJoin('destino', 'destino.fk_id_sector = sector.id_sector')
+                ->innerJoin('ciudad', 'ciudad.id_ciudad = sector.fk_id_ciudad')
                 ->innerJoin('cometido', 'cometido.id_cometido = destino.fk_id_cometido')
                 ->where(['>=', 'cometido.fecha_inicio', $fecha->inicio])
                 ->andWhere(['<=', 'cometido.fecha_inicio', $fecha->fin])
+                ->andWhere(['=', 'ciudad.fk_id_provincia', $fecha->fk_id_provincia])
                 ->groupBy('sector.nombre_sector')
                 ->limit(10)
                 ->all();
@@ -418,9 +538,11 @@ class ReporteController extends Controller
                 'sql' => "select sector.nombre_sector as sector, count(sector.nombre_sector) as cantidad
                     from sector
                     INNER JOIN  destino on destino.fk_id_sector = sector.id_sector
+                    INNER JOIN  ciudad on ciudad.id_ciudad = sector.fk_id_ciudad
                     INNER JOIN  cometido on cometido.id_cometido = destino.fk_id_cometido
                     where cometido.fecha_inicio >= '$fecha->inicio'
                     and cometido.fecha_inicio <= '$fecha->fin'
+                    and ciudad.fk_id_provincia = '$fecha->fk_id_provincia'
                     group by sector.nombre_sector
                     LIMIT 10",
                 'pagination' => false,
@@ -430,11 +552,9 @@ class ReporteController extends Controller
 
             if ($modelArray == null) {
                 return $this->render('sector', [
-                    'fecha' => $fecha,
-                    'chartGoogleKilometros' => 'No existen Datos en el Rango de Fechas Seleccionado',
-                    'chartGoogleLitros' => 'No existen Datos en el Rango de Fechas Seleccionado',
-                    'chartGooglePesos' => 'No existen Datos en el Rango de Fechas Seleccionado',
-                    'model' => $modelsql,
+                    'model' => $fecha,
+                    'chartGoogleCant' => 'No existen Datos en el Rango de Fechas Seleccionado',
+                    'models' => $modelsql,
                 ]);
             }
 
@@ -476,9 +596,9 @@ class ReporteController extends Controller
 
 
         return $this->render('sector', [
-            'fecha' => $fecha,
+            'model' => $fecha,
             'chartGoogleCant' => $chartGoogleCant,
-            'model' => $modelsql,
+            'models' => $modelsql,
         ]);
     }
 
@@ -879,6 +999,137 @@ class ReporteController extends Controller
             'user' => $user,
             'chartGoogleCantidad' => $chartGoogleCantidad,
             'model' => $modelsql,
+        ]);
+
+        $pdf = new Pdf([
+            // set to use core fonts only
+            'mode' => Pdf::MODE_CORE,
+            // A4 paper format
+            'format' => Pdf::FORMAT_A4,
+            // portrait orientation
+            'orientation' => Pdf::ORIENT_PORTRAIT,
+            // stream to browser inline
+            'destination' => Pdf::DEST_BROWSER,
+            // your html content input
+            'content' => $htmlContent,
+            // format content from your own css file if needed or use the
+            // enhanced bootstrap css built by Krajee for mPDF formatting 
+            'cssFile' => '../web/bootstrap4/css/bootstrap.css',
+            // any css to be embedded if required
+            'cssInline' => '.kv-heading-1{font-size:18px}',
+            // set mPDF properties on the fly
+            'options' => ['title' => 'Reporte de Cometidos'],
+            // call mPDF methods on the fly
+            'methods' => [
+                'SetHeader' => ['Reporte de Cometidos'],
+                'SetFooter' => ['{PAGENO}'],
+            ]
+        ]);
+
+        // return the pdf output as per the destination setting
+        return $pdf->render();
+
+        //--------------------------------------------------
+    }
+
+    public function actionPdfcometido2($inicio, $fin)
+    {
+        
+        $fecha = new FormFecha();
+
+        $fecha->inicio = $inicio;
+        $fecha->fin = $fin;
+
+        //return print_r($fecha);
+
+        $modelArray  = (new \yii\db\Query())
+            ->select('MONTH(fecha_inicio) as mes, count(MONTH(fecha_inicio)) as cantidad')
+            ->from('cometido')
+            ->where(['>=', 'fecha_inicio', $fecha->inicio])
+            ->andWhere(['<=', 'fecha_inicio', $fecha->fin])
+            ->groupBy('MONTH(fecha_inicio)')
+            ->all();
+        //return print_r($modelArray);
+
+        $modelsql = new SqlDataProvider([
+            'sql' => "select MONTH(fecha_inicio) as mes, count(MONTH(fecha_inicio)) as cantidad
+                from cometido
+                where fecha_inicio >= '$fecha->inicio'
+                and fecha_inicio <= '$fecha->fin'
+                group by MONTH(fecha_inicio)",
+        ]);
+        //return print_r($modelsql);
+
+        $modelAll = new SqlDataProvider([
+            'sql' => "select *
+            from cometido
+            where fecha_inicio >= '$fecha->inicio'
+            and fecha_inicio <= '$fecha->fin'
+            ORDER BY fecha_inicio, fecha_fin ASC",
+        ]);
+
+        $model[] = ['Mes', 'Cantidad de Cometidos'];
+
+        foreach ($modelArray as $value) {
+
+            if ($value['mes'] == 1) {
+                $model[] = ['Enero', (float)$value['cantidad']];
+            } elseif ($value['mes'] == 2) {
+                $model[] = ['Febrero', (float)$value['cantidad']];
+            } elseif ($value['mes'] == 3) {
+                $model[] = ['Marzo', (float)$value['cantidad']];
+            } elseif ($value['mes'] == 4) {
+                $model[] = ['Abril', (float)$value['cantidad']];
+            } elseif ($value['mes'] == 5) {
+                $model[] = ['Mayo', (float)$value['cantidad']];
+            } elseif ($value['mes'] == 6) {
+                $model[] = ['Junio', (float)$value['cantidad']];
+            } elseif ($value['mes'] == 7) {
+                $model[] = ['Julio', (float)$value['cantidad']];
+            } elseif ($value['mes'] == 8) {
+                $model[] = ['Agosto', (float)$value['cantidad']];
+            } elseif ($value['mes'] == 9) {
+                $model[] = ['Septrimbre', (float)$value['cantidad']];
+            } elseif ($value['mes'] == 10) {
+                $model[] = ['Octubre', (float)$value['cantidad']];
+            } elseif ($value['mes'] == 11) {
+                $model[] = ['Noviembre', (float)$value['cantidad']];
+            } elseif ($value['mes'] == 12) {
+                $model[] = ['Diciembre', (float)$value['cantidad']];
+            }
+        }
+
+        //return print_r($model). print_r($model2);
+
+        $chartGoogleCantidad =  GoogleChart::widget(
+
+            array(
+                'visualization' => 'ColumnChart',
+
+                'data' => $model,
+
+                'options' => array(
+
+                    'title' => 'Cantidad de Cometidos',
+
+                    'legend' => ['position' => 'top', 'alignment' => 'center'],
+
+                    'width' => '100%',
+
+                    'height' => 500,
+
+                    'backgroundColor' => ['fill' => 'transparent']
+
+                )
+            )
+        );
+
+
+        $htmlContent = $this->renderPartial('_cometido2', [
+            'fecha' => $fecha,
+            'chartGoogleCantidad' => $chartGoogleCantidad,
+            'model' => $modelsql,
+            'modelAll' => $modelAll,
         ]);
 
         $pdf = new Pdf([

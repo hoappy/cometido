@@ -17,6 +17,9 @@ use Yii;
  */
 class Sector extends \yii\db\ActiveRecord
 {
+
+    public $fk_id_region;
+    public $fk_id_provincia;
     /**
      * {@inheritdoc}
      */
@@ -31,7 +34,7 @@ class Sector extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nombre_sector', 'fk_id_ciudad'], 'required'],
+            [['fk_id_provincia', 'fk_id_region', 'nombre_sector', 'fk_id_ciudad'], 'required'],
             [['estado', 'fk_id_ciudad'], 'integer'],
             [['nombre_sector'], 'string', 'max' => 50],
             [['fk_id_ciudad'], 'exist', 'skipOnError' => true, 'targetClass' => Ciudad::className(), 'targetAttribute' => ['fk_id_ciudad' => 'id_ciudad']],
@@ -47,7 +50,9 @@ class Sector extends \yii\db\ActiveRecord
             'id_sector' => 'Id Sector',
             'nombre_sector' => 'Nombre Sector',
             'estado' => 'Estado',
-            'fk_id_ciudad' => 'Ciudad',
+            'fk_id_ciudad' => 'Selecione una Ciudad',
+            'fk_id_region' => 'Selecciona una Region',
+            'fk_id_provincia' => 'Selecciona una Provincia',
         ];
     }
 

@@ -4,11 +4,14 @@ use yii\helpers\Html;
 
 ?>
 <!-- Navbar -->
-<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+<nav class="main-header navbar navbar-expand navbar-info navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
         <li class="nav-item">
-            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            <a class="nav-link"  style="color: white" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item">
+            <b class="nav-link"  style="color: white"  href="#" role="button">Sistema de Cometidos</b>
         </li>
         <!-- <li class="nav-item d-none d-sm-inline-block">
             <a href="<?= \yii\helpers\Url::home() ?>" class="nav-link">Home</a>
@@ -176,20 +179,20 @@ use yii\helpers\Html;
 
         <?php if (!Yii::$app->user->isGuest) {
         ?>
-            <li class="nav-item">
-                <strong> <?= Yii::$app->user->identity->nombre ?></strong>
+            <li class="nav-item ">
+                <a class="nav-link"  style="color:white"><b> <?= Yii::$app->user->identity->nombre ?></b></a>
             </li>
             <li class="nav-item">
             <?php
-            echo Html::a('<i class="fas fa-sign-out-alt">Cerrar Sesion</i>', ['/site/logout'], ['data-method' => 'post', 'class' => 'nav-link']);
+            echo Html::a('<i class="fas fa-sign-out-alt" style="color: white">Cerrar Sesion</i>', ['/site/logout'], ['data-method' => 'post', 'class' => 'nav-link']);
         } else {
-            echo Html::a('<i class="fas fa-sign-out-alt">Iniciar Sesion</i>', ['/site/login'], ['data-method' => 'post', 'class' => 'nav-link']);
+            echo Html::a('<i class="fas fa-sign-out-alt" style="color: white">Iniciar Sesion</i>', ['/site/login'], ['data-method' => 'post', 'class' => 'nav-link']);
         }
             ?>
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-                    <i class="fas fa-expand-arrows-alt"></i>
+                    <i class="fas fa-expand-arrows-alt"  style="color: white"></i>
                 </a>
             </li>
             <!-- <li class="nav-item">

@@ -95,7 +95,7 @@ class CometidoController extends Controller
                     ],
                     [
                         //El administrador tiene permisos sobre las siguientes acciones
-                        'actions' => ['logout', 'cancelar', 'pdf', 'index1','view', 'view2', 'create', 'aceptar', 'rechazar', 'index3', 'index4'],
+                        'actions' => ['logout', 'cancelar', 'pdf', 'index1','view', 'view2', 'create', 'aceptar', 'rechazar', 'index3', 'index4', 'monto'],
                         //Esta propiedad establece que tiene permisos
                         'allow' => true,
                         //Usuarios autenticados, el signo ? es para invitados
@@ -109,7 +109,7 @@ class CometidoController extends Controller
                     ],
                     [
                         //El administrador tiene permisos sobre las siguientes acciones
-                        'actions' => ['logout', 'cancelar', 'pdf', 'index1','view', 'view2', 'create', 'aceptar', 'rechazar', 'index3', 'index4'],
+                        'actions' => ['logout', 'cancelar', 'pdf', 'index1','view', 'view2', 'create', 'aceptar', 'rechazar', 'index3', 'index4', 'monto'],
                         //Esta propiedad establece que tiene permisos
                         'allow' => true,
                         //Usuarios autenticados, el signo ? es para invitados
@@ -245,7 +245,7 @@ class CometidoController extends Controller
     public function actionIndex4()
     {
         $model = new SqlDataProvider([
-            'sql' => 'select cometido.monto, cometido.estado, cometido.transporte_regreso, cometido.tranporte_ida, cometido.fecha_fin, cometido.fecha_inicio, cometido.fk_id_funcionario, cometido.id_cometido 
+            'sql' => 'select cometido.con_viatico, cometido.monto, cometido.estado, cometido.transporte_regreso, cometido.tranporte_ida, cometido.fecha_fin, cometido.fecha_inicio, cometido.fk_id_funcionario, cometido.id_cometido 
             from cometido join user on cometido.fk_id_funcionario = user.id
             where cometido.estado > 0 and user.fk_id_departamento = ' . Yii::$app->user->identity->fk_id_departamento,
             'pagination' => [

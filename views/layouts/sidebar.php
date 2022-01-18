@@ -1,18 +1,19 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+<aside class="main-sidebar sidebar-dark-primary elevation-5 nav nav-pills nav-sidebar flex-column nav-child-indent nav-compact">
     <!-- Brand Logo -->
     <a href="index.php" class="brand-link">
-        <img src="<?= $assetDir ?>/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">Sistema de Cometidos</span>
+        <img src="images/logo.jpg" width="60" height="60" alt="Ir al Inicio" class="elevation-3" style="opacity: .8">
+    
+        <span class="brand-text font-weight-light"><b>Serviu Ñuble</b></span>
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="image">
+        <!--<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">-->
                 <!--<img src="<?= $assetDir ?>/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">-->
                 <!-- Aqui insertar el nombre del usuario -->
-                <?php
+                <!--<?php
 
                 use yii\helpers\Html;
 
@@ -29,7 +30,7 @@
             <div class="info">
                 <a href="#" class="d-block"></a>
             </div>
-        </div>
+        </div>-->
 
         <!-- SidebarSearch Form -->
         <!-- href be escaped -->
@@ -107,6 +108,7 @@
                                 'items' => [
                                     //['label' => 'Todos mis Viajes', 'iconStyle' => 'far', 'url' => ['viaje/cometidos']],
                                     ['label' => 'Reporte Cometido', 'iconStyle' => 'far', 'url' => ['reporte/cometido']],
+                                    ['label' => 'Reporte Todos los Cometido', 'iconStyle' => 'far', 'url' => ['reporte/cometido2']],
                                     ['label' => 'Reporte Viatico', 'iconStyle' => 'far', 'url' => ['reporte/viatico']],
                                     ['label' => 'Reporte Sector', 'iconStyle' => 'far', 'url' => ['reporte/sector']],
                                     ['label' => 'Reporte Viaje', 'iconStyle' => 'far', 'url' => ['reporte/viaje']],
@@ -135,6 +137,7 @@
                                 'items' => [
                                     //['label' => 'Todos mis Viajes', 'iconStyle' => 'far', 'url' => ['viaje/cometidos']],
                                     ['label' => 'Reporte Cometido', 'iconStyle' => 'far', 'url' => ['reporte/cometido']],
+                                    ['label' => 'Reporte Todos los Cometido', 'iconStyle' => 'far', 'url' => ['reporte/cometido2']],
                                     ['label' => 'Reporte Viatico', 'iconStyle' => 'far', 'url' => ['reporte/viatico']],
                                     ['label' => 'Reporte Sector', 'iconStyle' => 'far', 'url' => ['reporte/sector']],
                                     ['label' => 'Reporte Viaje', 'iconStyle' => 'far', 'url' => ['reporte/viaje']],
@@ -347,6 +350,7 @@
                                 'items' => [
                                     //['label' => 'Todos mis Viajes', 'iconStyle' => 'far', 'url' => ['viaje/cometidos']],
                                     ['label' => 'Reporte Cometido', 'iconStyle' => 'far', 'url' => ['reporte/cometido']],
+                                    ['label' => 'Reporte Todos los Cometido', 'iconStyle' => 'far', 'url' => ['reporte/cometido2']],
                                     ['label' => 'Reporte Viatico', 'iconStyle' => 'far', 'url' => ['reporte/viatico']],
                                     ['label' => 'Reporte Sector', 'iconStyle' => 'far', 'url' => ['reporte/sector']],
                                     ['label' => 'Reporte Viaje', 'iconStyle' => 'far', 'url' => ['reporte/viaje']],

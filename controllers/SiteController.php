@@ -101,6 +101,12 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $msg = 'Bienvenido';
+        if (Yii::$app->user->isGuest){
+            $this->layout = 'main2';
+            $msg = null;
+            return $this->render('index2', ['msg' => $msg]);
+        }
+        
         return $this->render('index', ['msg' => $msg]);
     }
 
@@ -111,6 +117,8 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+        $this->layout = 'main2';
+
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -135,7 +143,7 @@ class SiteController extends Controller
     {
         Yii::$app->user->logout();
 
-        return $this->goHome();
+        return $this->redirect('site/login');
     }
 
     /**
@@ -318,6 +326,7 @@ class SiteController extends Controller
     //------------------------------recuperar-contraseña---------------------------------
     public function actionRecoverpass()
     {
+        $this->layout = 'main2';
         //Instancia para validar el formulario
         $model = new FormRecoverPass;
 
@@ -387,6 +396,7 @@ class SiteController extends Controller
 
     public function actionResetpass()
     {
+        $this->layout = 'main2';
         //Instancia para validar el formulario
         $model = new FormResetPass;
 

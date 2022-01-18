@@ -7,38 +7,59 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\CiudadSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ciudads';
+$this->title = 'Listado de Ciudades';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ciudad-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="card card-info">
+        <div class="card-header">
+            <div>
+                <p class="text-left">
+                    <h3 class="card-title"><b><?= Html::encode($this->title) ?></b></h3>
+                </p>
+                <p class="text-right">
+                    <?= Html::a('Agregar Ciudad', ['create'], ['class' => 'btn btn-secondary font-weight-bold']) ?>
+                </p>
+            </div>
+        </div>
+        <div class="card-body">
 
-    <p>
-        <?= Html::a('Agregar una Ciudad', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+            <?php // echo $this->render('_search', ['model' => $searchModel]); 
+            ?>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+            <?= GridView::widget([
+                'dataProvider' => $dataProvider,
+                //'filterModel' => $searchModel,
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        //'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+                    //'id_ciudad',
+                    'nombre_ciudad',
+                    //'estado',
+                    [
+                        'label'  => 'Provincia',
+                        'value'  => function ($model) {
+                            return $model->fkIdProvincia->nombre_provincia;
+                        },
+                    ],
+                    [
+                        'label'  => 'Region',
+                        'value'  => function ($model) {
+                            return $model->fkIdProvincia->fkIdRegion->nombre_region;
+                        },
+                    ],
 
-            //'id_ciudad',
-            'nombre_ciudad',
-            'estado',
-            [
-                'label'  => 'provincia',
-                'value'  => function ($model) {
-                    return $model->fkIdProvincia->nombre_provincia;
-                },
-            ],
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+                    ['class' => 'yii\grid\ActionColumn'],
+                ],
+                'pager' => [
+                    'options' => ['class' => 'pagination justify-content-center'],
+                    'pageCssClass' => 'page-item',
+                    'linkOptions' => ['class' => 'page-link'],
+                ],
+            ]); ?>
 
 
+        </div>
+    </div>
 </div>

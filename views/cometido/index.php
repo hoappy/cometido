@@ -27,7 +27,22 @@ $this->params['breadcrumbs'][] = $this->title;
             //['class' => 'yii\grid\SerialColumn'],
 
             //'id_cometido',
-            'con_viatico',
+            [
+                'label' => 'Con Viatico',
+                'value' =>
+
+                function ($model) {
+                    if ($model['con_viatico'] == '0') {
+                        return 'No';
+                    };
+                    if ($model['con_viatico'] == '1') {
+                        return 'Si';
+                    };
+                    return 'ERROR';
+                }
+
+
+            ],
             //'dias_sin_pernoctar',
             //'dias_con_pernoctar',
             //'monto',
