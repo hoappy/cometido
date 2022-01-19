@@ -11,7 +11,6 @@ $this->title = 'Listado de Ciudades';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ciudad-index">
-
     <div class="card card-info">
         <div class="card-header">
             <div>

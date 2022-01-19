@@ -7,38 +7,53 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\ProvinciaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Provincias';
+$this->title = 'Listado de Provincias';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="provincia-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="card card-info">
+        <div class="card-header">
+            <div>
+                <p>
+                <h3 class="card-title"><b><?= Html::encode($this->title) ?></b></h3>
+                </p>
+                <p class="text-right">
+                    <?= Html::a('Agregar Provincia', ['create'], ['class' => 'btn btn-secondary font-weight-bold']) ?>
+                </p>
+            </div>
+        </div>
+        <div class="card-body">
 
-    <p>
-        <?= Html::a('Agregar una Provincia', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+            <?php // echo $this->render('_search', ['model' => $searchModel]); 
+            ?>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+            <?= GridView::widget([
+                'dataProvider' => $dataProvider,
+                //'filterModel' => $searchModel,
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+                    //'id_provincia',
+                    'nombre_provincia',
+                    //'estado',
+                    [
+                        'label'  => 'Region',
+                        'value'  => function ($model) {
+                            return $model->fkIdRegion->nombre_region;
+                        },
+                    ],
 
-            //'id_provincia',
-            'nombre_provincia',
-            'estado',
-            [
-                'label'  => 'Region',
-                'value'  => function ($model) {
-                    return $model->fkIdRegion->nombre_region;
-                },
-            ],
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+                    ['class' => 'yii\grid\ActionColumn'],
+                ],
+                'pager' => [
+                    'options' => ['class' => 'pagination justify-content-center'],
+                    'pageCssClass' => 'page-item',
+                    'linkOptions' => ['class' => 'page-link'],
+                ],
+            ]); ?>
 
 
+        </div>
+    </div>
 </div>

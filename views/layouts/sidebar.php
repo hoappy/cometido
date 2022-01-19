@@ -1,4 +1,4 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-5 nav nav-pills nav-sidebar flex-column nav-child-indent nav-compact">
+<aside class="main-sidebar sidebar-dark-info elevation-5 nav nav-pills nav-sidebar flex-column nav-child-indent nav-compact">
     <!-- Brand Logo -->
     <a href="index.php" class="brand-link">
         <img src="images/logo.jpg" width="60" height="60" alt="Ir al Inicio" class="elevation-3" style="opacity: .8">

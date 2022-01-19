@@ -10,10 +10,20 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Viaje */
 
 \yii\web\YiiAsset::register($this);
+$this->title = 'Viaje numero: '.$model->id_viaje ;
+$this->params['breadcrumbs'][] = ['label' => 'Listado de Viajes Finalizados', 'url' => ['cometidos3']];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="viaje-view">
-
-    <h1><?= 'Viaje numero: '.$model->id_viaje ?></h1>
+<div class="card card-info">
+        <div class="card-header">
+            <div>
+                <p>
+                <h3 class="card-title"><b><?= Html::encode($this->title) ?></b></h3>
+                </p>
+            </div>
+        </div>
+        <div class="card-body">
 
     <?= DetailView::widget([
         'model' => $model,

@@ -7,38 +7,45 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Sector */
 
 $this->title = $model->fkIdCiudad->nombre_ciudad . ' - ' . $model->nombre_sector;
-$this->params['breadcrumbs'][] = ['label' => 'Sectors', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Listado de Sectores', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="sector-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Actualizar', ['update', 'id' => $model->id_sector], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Eliminar', ['delete', 'id' => $model->id_sector], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => '¿Estás segura de que quieres eliminar este artículo?',
-                'method' => 'post',
+    <div class="card card-info">
+        <div class="card-header">
+            <div>
+                <p class="text-left">
+                <h3 class="card-title"><b><?= Html::encode($this->title) ?></b></h3>
+                </p>
+                <p class="text-right">
+                    <?= Html::a('Actualizar', ['update', 'id' => $model->id_sector], ['class' => 'btn btn-secondary']) ?>
+                    <?= Html::a('Eliminar', ['delete', 'id' => $model->id_sector], [
+                        'class' => 'btn btn-danger',
+                        'data' => [
+                            'confirm' => '¿Estás segura de que quieres eliminar este artículo?',
+                            'method' => 'post',
+                        ],
+                    ]) ?>
+                </p>
+            </div>
+        </div>
+        <div class="card-body">
+            <?= DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                //'id_sector',
+                'nombre_sector',
+                //'estado',
+                [
+                    'label'  => 'Ciudad',
+                    'value'  => function ($model) {
+                        return $model->fkIdCiudad->nombre_ciudad;
+                    },
+                ],
             ],
         ]) ?>
-    </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            //'id_sector',
-            'nombre_sector',
-            'estado',
-            [
-                'label'  => 'Ciudad',
-                'value'  => function ($model) {
-                    return $model->fkIdCiudad->nombre_ciudad;
-                },
-            ],
-        ],
-    ]) ?>
-
+        </div>
+    </div>
 </div>

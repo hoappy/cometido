@@ -39,7 +39,7 @@ use yii\widgets\ActiveForm;
     //$form->field($model, 'kilometros_total')->textInput(['type' => 'number', 'readonly' => true]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

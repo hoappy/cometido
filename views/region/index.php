@@ -7,33 +7,48 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\RegionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Regions';
+$this->title = 'Listado de Regiones';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="region-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="card card-info">
+        <div class="card-header">
+            <div>
+                <p>
+                <h3 class="card-title"><b><?= Html::encode($this->title) ?></b></h3>
+                </p>
+                <p class="text-right">
+                    <?= Html::a('Agregar Region', ['create'], ['class' => 'btn btn-secondary font-weight-bold']) ?>
+                </p>
+            </div>
+        </div>
+        <div class="card-body">
 
-    <p>
-        <?= Html::a('Agregar una Region', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+            <?php // echo $this->render('_search', ['model' => $searchModel]); 
+            ?>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+            <?= GridView::widget([
+                'dataProvider' => $dataProvider,
+                //'filterModel' => $searchModel,
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+                    //'id_region',
+                    'nombre_region',
+                    'numero_region',
+                    //'estado',
 
-            //'id_region',
-            'nombre_region',
-            'numero_region',
-            //'estado',
+                    ['class' => 'yii\grid\ActionColumn'],
+                ],
+                'pager' => [
+                    'options' => ['class' => 'pagination justify-content-center'],
+                    'pageCssClass' => 'page-item',
+                    'linkOptions' => ['class' => 'page-link'],
+                ],
+            ]); ?>
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
 
-
+        </div>
+    </div>
 </div>

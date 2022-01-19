@@ -8,8 +8,8 @@ use yii\grid\GridView;
 
 
 <div class="container">
-
-    <h1 class='text-center'>Solicitud de Cometido Numero: <?= ' ' . $cometido->id_cometido ?></h1>
+    
+    <h1 class='text-center'><img src="/cometido/web/images/logo.jpg" width="50" height="50" alt="Home">   Solicitud de Cometido Numero: <?= ' ' . $cometido->id_cometido ?></h1>
     <h2>Datos Personales</h2>
     <hr>
     <div class="row">

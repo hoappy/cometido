@@ -11,7 +11,7 @@ use yii\helpers\Html;
             <a class="nav-link"  style="color: white" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item">
-            <b class="nav-link"  style="color: white"  href="#" role="button">Sistema de Cometidos</b>
+            <b class="nav-link"  style="color:white" style="font-size:100%"  href="#" role="button">Sistema de Cometidos</b>
         </li>
         <!-- <li class="nav-item d-none d-sm-inline-block">
             <a href="<?= \yii\helpers\Url::home() ?>" class="nav-link">Home</a>

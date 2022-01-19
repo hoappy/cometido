@@ -4,8 +4,8 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Cometido */
-$this->params['breadcrumbs'][] = ['label' => 'Cometidos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title = 'Agregar Cometido';
+$this->params['breadcrumbs'][] = ['label' => 'Listado de mis Cometidos', 'url' => ['index1']];
+$this->params['breadcrumbs'][] = $this->title = 'Crear Cometido';
 ?>
 <div class="cometido-create">
 
