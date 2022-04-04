@@ -29,17 +29,29 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
-                'filterModel' => $searchModel,
+                //'filterModel' => $searchModel,
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
 
                     //'id_sector',
                     'nombre_sector',
-                    'estado',
+                    //'estado',
                     [
                         'label'  => 'Ciudad',
                         'value'  => function ($model) {
                             return $model->fkIdCiudad->nombre_ciudad;
+                        },
+                    ],
+                    [
+                        'label'  => 'Provincia',
+                        'value'  => function ($model) {
+                            return $model->fkIdCiudad->fkIdProvincia->nombre_provincia;
+                        },
+                    ],
+                    [
+                        'label'  => 'Region',
+                        'value'  => function ($model) {
+                            return $model->fkIdCiudad->fkIdProvincia->fkIdRegion->nombre_region;
                         },
                     ],
 

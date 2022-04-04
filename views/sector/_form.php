@@ -53,6 +53,26 @@ use yii\widgets\ActiveForm;
                     ),
                     [
                         'prompt' => 'Seleccione una Provincia',
+                        'onchange' =>
+                        '$.get( "' . Url::toRoute('/ciudad/list') . '", { id: $(this).val() } )
+                            .done(function( data ) {
+                                $( "#' . Html::getInputId($model, 'fk_id_ciudad') . '" ).html( data );
+                            });'
+                    ]
+                ) ?>
+        </div>
+        <div class="col-md">    
+            <?= $form->field($model, 'fk_id_ciudad')
+                ->dropDownList(
+                    ArrayHelper::map(
+                        Ciudad::find()->all(),
+                        'id_ciudad',
+                        function ($query) {
+                            return $query['nombre_ciudad'];
+                        }
+                    ),
+                    [
+                        'prompt' => 'Seleccione una Ciudad',
                     ]
                 ) ?>
         </div>

@@ -286,7 +286,7 @@ class SiteController extends Controller
 
                     $subject = "Activar usuario Sistema de Cometidos";
                     $body = "<h1>Haga click en el siguiente enlace para activar su usuario en el Sistema de Cometidos</h1>";
-                    $body .= "<a href='http://127.0.0.1/cometido/web/index.php?r=site/confirm&id=" . $id . "&authKey=" . $authKey . "'>Confirmar</a>";
+                    $body .= "<a href='http://parra.chillan.ubiobio.cl:8090/~rgarcia/cometido/web/index.php?r=site/confirm&id=" . $id . "&authKey=" . $authKey . "'>Confirmar</a>";
                     $body .= "<h2>Su Usuario es: </h2>" . $model->rut . "<h2>y su contrasña es:  </h2>" . $model->password;
 
                     //Enviamos el correo
@@ -368,7 +368,7 @@ class SiteController extends Controller
                     $subject = "Recuperar password";
                     $body = "<p>Copie el siguiente código de verificación para restablecer su password ... ";
                     $body .= "<strong>" . $verification_code . "</strong></p>";
-                    $body .= "<p><a href='http://127.0.0.1/cometido/web/index.php?r=site/resetpass'>Recuperar password</a></p>";
+                    $body .= "<p><a href='http://parra.chillan.ubiobio.cl:8090/~rgarcia/cometido/web/index.php?r=site/resetpass'>Recuperar password</a></p>";
 
                     //Enviamos el correo
                     Yii::$app->mailer->compose()

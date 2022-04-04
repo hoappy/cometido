@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-01-2022 a las 15:23:49
+-- Tiempo de generación: 09-03-2022 a las 22:19:08
 -- Versión del servidor: 10.4.20-MariaDB
 -- Versión de PHP: 7.3.29
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `cometido2`
+-- Base de datos: `cometido3`
 --
 CREATE DATABASE IF NOT EXISTS `cometido3` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish2_ci;
 USE `cometido3`;
@@ -420,9 +420,13 @@ CREATE TABLE `cometido` (
 --
 
 INSERT INTO `cometido` (`id_cometido`, `con_viatico`, `dias_sin_pernoctar`, `dias_con_pernoctar`, `monto`, `fecha_inicio`, `fecha_fin`, `hora_inicio`, `hora_fin`, `motivo_cometido`, `tranporte_ida`, `transporte_regreso`, `estado`, `descreipcion`, `fk_id_item`, `fk_id_funcionario`, `fk_id_director`, `fk_id_jefe`) VALUES
-(30, 0, 0, 0, 20000, '2022-01-10', '2022-01-10', '13:45:00', '16:51:00', 'prueba sistema', 0, 1, 6, 'preuba sistema', 3, 3, 3, 3),
-(31, 0, 0, 0, NULL, '2021-12-29', '2022-01-07', '19:04:00', '22:04:00', 'asd', 0, 3, 0, 'asd', 3, 6, NULL, NULL),
-(32, 1, 0, 2, NULL, '2022-01-12', '2022-01-14', '10:40:00', '10:40:00', 'Entrevista con el Ministro', 0, 0, 4, 'reunion relacionada con la contruccion de la poblacion ', 3, 3, 3, 3);
+(30, 0, 0, 0, NULL, '2022-01-10', '2022-01-10', '13:45:00', '16:51:00', 'prueba sistema', 0, 1, 6, 'preuba sistema', 3, 3, 3, 3),
+(31, 1, 0, 0, 12000, '2021-12-29', '2022-01-07', '19:04:00', '22:04:00', 'asd', 0, 3, 6, 'asd', 3, 3, 3, 3),
+(32, 1, 0, 2, 12000, '2022-01-12', '2022-01-14', '10:40:00', '10:40:00', 'Entrevista con el Ministro', 0, 0, 6, 'reunion relacionada con la contruccion de la poblacion ', 3, 3, 3, 3),
+(33, 0, 0, 0, NULL, '2022-01-06', '2022-01-22', '11:32:00', '10:33:00', 'preuba sistema', 0, 1, 10, 'preuba sistema', 3, 7, 13, 9),
+(34, 0, 0, 0, NULL, '2022-01-13', '2022-01-14', '10:40:00', '10:40:00', 'preuba sistema', 0, 0, 6, 'preuba sistema', 3, 7, 10, 12),
+(35, 0, 0, 0, NULL, '2022-01-13', '2022-01-13', '09:00:00', '19:00:00', 'preuba sistema', 0, 0, 6, 'preuba sistema', 3, 7, 10, 9),
+(36, 0, 0, 0, NULL, '2022-01-21', '2022-01-21', '09:00:00', '14:00:00', 'Visita Construccion', 0, 0, 6, 'Visita de acompañamiento', 3, 7, 10, 9);
 
 -- --------------------------------------------------------
 
@@ -443,7 +447,7 @@ CREATE TABLE `departamento` (
 --
 
 INSERT INTO `departamento` (`id_departamento`, `nombre`, `cant_funcionarios`, `piso`, `estado`) VALUES
-(1, 'Departamento 1', 5, 0, 1),
+(1, 'Finanzas', 5, 1, 1),
 (2, 'Departamento 2', 12, 2, 1);
 
 -- --------------------------------------------------------
@@ -466,7 +470,11 @@ INSERT INTO `destino` (`id_destino`, `fk_id_cometido`, `fk_id_sector`) VALUES
 (26, 30, 199),
 (30, 30, 200),
 (31, 31, 5),
-(32, 32, 86);
+(32, 32, 86),
+(33, 33, 199),
+(34, 34, 199),
+(35, 35, 199),
+(36, 36, 199);
 
 -- --------------------------------------------------------
 
@@ -503,6 +511,13 @@ CREATE TABLE `monto` (
   `estado` int(11) NOT NULL DEFAULT 1,
   `fk_id_item` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `monto`
+--
+
+INSERT INTO `monto` (`id_monto`, `monto_sin_pernoctar`, `monto_con_pernoctar`, `grado`, `estado`, `fk_id_item`) VALUES
+(5, 500, 1000, 8, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -977,7 +992,10 @@ INSERT INTO `sector` (`id_sector`, `nombre_sector`, `estado`, `fk_id_ciudad`) VA
 (344, 'Primavera', 1, 344),
 (345, 'Timaukel', 1, 345),
 (346, 'Cabo de Hornos', 1, 346),
-(347, 'Antártica', 1, 347);
+(347, 'Antártica', 1, 347),
+(348, 'Santa Elvira', 1, 199),
+(349, 'Santa Elvira', 1, 199),
+(350, 'Villa Naval', 1, 199);
 
 -- --------------------------------------------------------
 
@@ -999,7 +1017,7 @@ CREATE TABLE `user` (
   `accessToken` varchar(250) COLLATE utf8_spanish2_ci NOT NULL,
   `activate` tinyint(1) NOT NULL DEFAULT 1,
   `fk_id_departamento` int(11) NOT NULL,
-  `verification_code` varchar(250) COLLATE utf8_spanish2_ci NOT NULL
+  `verification_code` varchar(250) COLLATE utf8_spanish2_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
@@ -1007,16 +1025,18 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `nombre`, `email`, `rut`, `estado`, `grado`, `tipo_funcionario`, `role`, `password`, `authKey`, `accessToken`, `activate`, `fk_id_departamento`, `verification_code`) VALUES
-(3, 'Rodrigo Andres Garcia Trautmann', 'hoappy.p@gmail.com', 19671144, 1, 0, 2, 8, 'canvMpHUCkkUg', 'f4d661e3e13840a61a474453ce7782d7e54a09673d8df2571fdf29794861f93116b7f396361a516c6b0f51c7a1603e2f4d35d73ee547aa6d7f139fd5f1a2e39c25550d32a89dddc0a302c907db0f84a4f4b7e3a5994b93e9342df5775624b2885b3b9376', 'fe5cb35c942326531317b67bd0a6c115bf5a74ee11a5e9feca2418aa70108aeb46ccf81affa3d58877fdc5ef534c1abfab57becb9c2830315d1dd8142834aed8c0ea8b5151586e632abf1ca0fb1e3e682b00da479cbcc97df721dea997df6384ecffaeaa', 1, 1, '55a97fa6'),
-(6, 'Cristina Cisternas', 'hoappy.py@gmail.com', 16323255, 1, 0, 2, 2, 'canvMpHUCkkUg', 'f4d661e3e13840a61a474453ce7782d7e54a09673d8df2571fdf29794861f93116b7f396361a516c6b0f51c7a1603e2f4d35d73ee547aa6d7f139fd5f1a2e39c25550d32a89dddc0a302c907db0f84a4f4b7e3a5994b93e9342df5775624b2885b3b9376', 'fe5cb35c942326531317b67bd0a6c115bf5a74ee11a5e9feca2418aa70108aeb46ccf81affa3d58877fdc5ef534c1abfab57becb9c2830315d1dd8142834aed8c0ea8b5151586e632abf1ca0fb1e3e682b00da479cbcc97df721dea997df6384ecffaeaa', 1, 2, '2bf7a63a'),
+(3, 'Rodrigo Andres Garcia Trautmann', 'hoappy.p@gmail.com', 19671144, 1, 0, 2, 8, 'canvMpHUCkkUg', 'f4d661e3e13840a61a474453ce7782d7e54a09673d8df2571fdf29794861f93116b7f396361a516c6b0f51c7a1603e2f4d35d73ee547aa6d7f139fd5f1a2e39c25550d32a89dddc0a302c907db0f84a4f4b7e3a5994b93e9342df5775624b2885b3b9376', 'fe5cb35c942326531317b67bd0a6c115bf5a74ee11a5e9feca2418aa70108aeb46ccf81affa3d58877fdc5ef534c1abfab57becb9c2830315d1dd8142834aed8c0ea8b5151586e632abf1ca0fb1e3e682b00da479cbcc97df721dea997df6384ecffaeaa', 1, 1, 'c176a557'),
+(6, 'Cristina Cisternas', 'hoappy.py@gmail.com', 16323255, 1, 0, 2, 2, 'canvMpHUCkkUg', 'f4d661e3e13840a61a474453ce7782d7e54a09673d8df2571fdf29794861f93116b7f396361a516c6b0f51c7a1603e2f4d35d73ee547aa6d7f139fd5f1a2e39c25550d32a89dddc0a302c907db0f84a4f4b7e3a5994b93e9342df5775624b2885b3b9376', 'fe5cb35c942326531317b67bd0a6c115bf5a74ee11a5e9feca2418aa70108aeb46ccf81affa3d58877fdc5ef534c1abfab57becb9c2830315d1dd8142834aed8c0ea8b5151586e632abf1ca0fb1e3e682b00da479cbcc97df721dea997df6384ecffaeaa', 1, 2, '3f6dd724'),
 (7, 'Juan perez', 'Hola@hola.hola', 15520026, 1, 0, 0, 0, 'canvMpHUCkkUg', 'f4d661e3e13840a61a474453ce7782d7e54a09673d8df2571fdf29794861f93116b7f396361a516c6b0f51c7a1603e2f4d35d73ee547aa6d7f139fd5f1a2e39c25550d32a89dddc0a302c907db0f84a4f4b7e3a5994b93e9342df5775624b2885b3b9376', 'fe5cb35c942326531317b67bd0a6c115bf5a74ee11a5e9feca2418aa70108aeb46ccf81affa3d58877fdc5ef534c1abfab57becb9c2830315d1dd8142834aed8c0ea8b5151586e632abf1ca0fb1e3e682b00da479cbcc97df721dea997df6384ecffaeaa', 1, 1, ''),
-(8, 'rodolfo cuevas', 'admin@admin.admin', 20832486, 1, 2, 0, 1, 'ca/ZLAFP9NNVI', 'f4d661e3e13840a61a474453ce7782d7e54a09673d8df2571fdf29794861f93116b7f396361a516c6b0f51c7a1603e2f4d35d73ee547aa6d7f139fd5f1a2e39c25550d32a89dddc0a302c907db0f84a4f4b7e3a5994b93e9342df5775624b2885b3b9376', 'fe5cb35c942326531317b67bd0a6c115bf5a74ee11a5e9feca2418aa70108aeb46ccf81affa3d58877fdc5ef534c1abfab57becb9c2830315d1dd8142834aed8c0ea8b5151586e632abf1ca0fb1e3e682b00da479cbcc97df721dea997df6384ecffaeaa', 1, 1, 'e1cbb248'),
+(8, 'rodolfo cuevas', 'admin@admin.admin', 20832486, 1, 2, 0, 1, 'canvMpHUCkkUg', 'f4d661e3e13840a61a474453ce7782d7e54a09673d8df2571fdf29794861f93116b7f396361a516c6b0f51c7a1603e2f4d35d73ee547aa6d7f139fd5f1a2e39c25550d32a89dddc0a302c907db0f84a4f4b7e3a5994b93e9342df5775624b2885b3b9376', 'fe5cb35c942326531317b67bd0a6c115bf5a74ee11a5e9feca2418aa70108aeb46ccf81affa3d58877fdc5ef534c1abfab57becb9c2830315d1dd8142834aed8c0ea8b5151586e632abf1ca0fb1e3e682b00da479cbcc97df721dea997df6384ecffaeaa', 1, 1, 'e1cbb248'),
 (9, 'Margarita Rodriguez', 'margarita@prueba.com', 23604017, 1, 7, 0, 4, 'canvMpHUCkkUg', 'f4d661e3e13840a61a474453ce7782d7e54a09673d8df2571fdf29794861f93116b7f396361a516c6b0f51c7a1603e2f4d35d73ee547aa6d7f139fd5f1a2e39c25550d32a89dddc0a302c907db0f84a4f4b7e3a5994b93e9342df5775624b2885b3b9376', 'fe5cb35c942326531317b67bd0a6c115bf5a74ee11a5e9feca2418aa70108aeb46ccf81affa3d58877fdc5ef534c1abfab57becb9c2830315d1dd8142834aed8c0ea8b5151586e632abf1ca0fb1e3e682b00da479cbcc97df721dea997df6384ecffaeaa', 1, 1, ''),
 (10, 'Felipe Castillo', 'Felipe@prueba.com', 14690439, 1, 7, 0, 6, 'canvMpHUCkkUg', 'f4d661e3e13840a61a474453ce7782d7e54a09673d8df2571fdf29794861f93116b7f396361a516c6b0f51c7a1603e2f4d35d73ee547aa6d7f139fd5f1a2e39c25550d32a89dddc0a302c907db0f84a4f4b7e3a5994b93e9342df5775624b2885b3b9376', 'fe5cb35c942326531317b67bd0a6c115bf5a74ee11a5e9feca2418aa70108aeb46ccf81affa3d58877fdc5ef534c1abfab57becb9c2830315d1dd8142834aed8c0ea8b5151586e632abf1ca0fb1e3e682b00da479cbcc97df721dea997df6384ecffaeaa', 1, 1, ''),
 (11, 'Juan Jose', 'juan@jose.com', 11461702, 1, 4, 0, 7, 'canvMpHUCkkUg', 'f4d661e3e13840a61a474453ce7782d7e54a09673d8df2571fdf29794861f93116b7f396361a516c6b0f51c7a1603e2f4d35d73ee547aa6d7f139fd5f1a2e39c25550d32a89dddc0a302c907db0f84a4f4b7e3a5994b93e9342df5775624b2885b3b9376', 'fe5cb35c942326531317b67bd0a6c115bf5a74ee11a5e9feca2418aa70108aeb46ccf81affa3d58877fdc5ef534c1abfab57becb9c2830315d1dd8142834aed8c0ea8b5151586e632abf1ca0fb1e3e682b00da479cbcc97df721dea997df6384ecffaeaa', 1, 2, ''),
 (12, 'juan perez peralta', 'peralta@dire.cl', 15453458, 1, 6, 1, 3, 'canvMpHUCkkUg', 'f4d661e3e13840a61a474453ce7782d7e54a09673d8df2571fdf29794861f93116b7f396361a516c6b0f51c7a1603e2f4d35d73ee547aa6d7f139fd5f1a2e39c25550d32a89dddc0a302c907db0f84a4f4b7e3a5994b93e9342df5775624b2885b3b9376', 'fe5cb35c942326531317b67bd0a6c115bf5a74ee11a5e9feca2418aa70108aeb46ccf81affa3d58877fdc5ef534c1abfab57becb9c2830315d1dd8142834aed8c0ea8b5151586e632abf1ca0fb1e3e682b00da479cbcc97df721dea997df6384ecffaeaa', 1, 1, '558114ec'),
 (13, 'Andres Norteño', 'norteno@dire.cl', 9254424, 1, 6, 1, 5, 'canvMpHUCkkUg', 'f4d661e3e13840a61a474453ce7782d7e54a09673d8df2571fdf29794861f93116b7f396361a516c6b0f51c7a1603e2f4d35d73ee547aa6d7f139fd5f1a2e39c25550d32a89dddc0a302c907db0f84a4f4b7e3a5994b93e9342df5775624b2885b3b9376', 'fe5cb35c942326531317b67bd0a6c115bf5a74ee11a5e9feca2418aa70108aeb46ccf81affa3d58877fdc5ef534c1abfab57becb9c2830315d1dd8142834aed8c0ea8b5151586e632abf1ca0fb1e3e682b00da479cbcc97df721dea997df6384ecffaeaa', 1, 1, ''),
-(14, 'Maria Paz', 'maria@dire.cl', 8690278, 1, 6, 1, 0, 'canvMpHUCkkUg', 'f4d661e3e13840a61a474453ce7782d7e54a09673d8df2571fdf29794861f93116b7f396361a516c6b0f51c7a1603e2f4d35d73ee547aa6d7f139fd5f1a2e39c25550d32a89dddc0a302c907db0f84a4f4b7e3a5994b93e9342df5775624b2885b3b9376', 'fe5cb35c942326531317b67bd0a6c115bf5a74ee11a5e9feca2418aa70108aeb46ccf81affa3d58877fdc5ef534c1abfab57becb9c2830315d1dd8142834aed8c0ea8b5151586e632abf1ca0fb1e3e682b00da479cbcc97df721dea997df6384ecffaeaa', 1, 2, '');
+(14, 'Maria Paz', 'maria@dire.cl', 8690278, 1, 6, 1, 0, 'canvMpHUCkkUg', 'f4d661e3e13840a61a474453ce7782d7e54a09673d8df2571fdf29794861f93116b7f396361a516c6b0f51c7a1603e2f4d35d73ee547aa6d7f139fd5f1a2e39c25550d32a89dddc0a302c907db0f84a4f4b7e3a5994b93e9342df5775624b2885b3b9376', 'fe5cb35c942326531317b67bd0a6c115bf5a74ee11a5e9feca2418aa70108aeb46ccf81affa3d58877fdc5ef534c1abfab57becb9c2830315d1dd8142834aed8c0ea8b5151586e632abf1ca0fb1e3e682b00da479cbcc97df721dea997df6384ecffaeaa', 1, 2, ''),
+(15, 'rodolfo rodriguez', 'rodolfo@prueba.com', 12636502, 1, 5, 2, 0, 'canvMpHUCkkUg', '7425e339f8434ddf0b81159194d62959703f4ef516dbcbc7a83fbf1b2df8793002eab3a8879ce750c344bc6074838348748d7b52cf9a751e7a3130d1acc2ae557dab5497a5c18db1718951e227206051538c314483831253c36f4d2b968556280af20823', '97e4cf16f07eeffb17e02a557b6745d3707910531f219fa76278c76dcb9460fbb8e0ffe8766ed4dbd2848a033f4f78efca1fbfbcd1765e69eee53d5d5a0ceab1923f4ca5ea99f9c0ffec9efd6b67bed49a3d6869cdb2c6da7f82e5788d440a10ac18886d', 1, 2, ''),
+(16, 'Juan perez gomez', 'rodrigoart4000@gmail.com', 20924991, 1, 12, 1, 7, 'canvMpHUCkkUg', '10b001910b207bf37810a377ab531a1f28def001171b5e75ee100920f82f4f9cec408eae62f2c55391deb281ea7b3bb60db0fea0320b7ab34cf6a74acf646e125ffa02e1cfbce0b47b1e4b47e352f2d83afe70a9fedad26fdc23e58289f2cd2204809bf1', 'e3eaf3237f5fde7181051521bb8a300b0992c2ac6d202eab47b3b8025aeba1a2211b1805ecd1f9ff65b67ab1877da44e1a87fb461e21ccaa18150c63bd4fb1d9f28daa254650d9138001e78e9c20bd0ee3cc6c943592c9f06e237336c56f5b5b00c7b203', 1, 1, '');
 
 -- --------------------------------------------------------
 
@@ -1042,7 +1062,8 @@ CREATE TABLE `vehiculo` (
 
 INSERT INTO `vehiculo` (`id_vehiculo`, `patente`, `modelo`, `marca`, `tipo_combustible`, `num_chasis`, `estado`, `kilometraje`, `rendimiento`) VALUES
 (1, 'ghgh12', 'modelo', 'marca', 0, 'as4d8546as45d', 1, 0, 10),
-(2, 'ghgh45', 'modelo', 'marca', 1, 'as4d8546as451', 1, 0, 10);
+(2, 'ghgh45', 'modelo', 'marca', 1, 'as4d8546as451', 1, 0, 10),
+(3, 'ghgh50', 'modelo', 'marca', 2, 'as4d8546as422', 1, 0, 10);
 
 -- --------------------------------------------------------
 
@@ -1052,7 +1073,7 @@ INSERT INTO `vehiculo` (`id_vehiculo`, `patente`, `modelo`, `marca`, `tipo_combu
 
 CREATE TABLE `viaje` (
   `id_viaje` int(11) NOT NULL,
-  `hora_salida` time DEFAULT NULL,
+  `hora_salida` time NOT NULL,
   `hora_llegada` time DEFAULT NULL,
   `combustible_litros` int(11) DEFAULT NULL,
   `combustible_pesos` int(11) DEFAULT NULL,
@@ -1060,7 +1081,7 @@ CREATE TABLE `viaje` (
   `kilometros_llegada` int(11) DEFAULT NULL,
   `kilometros_total` int(11) DEFAULT NULL,
   `estado` int(11) NOT NULL DEFAULT 1,
-  `observaciones` varchar(100) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `observaciones` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
   `fk_id_vehiculo` int(11) NOT NULL,
   `fk_id_cometido` int(11) NOT NULL,
   `fk_id` int(11) NOT NULL
@@ -1071,7 +1092,11 @@ CREATE TABLE `viaje` (
 --
 
 INSERT INTO `viaje` (`id_viaje`, `hora_salida`, `hora_llegada`, `combustible_litros`, `combustible_pesos`, `kilometros_salida`, `kilometros_llegada`, `kilometros_total`, `estado`, `observaciones`, `fk_id_vehiculo`, `fk_id_cometido`, `fk_id`) VALUES
-(29, '13:46:00', '15:48:00', 0, 0, 0, 100, 100, 1, 'sin obserbaciones', 0, 30, 6);
+(1, '04:00:00', '13:20:00', 10, 9990, 0, 100, 100, 1, 'sin obserbaciones', 1, 32, 6),
+(30, '08:00:00', '09:40:00', 10, 9400, 25000, 25100, 100, 1, 'sin obserbaciones', 2, 34, 6),
+(31, '09:05:00', '20:00:00', 10, 9400, 24000, 24050, 50, 1, 'sin obserbaciones', 2, 35, 6),
+(32, '01:00:00', '14:56:00', 0, 0, 0, 40, 40, 1, 'sin obserbaciones', 1, 31, 6),
+(33, '14:00:00', '10:22:00', 10, 9000, 90000, 90100, 100, 1, 'Sin Observaciones', 1, 36, 6);
 
 --
 -- Índices para tablas volcadas
@@ -1178,19 +1203,19 @@ ALTER TABLE `ciudad`
 -- AUTO_INCREMENT de la tabla `cometido`
 --
 ALTER TABLE `cometido`
-  MODIFY `id_cometido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_cometido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT de la tabla `departamento`
 --
 ALTER TABLE `departamento`
-  MODIFY `id_departamento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_departamento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `destino`
 --
 ALTER TABLE `destino`
-  MODIFY `id_destino` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_destino` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT de la tabla `item_presupuestario`
@@ -1202,7 +1227,7 @@ ALTER TABLE `item_presupuestario`
 -- AUTO_INCREMENT de la tabla `monto`
 --
 ALTER TABLE `monto`
-  MODIFY `id_monto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_monto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `provincia`
@@ -1220,25 +1245,25 @@ ALTER TABLE `region`
 -- AUTO_INCREMENT de la tabla `sector`
 --
 ALTER TABLE `sector`
-  MODIFY `id_sector` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=348;
+  MODIFY `id_sector` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=351;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT de la tabla `vehiculo`
+--
+ALTER TABLE `vehiculo`
+  MODIFY `id_vehiculo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `viaje`
 --
 ALTER TABLE `viaje`
-  MODIFY `id_viaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
-
---
--- AUTO_INCREMENT de la tabla `vehiculo``
---
-ALTER TABLE `vehiculo`
-  MODIFY `id_vehiculo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_viaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- Restricciones para tablas volcadas
@@ -1302,33 +1327,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-DROP TABLE ` viaje `;
-
-CREATE TABLE `viaje` (
-	`id_viaje` INTEGER AUTO_INCREMENT NOT NULL,
-	`hora_salida` TIME NOT NULL,
-	`hora_llegada` TIME NULL,
-	`combustible_litros` INTEGER NULL,
-	`combustible_pesos` INTEGER NULL,
-	`kilometros_salida` INTEGER NULL,
-	`kilometros_llegada` INTEGER NULL,
-	`kilometros_total` INTEGER NULL,
-	`estado` INTEGER DEFAULT 1 NOT NULL,
-	`observaciones` VARCHAR(100) NOT NULL,
-	`fk_id_vehiculo` INTEGER NOT NULL,
-	KEY(`fk_id_vehiculo`),
-	`fk_id_cometido` INTEGER NOT NULL,
-	KEY(`fk_id_cometido`),
-	`fk_id` INTEGER NOT NULL,
-	KEY(`fk_id`),
-	PRIMARY KEY(`id_viaje`)
-) ENGINE=INNODB;
-
-ALTER TABLE `viaje` ADD CONSTRAINT `viaje_vehiculo_fk_id_vehiculo` FOREIGN KEY (`fk_id_vehiculo`) REFERENCES `vehiculo`(`id_vehiculo`) ON DELETE NO ACTION ON UPDATE CASCADE;
-ALTER TABLE `viaje` ADD CONSTRAINT `viaje_cometido_fk_id_cometido` FOREIGN KEY (`fk_id_cometido`) REFERENCES `cometido`(`id_cometido`) ON DELETE NO ACTION ON UPDATE CASCADE;
-ALTER TABLE `viaje` ADD CONSTRAINT `viaje_user_fk_id` FOREIGN KEY (`fk_id`) REFERENCES `user`(`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
-
-
-INSERT INTO `viaje` (`id_viaje`, `hora_salida`, `hora_llegada`, `combustible_litros`, `combustible_pesos`, `kilometros_salida`, `kilometros_llegada`, `kilometros_total`, `estado`, `observaciones`, `fk_id_vehiculo`, `fk_id_cometido`, `fk_id`) VALUES
-(29, '13:46:00', '15:48:00', 0, 0, 0, 100, 100, 1, 'sin obserbaciones', 0, 30, 6);

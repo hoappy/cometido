@@ -10,7 +10,7 @@ $form = ActiveForm::begin(); ?>
 
 <div class="card card-info">
     <div class="card-header">
-        <h1 class="card-title">Reporte de cometidos por rago de fechas y estado de un funcionario</h1>
+        <h1 class="card-title">Reporte de cometidos por rago de fechas</h1>
     </div>
     <div class="card-body">
 
